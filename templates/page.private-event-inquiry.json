@@ -91,7 +91,7 @@
             "font": "var(--font-gashroad--family)",
             "enable_custom_font_weight": false,
             "weight": "400",
-            "font_size": "4.5rem",
+            "font_size": "4rem",
             "line_height": "normal",
             "custom_line_height": 1.5,
             "letter_spacing": "normal",
