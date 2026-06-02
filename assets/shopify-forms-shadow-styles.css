@@ -11,9 +11,21 @@
  }
 
  div label._formInputFieldLabel_1mxsl_38,
-div ._textBody_2aowh_10, div span._textBody_2aowh_10, div p._textBody_2aowh_10,
-div ._textBody_2aowh_10, div span._textBody_2aowh_10, div p._textBody_2aowh_10{
+ div span._textBody_2aowh_10, div p._textBody_2aowh_10,
+div span._textBody_2aowh_10, div p._textBody_2aowh_10{
     color: #9CA0B8;
+    text-transform: uppercase;
+    position: static;
+    order: -1;
+    margin-bottom: 10px;
+    margin-top: 12px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+div ._textBody_2aowh_10{
+
 }
 
 div input._formInputField_nag3b_7,
@@ -22,4 +34,9 @@ div ._selectToggle_12thd_25{
     border: 1.108px solid var(--Neutrals-Dark-200, #9CA0B8);
     border-radius: 0;
     color: #9CA0B8;
+    background: transparent;
+}
+
+._formFieldContainer_1mxsl_5:has(textarea)::before{
+  background: transparent!important;
 }
