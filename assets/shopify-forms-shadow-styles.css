@@ -1,0 +1,7 @@
+/**
+ * Styles for Shopify Forms embed (injected into #shadow-root).
+ * Prefer stable attributes over hashed class names — those classes can change on app updates.
+ */
+ section[data-sizing="form-wrapper"]{
+  max-width: 620px!important;
+ }

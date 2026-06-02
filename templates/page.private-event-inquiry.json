@@ -91,7 +91,7 @@
             "font": "var(--font-gashroad--family)",
             "enable_custom_font_weight": false,
             "weight": "400",
-            "font_size": "4rem",
+            "font_size": "4.5rem",
             "line_height": "normal",
             "custom_line_height": 1.5,
             "letter_spacing": "normal",
@@ -179,9 +179,6 @@
         "text_PYLfza",
         "text_b6ggVw",
         "forms_inline_eXBiWx"
-      ],
-      "custom_css": [
-        ".shopify-app-block{width: 100%; max-width: 620px;}"
       ],
       "settings": {
         "content_direction": "column",
