@@ -16,7 +16,7 @@
     position: static;
     order: -1;
     margin-bottom: 10px;
-    margin-top: 12px;
+    margin-top: 5px;
     font-size: 12px!important;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -50,6 +50,7 @@ div ._selectToggle_12thd_25{
     border-radius: 0;
     color: #9CA0B8;
     background: transparent;
+    padding: 15px !important;
 }
 
 ._formFieldContainer_1mxsl_5:has(textarea)::before{
@@ -57,17 +58,16 @@ div ._selectToggle_12thd_25{
 }
 
 
-legend._textBody_2aowh_10._checkboxLegend_1hja3_20 {
-  padding-bottom: 0;
-  margin-top: 10px;
-}
-
-p._label_12thd_10._textBody_2aowh_10 {
+div legend._textBody_2aowh_10._checkboxLegend_1hja3_20 {
   padding-bottom: 5px;
-  margin-top: 10px;
+  padding-top: 7px;
 }
 
-legend._textBody_2aowh_10._checkboxLegend_1hja3_20 {}
+iv ._label_12thd_10._textBody_2aowh_10 {
+  padding-bottom: 7px;
+  padding-top: 7px;
+}
+
 
 div span._textBody_2aowh_10 {
   font-size: 11px;
