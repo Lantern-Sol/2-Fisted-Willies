@@ -20,6 +20,13 @@
     font-size: 12px!important;
     letter-spacing: 1.5px;
     text-transform: uppercase;
+    transform: none!important;
+}
+
+input._formInputField_nag3b_7:focus-visible {
+  border: none;
+  outline: none;
+  box-shadow: 0 0 0 2px #0B4BBA!important;
 }
 
 div ._textBody_2aowh_10, div span._textBody_2aowh_10, div p._textBody_2aowh_10{
