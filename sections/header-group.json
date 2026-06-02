@@ -56,6 +56,7 @@
         "announcement_qAbYWq",
         "announcement_BxgCk9"
       ],
+      "disabled": true,
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 3,
@@ -136,6 +137,7 @@
         "actions_text_case": "none",
         "color_scheme_top": "scheme-4",
         "color_scheme_bottom": "",
+        "color_scheme_drawer": "",
         "color_scheme_transparent": "scheme-6",
         "enable_transparent_header_home": true,
         "home_color_scheme": "inverse",
