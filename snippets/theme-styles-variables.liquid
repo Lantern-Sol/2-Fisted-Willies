@@ -123,6 +123,22 @@
     {{ accent_font_bold_italic | font_face: font_display: 'swap' }}
   {% endif %}
 
+  @font-face {
+    font-family: 'Gashroad';
+    src: url('https://cdn.shopify.com/s/files/1/0769/2251/9725/files/Gashroad.otf?v=1780378358') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.shopify.com/s/files/1/0769/2251/9725/files/CormorantGaramond-Medium.ttf?v=1780378822') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
   @media only screen and (max-width: 1440px) and (min-width: 750px) { 
     html {
       font-size: calc(16 * 100vw / 1440);
@@ -178,6 +194,10 @@
     --font-accent--family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
     --font-accent--style: {{ settings.type_accent_font.style }};
     --font-accent--weight: {{ settings.type_accent_font.weight }};
+    --font-gashroad--family: 'Gashroad', sans-serif;
+    --font-gashroad--weight: 400;
+    --font-cormorant-garamond--family: 'Cormorant Garamond', serif;
+    --font-cormorant-garamond--weight: 500;
 
     /* Margin sizes */
     --font-h1--spacing: 0.25em;

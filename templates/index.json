@@ -32,7 +32,6 @@
             "case": "none",
             "wrap": "pretty",
             "color": "var(--color-foreground-heading)",
-            "use_mobile_settings": false,
             "mobile_font_size": "1rem",
             "mobile_custom_line_height": 1.5,
             "background": false,
