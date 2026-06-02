@@ -44,6 +44,9 @@
     if block_settings.background
       echo ' text-block--background '
     endif
+    if block_settings.font != blank
+      echo ' text-block--custom-font '
+    endif
     if is_rte
       echo ' rte '
     endif
@@ -165,6 +168,13 @@
     [style*='--horizontal-alignment-mobile: flex-end'] > .text-block {
       --text-align-default: right;
     }
+  }
+
+  .text-block.text-block--custom-font,
+  .text-block.text-block--custom-font > *,
+  .text-block.text-block--custom-font :is(h1, h2, h3, h4, h5, h6, p, *) {
+    font-family: var(--font-family);
+    font-weight: var(--font-weight);
   }
 
   .text-block {
@@ -409,6 +419,13 @@
     .text-block.text-block.text-block.mobile-preset-custom :is(h1, h2, h3, h4, h5, h6, p) {
       font-size: var(--font-size-mobile, var(--font-size, inherit));
       line-height: var(--line-height-mobile, var(--line-height, inherit));
+    }
+
+    .text-block.text-block.text-block--custom-font,
+    .text-block.text-block.text-block--custom-font > *,
+    .text-block.text-block.text-block--custom-font :is(h1, h2, h3, h4, h5, h6, p, *) {
+      font-family: var(--font-family);
+      font-weight: var(--font-weight);
     }
   }
 {% endstylesheet %}

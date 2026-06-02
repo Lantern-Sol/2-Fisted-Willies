@@ -1,0 +1,10 @@
+{% comment %}
+  Injects theme CSS into Shopify Forms app embed shadow roots.
+  Render where the form appears, e.g. {% render 'shopify-forms-shadow-styles' %} in theme.liquid or a section.
+{% endcomment %}
+<script
+  id="shopify-forms-shadow-styles"
+  src="{{ 'shopify-forms-shadow.js' | asset_url }}"
+  defer
+  data-stylesheet-url="{{ 'shopify-forms-shadow-styles.css' | asset_url }}"
+></script>

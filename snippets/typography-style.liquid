@@ -30,6 +30,14 @@
   {%- if settings.wrap != blank -%}
     --text-wrap: {{ settings.wrap }};
   {%- endif -%}
+  {%- if settings.font != blank -%}
+    {%- if settings.weight != blank and settings.enable_custom_font_weight -%}
+      --font-weight: {{ settings.weight }};
+    {%- else -%}
+      --font-weight: {{ settings.font | replace: 'family', 'weight' }};
+    {%- endif -%}
+    --font-family: {{ settings.font }};
+  {%- endif -%}
   {%- comment -%}
     Emit mobile-only typography vars whenever the mobile preset is custom.
     The mobile_font_size / mobile_custom_line_height settings are gated
@@ -85,12 +93,6 @@
         --font-size: {{ settings.font_size }};
       {%- endif -%}
     {%- endif -%}
-    {%- if settings.weight != blank and settings.enable_custom_font_weight -%}
-      --font-weight: {{ settings.weight }};
-    {% else %}
-      --font-weight: {{ settings.font | replace: 'family', 'weight' }};
-    {%- endif -%}
-    --font-family: {{ settings.font }};
     --text-transform: {{ settings.case }};
     --text-wrap: {{ settings.wrap | default: 'pretty' }};
     {% if settings.type_preset == 'custom' and settings.font_size == blank %}
