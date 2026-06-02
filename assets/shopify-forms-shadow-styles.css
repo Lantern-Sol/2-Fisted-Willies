@@ -17,7 +17,7 @@
     order: -1;
     margin-bottom: 10px;
     margin-top: 12px;
-    font-size: 12px;
+    font-size: 12px!important;
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
@@ -54,4 +54,21 @@ div ._selectToggle_12thd_25{
 
 ._formFieldContainer_1mxsl_5:has(textarea)::before{
   background: transparent!important;
+}
+
+
+legend._textBody_2aowh_10._checkboxLegend_1hja3_20 {
+  padding-bottom: 0;
+  margin-top: 10px;
+}
+
+p._label_12thd_10._textBody_2aowh_10 {
+  padding-bottom: 5px;
+  margin-top: 10px;
+}
+
+legend._textBody_2aowh_10._checkboxLegend_1hja3_20 {}
+
+div span._textBody_2aowh_10 {
+  font-size: 11px;
 }
