@@ -52,7 +52,12 @@ div ._selectToggle_12thd_25{
     background: transparent;
     padding: 15px !important;
 }
+h2._formBannerHeading_z5ku3_9 {}
 
+div h2._formBannerHeading_z5ku3_9 {
+    margin-top: 40px;
+    color: #E8EEFA;
+}
 ._formFieldContainer_1mxsl_5:has(textarea)::before{
   background: transparent!important;
 }
