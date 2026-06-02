@@ -30,6 +30,19 @@ div ._textBody_2aowh_10, div span._textBody_2aowh_10, div p._textBody_2aowh_10{
   text-transform: uppercase;
 }
 
+
+div button._formSubmitButton_cit2d_96 {
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 20px;
+    border-radius: 0;
+    max-width: 200px;
+    margin: auto;
+    margin-top: 8px;
+    width: 100%;
+}
+
 div input._formInputField_nag3b_7,
 div ._formFieldContainer_1mxsl_5 textarea,
 div ._selectToggle_12thd_25{
