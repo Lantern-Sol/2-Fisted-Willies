@@ -10,9 +10,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
  }
 
- div label._formInputFieldLabel_1mxsl_38,
- div span._textBody_2aowh_10, div p._textBody_2aowh_10,
-div span._textBody_2aowh_10, div p._textBody_2aowh_10{
+ div label._formInputFieldLabel_1mxsl_38{
     color: #9CA0B8;
     text-transform: uppercase;
     position: static;
@@ -25,7 +23,11 @@ div span._textBody_2aowh_10, div p._textBody_2aowh_10{
 }
 
 div ._textBody_2aowh_10{
-
+  color: #9CA0B8;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
 div input._formInputField_nag3b_7,
