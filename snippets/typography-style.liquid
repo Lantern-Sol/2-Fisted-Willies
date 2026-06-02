@@ -78,13 +78,13 @@
     --text-transform: {{ settings.case }};
     --text-wrap: {{ settings.wrap | default: 'pretty' }};
     {% if settings.type_preset == 'custom' and settings.font_size == blank %}
-      --line-height--display: var(--line-height--display-{{ settings.line_height }});
-      --line-height--heading: var(--line-height--heading-{{ settings.line_height }});
-      --line-height--body: var(--line-height--body-{{ settings.line_height }});
+      --line-height--display: {{ settings.line_height }};
+      --line-height--heading: {{ settings.line_height }};
+      --line-height--body: {{ settings.line_height }};
     {% else %}
-      --line-height: {% if settings.line_height == 'custom' %} {{ settings.custom_line_height }} {% else %}var(--line-height--{{ type }}-{{ settings.line_height }}){% endif %};
+      --line-height: {{ settings.line_height }};
     {% endif %}
-    --letter-spacing: var(--letter-spacing--{{ type }}-{{ settings.letter_spacing }});
+    --letter-spacing: {{ settings.letter_spacing | times: 0.01 }}em;
   {%- endif -%}
 {%- endcapture -%}
 {{- variables | strip | strip_newlines -}}
