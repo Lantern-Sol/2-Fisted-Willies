@@ -91,7 +91,7 @@
             "enable_custom_font_weight": false,
             "weight": "400",
             "font_size": "4.5rem",
-            "line_height": 1.2,
+            "line_height": 0.3,
             "letter_spacing": -3,
             "case": "none",
             "wrap": "pretty",
@@ -102,7 +102,7 @@
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
-            "padding-block-start": 0,
+            "padding-block-start": 50,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0,
@@ -204,7 +204,7 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 0,
+        "padding-block-start": 24,
         "padding-block-end": 0
       }
     }
