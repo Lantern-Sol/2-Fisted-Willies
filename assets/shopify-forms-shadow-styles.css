@@ -84,3 +84,8 @@ iv ._label_12thd_10._textBody_2aowh_10 {
 div span._textBody_2aowh_10 {
   font-size: 11px;
 }
+
+div:not(#s) h2._formBannerHeading_z5ku3_9 {
+  margin-top: 40px;
+  color: #e8eefa;
+}
