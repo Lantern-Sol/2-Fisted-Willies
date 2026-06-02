@@ -22,7 +22,7 @@
     text-transform: uppercase;
 }
 
-div ._textBody_2aowh_10{
+div ._textBody_2aowh_10, div span._textBody_2aowh_10, div p._textBody_2aowh_10{
   color: #9CA0B8;
   text-transform: uppercase;
   font-size: 12px;
