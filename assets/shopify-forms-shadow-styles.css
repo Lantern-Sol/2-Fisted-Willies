@@ -2,8 +2,27 @@
  * Styles for Shopify Forms embed (injected into #shadow-root).
  * Prefer stable attributes over hashed class names — those classes can change on app updates.
  */
- section[data-sizing="form-wrapper"]{
+ /* Stop the form (a centered dialog) shrink-wrapping to its widest element.
+    Force every wrapper level inside the shadow root to fill its width, and
+    override the flex/grid-item shrinking that the centering causes. */
+ [class*="_container_"],
+ [class*="_inline_"],
+ [data-sizing="form-wrapper"],
+ [class*="_formContainer_"]{
+  width: 100%!important;
   max-width: 620px!important;
+  flex: 1 1 auto!important;        /* if it's a flex item, let it grow to fill */
+  justify-self: stretch!important; /* if it's a grid item, stretch to fill */
+  align-self: stretch!important;
+ }
+
+ /* Collapse the form's internal image+content grid so content spans full width. */
+ [class*="_formContainer_"]{
+  grid-template-columns: 1fr!important;
+ }
+
+ [class*="_imageLoading_"]{
+  display: none!important; /* hide the empty image cell (form has no image) */
  }
 
  div._horizontalLayout_1hja3_14{
