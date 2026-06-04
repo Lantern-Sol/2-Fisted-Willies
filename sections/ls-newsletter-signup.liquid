@@ -1,0 +1,346 @@
+{% liquid
+  assign eyebrow = section.settings.eyebrow
+  assign heading_line_1 = section.settings.heading_line_1
+  assign heading_line_2 = section.settings.heading_line_2
+  assign body = section.settings.body
+  assign tab_1 = section.settings.tab_1
+  assign tab_2 = section.settings.tab_2
+  assign input_placeholder = section.settings.input_placeholder
+  assign button_label = section.settings.button_label
+  assign terms = section.settings.terms
+%}
+
+<div class="section-background newsletter-signup__background"></div>
+<div
+  class="section section--page-width spacing-style newsletter-signup"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="newsletter-signup__card">
+    <div class="newsletter-signup__intro">
+      {%- if eyebrow != blank -%}
+        <p class="newsletter-signup__eyebrow">{{ eyebrow }}</p>
+      {%- endif -%}
+      <div class="newsletter-signup__heading">
+        {%- if heading_line_1 != blank -%}
+          <span class="newsletter-signup__heading-1">{{ heading_line_1 }}</span>
+        {%- endif -%}
+        {%- if heading_line_2 != blank -%}
+          <span class="newsletter-signup__heading-2">{{ heading_line_2 }}</span>
+        {%- endif -%}
+      </div>
+      {%- if body != blank -%}
+        <p class="newsletter-signup__body">{{ body }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Sign-up is visual-only for now — no form action / submission wiring. {%- endcomment -%}
+    <div class="newsletter-signup__form">
+      <div class="newsletter-signup__tabs">
+        {%- if tab_1 != blank -%}
+          <button type="button" class="newsletter-signup__tab is-active">{{ tab_1 }}</button>
+        {%- endif -%}
+        {%- if tab_2 != blank -%}
+          <button type="button" class="newsletter-signup__tab">{{ tab_2 }}</button>
+        {%- endif -%}
+      </div>
+
+      <div class="newsletter-signup__field">
+        <input
+          type="tel"
+          class="newsletter-signup__input"
+          placeholder="{{ input_placeholder }}"
+          aria-label="{{ tab_1 | default: 'Phone number' }}"
+        >
+        {%- if button_label != blank -%}
+          <button type="button" class="newsletter-signup__submit">{{ button_label }}</button>
+        {%- endif -%}
+      </div>
+
+      {%- if terms != blank -%}
+        <div class="newsletter-signup__terms">{{ terms }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  /* Section background — the full-width band behind/around the card.
+     The theme forces .section backgrounds transparent, so the color lives on
+     a separate full-bleed .section-background element. */
+  .newsletter-signup__background {
+    background-color: #0a0c12;
+  }
+
+  .newsletter-signup__card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    padding: 56px 48px;
+    background-color: #1e2336;
+    border: 1px solid #9ca0b8;
+  }
+
+  .newsletter-signup__intro,
+  .newsletter-signup__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 460px;
+  }
+
+  .newsletter-signup__intro {
+    gap: 9px;
+  }
+
+  .newsletter-signup__form {
+    gap: 12px;
+    width: 100%;
+  }
+
+  .newsletter-signup__eyebrow,
+  .newsletter-signup__tab,
+  .newsletter-signup__terms {
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #9ca0b8;
+  }
+
+  .newsletter-signup__eyebrow {
+    margin: 0;
+  }
+
+  .newsletter-signup__heading {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .newsletter-signup__heading-1 {
+    font-family: var(--font-gashroad--family);
+    font-size: clamp(44px, 6vw, 64px);
+    line-height: 0.8;
+    letter-spacing: -3.2px;
+    text-transform: capitalize;
+    color: #eae8f0;
+    margin-bottom: -0.18em;
+  }
+
+  .newsletter-signup__heading-2 {
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-size: clamp(58px, 8vw, 84px);
+    line-height: 0.8;
+    letter-spacing: -4.2px;
+    color: #b8c8f2;
+  }
+
+  .newsletter-signup__body {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond--family);
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: 0.4px;
+    color: #b8c8f2;
+  }
+
+  .newsletter-signup__tabs {
+    display: flex;
+  }
+
+  .newsletter-signup__tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 13px 18px 15px;
+    cursor: pointer;
+  }
+
+  .newsletter-signup__tab.is-active {
+    border-bottom-color: #9ca0b8;
+  }
+
+  .newsletter-signup__field {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .newsletter-signup__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1.108px solid rgb(255 255 255 / 0.2);
+    border-radius: 0;
+    padding: 16px 24px;
+    font-family: var(--font-body--family);
+    font-size: 16px;
+    color: #eae8f0;
+  }
+
+  .newsletter-signup__input::placeholder {
+    color: #eae8f0;
+    opacity: 1;
+  }
+
+  .newsletter-signup__input:focus {
+    outline: none;
+    border-bottom-color: #b8c8f2;
+  }
+
+  .newsletter-signup__submit {
+    flex: 0 0 auto;
+    background-color: #b8c8f2;
+    border: none;
+    padding: 16px;
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: #004fdf;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .newsletter-signup__terms {
+    margin: 0;
+    width: 100%;
+  }
+
+  .newsletter-signup__terms a {
+    color: #3b6bd6;
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .newsletter-signup__card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 32px;
+      padding: 40px 24px;
+    }
+
+    .newsletter-signup__intro,
+    .newsletter-signup__form {
+      max-width: none;
+    }
+
+    .newsletter-signup__field {
+      flex-direction: column;
+    }
+
+    .newsletter-signup__submit {
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Newsletter Signup",
+  "tag": "section",
+  "class": "newsletter-signup-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "★ Never miss a show"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "Be the first"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "to know"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Drop your number. We'll text when tickets go on sale and when a band you've been waiting on rolls through Lexington. No spam — just the show calendar."
+    },
+    {
+      "type": "header",
+      "content": "Sign-up (display only)"
+    },
+    {
+      "type": "text",
+      "id": "tab_1",
+      "label": "Tab 1 label",
+      "default": "Text (SMS)"
+    },
+    {
+      "type": "text",
+      "id": "tab_2",
+      "label": "Tab 2 label",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Input placeholder",
+      "default": "(959) 555 -0142"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Sign me up →"
+    },
+    {
+      "type": "richtext",
+      "id": "terms",
+      "label": "Terms text",
+      "default": "<p>By signing up you agree to receive recurring marketing texts from 2 Fisted Willie's. Msg & data rates may apply. Text STOP to opt out. View <a href=\"#\">terms.</a></p>"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Newsletter Signup",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}
