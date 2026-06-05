@@ -1650,20 +1650,77 @@
             "html_area": "<style>\n.instafeed-new-layout-item {\nborder: 3px solid #004FDF;\n}\n\n@media (max-width: 749px) {\n  .instafeed-new-layout-container {\n    width: 100% !important;\n    box-sizing: border-box !important;\n  }\n.instafeed-new-layout-wrapper {\n    grid-template-columns: repeat(2, 1fr) !important;\n  }\n  .instafeed-new-layout-item {\n    width: auto !important;\n    height: auto !important;\n    aspect-ratio: 1 / 1 !important;\n    border: none;\n  }\n}\n</style>"
           }
         },
-        "button_brzYKx": {
-          "type": "button",
-          "name": "t:names.button",
+        "group_ymeEyy": {
+          "type": "group",
+          "name": "t:names.group",
           "settings": {
-            "label": "instagram.com/2fistedwillies",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "link",
-            "width": "fit-content",
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "use_mobile_alignment": true,
+            "mobile_horizontal_alignment": "flex-start",
+            "mobile_vertical_alignment": "center",
+            "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+            "mobile_vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "use_mobile_gap": false,
+            "mobile_gap": 12,
+            "width": "fill",
             "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "use_mobile_padding": false,
+            "padding-block-start-mobile": 0,
+            "padding-block-end-mobile": 0,
+            "padding-inline-start-mobile": 0,
+            "padding-inline-end-mobile": 0
           },
-          "blocks": {}
+          "blocks": {
+            "button_WrhTGU": {
+              "type": "button",
+              "name": "t:names.button",
+              "settings": {
+                "label": "FOLLOW @2FISTEDWILLIES →",
+                "link": "https://instagram.com/2fistedwillies",
+                "open_in_new_tab": true,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "button_WrhTGU"
+          ]
         }
       },
       "block_order": [
@@ -1672,7 +1729,7 @@
         "text_QF4ykn",
         "text_AbCRLn",
         "instafeed_app_block_phDMrW",
-        "button_brzYKx"
+        "group_ymeEyy"
       ],
       "custom_css": [
         "p {letter-spacing: 0.4px;}",
@@ -1728,13 +1785,13 @@
         "floating_media_offset_y_mobile": 0,
         "padding-block-start": 50,
         "padding-block-end": 50,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0,
+        "padding-inline-start": 20,
+        "padding-inline-end": 20,
         "use_mobile_padding": false,
-        "padding-block-start-mobile": 0,
-        "padding-block-end-mobile": 0,
-        "padding-inline-start-mobile": 0,
-        "padding-inline-end-mobile": 0
+        "padding-block-start-mobile": 50,
+        "padding-block-end-mobile": 50,
+        "padding-inline-start-mobile": 20,
+        "padding-inline-end-mobile": 20
       }
     }
   },
