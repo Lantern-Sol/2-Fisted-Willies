@@ -1733,7 +1733,8 @@
       ],
       "custom_css": [
         "p {letter-spacing: 0.4px;}",
-        "p strong {color: #0b4bba;}"
+        "p strong {color: #0b4bba;}",
+        "a {font-size: 12px; letter-spacing: 3px; text-decoration: underline; font-family: \"DM Sans\";}"
       ],
       "name": "Instagram Feed",
       "settings": {
