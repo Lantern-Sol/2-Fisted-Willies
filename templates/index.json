@@ -1647,7 +1647,7 @@
             "link_color": "#000000",
             "background_color": "",
             "feed_id": "",
-            "html_area": "<style>\n.instafeed-new-layout-item {\nborder: 3px solid #004FDF;\n}\n</style>"
+            "html_area": "<style>\n.instafeed-new-layout-item {\nborder: 3px solid #004FDF;\n}\n\n@media (max-width: 749px) {\n  .instafeed-new-layout-container {\n    width: 100% !important;\n    box-sizing: border-box !important;\n  }\n.instafeed-new-layout-wrapper {\n    grid-template-columns: repeat(2, 1fr) !important;\n  }\n  .instafeed-new-layout-item {\n    width: auto !important;\n    height: auto !important;\n    aspect-ratio: 1 / 1 !important;\n    border: none;\n  }\n}\n</style>"
           }
         }
       },
