@@ -478,6 +478,7 @@
     --hero-border-width: {{ section.settings.border_width }}px;
     --hero-border-opacity: {{ section.settings.border_opacity }}%;
     --blur-opacity: {{ section.settings.reflection_opacity | divided_by: 100.0 }};
+    --hero-max-height: {{ section.settings.max_height }}px;
     {% if section.settings.section_height == 'custom' %}
       --hero-min-height: {{ section.settings.section_height_custom }}svh;
     {% elsif section.settings.section_height == "full-screen" %}
@@ -573,6 +574,7 @@
   .hero {
     position: relative;
     min-height: calc(var(--hero-min-height) - var(--hero-height-offset));
+    max-height: var(--hero-max-height, none);
   }
 
   .hero[data-shopify-visual-preview] {
@@ -1220,6 +1222,16 @@
       "default": 50,
       "unit": "%",
       "visible_if": "{{ section.settings.section_height == 'custom' }}"
+    },
+    {
+      "type": "range",
+      "id": "max_height",
+      "label": "Max height",
+      "min": 300,
+      "max": 1500,
+      "step": 50,
+      "unit": "px",
+      "default": 1500
     },
     {
       "type": "header",

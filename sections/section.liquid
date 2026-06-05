@@ -244,6 +244,24 @@
       "visible_if": "{{ section.settings.section_height == 'custom' }}"
     },
     {
+      "type": "checkbox",
+      "id": "enable_max_height",
+      "label": "Limit section height",
+      "info": "Caps the whole section and clips overflowing content. Overrides the section height floor while on.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "max_height",
+      "label": "Max height",
+      "min": 300,
+      "max": 1500,
+      "step": 50,
+      "unit": "px",
+      "default": 600,
+      "visible_if": "{{ section.settings.enable_max_height }}"
+    },
+    {
       "type": "header",
       "content": "t:content.appearance"
     },
