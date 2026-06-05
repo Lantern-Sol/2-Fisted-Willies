@@ -109,26 +109,3 @@ div:not(#s) h2._formBannerHeading_z5ku3_9 {
   color: #e8eefa;
   text-transform: uppercase;
 }
-
-._formFieldContainer_1mxsl_5 {}
-
-div form._formFieldset_cit2d_82 {
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-div ._formFieldContainer_1mxsl_5 {
-    width: 100%;
-}
-
-form._formFieldset_cit2d_82 > * {
-    width: calc(100% - 2px);
-}
-._formFieldContainer_1mxsl_5:has(input[id*="date"]){
-        width: calc(50% - 8px);
-}
-@media screen and (max-width: 768px) {
-._formFieldContainer_1mxsl_5:has(input[id*="date"]){
-        width: 100%;
-}
-}

@@ -1,0 +1,329 @@
+{% liquid
+  assign s = section.settings
+%}
+
+{%- capture section_vars -%}
+  --ls-bg: {{ s.bg_color }};
+  --ls-heading-1: {{ s.heading_1_color }};
+  --ls-heading-2: {{ s.heading_2_color }};
+  --ls-body: {{ s.body_color }};
+  --ls-input-text: {{ s.input_text_color }};
+  --ls-input-border: {{ s.input_border_color }};
+  --ls-button-bg: {{ s.button_bg }};
+  --ls-button-text: {{ s.button_text_color }};
+{%- endcapture -%}
+
+<div class="section-background ls-news-home__bg"></div>
+<div
+  class="section ls-news-home spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ section_vars }}"
+>
+  <div class="ls-news-home__inner">
+    {%- if s.heading_1 != blank or s.heading_2 != blank -%}
+      <h2 class="ls-news-home__title">
+        {%- if s.heading_1 != blank -%}<span class="ls-news-home__title-1">{{ s.heading_1 }}</span>{%- endif -%}
+        {%- if s.heading_2 != blank -%}<span class="ls-news-home__title-2">{{ s.heading_2 }}</span>{%- endif -%}
+      </h2>
+    {%- endif -%}
+
+    {%- if s.body != blank -%}
+      <p class="ls-news-home__body">{{ s.body }}</p>
+    {%- endif -%}
+
+    {%- comment -%} Display only for now — no form action / submission wiring. {%- endcomment -%}
+    <div class="ls-news-home__form">
+      <div class="ls-news-home__field">
+        <input
+          type="email"
+          class="ls-news-home__input"
+          placeholder="{{ s.input_placeholder | escape }}"
+          aria-label="{{ s.input_placeholder | escape }}"
+          autocorrect="off"
+          autocapitalize="off"
+        >
+        <button type="button" class="ls-news-home__submit">{{ s.button_label }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  /* Full-bleed blue band — the theme forces .section backgrounds transparent,
+     so the band color lives on a separate full-width element. */
+  .ls-news-home__bg {
+    background-color: var(--ls-bg, #0b4bba);
+  }
+
+  .ls-news-home__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding-inline: 72px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .ls-news-home__title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 0.82;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .ls-news-home__title-1 {
+    font-family: var(--font-gashroad--family);
+    font-weight: 400;
+    font-size: clamp(2rem, 8vw, 115px);
+    color: var(--ls-heading-1, #eae8f0);
+  }
+
+  .ls-news-home__title-2 {
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2rem, 8vw, 115px);
+    color: var(--ls-heading-2, #1e1e2e);
+  }
+
+  .ls-news-home__body {
+    margin: 0;
+    max-width: 474px;
+    font-family: var(--font-cormorant-garamond--family);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ls-body, #b8c8f2);
+  }
+
+  .ls-news-home__form {
+    width: 100%;
+    max-width: 672px;
+  }
+
+  .ls-news-home__field {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+  }
+
+  /* Transparent field with only a bottom rule. Qualified with the section class
+     to beat base.css's `input:not([type=checkbox],[type=radio])` background. */
+  .ls-news-home .ls-news-home__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 16px 24px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--ls-input-border, rgba(255, 255, 255, 0.2));
+    border-radius: 0;
+    font-family: var(--font-body--family);
+    font-size: 16px;
+    color: var(--ls-input-text, #eae8f0);
+    box-shadow: none;
+  }
+
+  .ls-news-home .ls-news-home__input:focus {
+    outline: none;
+    border-bottom-color: var(--ls-input-text, #eae8f0);
+  }
+
+  .ls-news-home__input::placeholder {
+    color: var(--ls-input-text, #eae8f0);
+    opacity: 1;
+  }
+
+  .ls-news-home__submit {
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    padding: 16px 24px;
+    border: 0;
+    background-color: var(--ls-button-bg, #b8c8f2);
+    color: var(--ls-button-text, #004fdf);
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .ls-news-home__message {
+    margin: 12px 0 0;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .ls-news-home__message--success {
+    color: #eae8f0;
+  }
+
+  .ls-news-home__message--error {
+    color: #ffd7d7;
+  }
+
+  /* ---- Mobile ---- */
+  @media screen and (max-width: 749px) {
+    .ls-news-home__inner {
+      gap: 16px;
+      padding-inline: 20px;
+    }
+    .ls-news-home__body {
+      font-family: var(--font-cormorant-garamond-italic--family);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 16px;
+    }
+    .ls-news-home__form {
+      max-width: none;
+    }
+    .ls-news-home__field {
+      flex-direction: column;
+    }
+    .ls-news-home__submit {
+      width: 100%;
+    }
+    .ls-news-home__message {
+      text-align: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Newsletter Home",
+  "tag": "section",
+  "class": "ls-newsletter-home-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading (display font)",
+      "default": "Never Miss"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading (italic serif)",
+      "default": "a Show"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Drop your email and we'll send you the weekend lineup, game day specials, and the occasional excuse to come down."
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Input placeholder",
+      "default": "Email Address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Sign me up →"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#0b4bba"
+    },
+    {
+      "type": "color",
+      "id": "heading_1_color",
+      "label": "Heading (display)",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "heading_2_color",
+      "label": "Heading (italic)",
+      "default": "#1e1e2e"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text",
+      "default": "#b8c8f2"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input text / placeholder",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input underline",
+      "default": "#ffffff33"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background",
+      "default": "#b8c8f2"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#004fdf"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Newsletter Home",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}

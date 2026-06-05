@@ -1,0 +1,710 @@
+{% liquid
+  assign s = section.settings
+  assign hours_lines = s.hours_rows | strip | newline_to_br | split: '<br />'
+  assign contact_lines = s.contact_rows | strip | newline_to_br | split: '<br />'
+
+  assign has_paper = false
+  if s.paper_texture != blank
+    assign has_paper = true
+  endif
+
+  assign q = s.map_query | default: '2 Fisted Willies, 388 Woodland Avenue, Lexington, KY'
+  assign q_encoded = q | url_encode
+%}
+
+{%- capture section_vars -%}
+  --ls-bg: {{ s.bg_color }};
+  --ls-eyebrow: {{ s.eyebrow_color }};
+  --ls-heading: {{ s.heading_color }};
+  --ls-diamond: {{ s.diamond_color }};
+  --ls-ink: {{ s.ink_color }};
+  --ls-subtle: {{ s.subtle_color }};
+  --ls-accent: {{ s.accent_color }};
+  --ls-button-bg: {{ s.button_bg }};
+  --ls-button-text: {{ s.button_text_color }};
+  --ls-paper: {{ s.paper_color }};
+  --ls-border: {{ s.card_border }};
+  --ls-parking-border: {{ s.parking_border }};
+  --ls-parking-text: {{ s.parking_text_color }};
+  --ls-parking-bg-mobile: {{ s.parking_bg_mobile }};
+  --ls-map-min-height: {{ s.map_min_height | default: 451 }}px;
+{%- endcapture -%}
+
+{%- capture card_bg -%}
+  {%- if has_paper -%}background-image: url({{ s.paper_texture | image_url: width: 1400 }}); background-size: cover; background-position: center; background-repeat: no-repeat;{%- endif -%}
+{%- endcapture -%}
+
+<div class="section-background ls-find-us__bg"></div>
+<div
+  class="section ls-find-us spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ section_vars }}"
+>
+  <div class="ls-find-us__inner">
+    {%- if s.eyebrow != blank -%}
+      <p class="ls-find-us__eyebrow">{{ s.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if s.title_1 != blank or s.title_2 != blank -%}
+      <h2 class="ls-find-us__title">
+        {%- if s.title_1 != blank -%}<span class="ls-find-us__title-1">{{ s.title_1 }}</span>{%- endif -%}
+        {% if s.title_1 != blank and s.title_2 != blank %} {% endif %}
+        {%- if s.title_2 != blank -%}<span class="ls-find-us__title-2">{{ s.title_2 }}</span>{%- endif -%}
+      </h2>
+    {%- endif -%}
+
+    {%- if s.show_diamond -%}
+      <div class="ls-find-us__diamond" aria-hidden="true">&#9670;</div>
+    {%- endif -%}
+
+    <div class="ls-find-us__row">
+      <div class="ls-find-us__card" style="{{ card_bg }}">
+        <div class="ls-find-us__identity">
+          {%- if s.address != blank -%}
+            <p class="ls-find-us__address">{{ s.address }}</p>
+          {%- endif -%}
+          {%- if s.city != blank -%}
+            <p class="ls-find-us__city">{{ s.city }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- if s.hours_rows != blank -%}
+          <div class="ls-find-us__block">
+            {%- if s.hours_heading != blank -%}
+              <h3 class="ls-find-us__sub">{{ s.hours_heading }}</h3>
+            {%- endif -%}
+            <div class="ls-find-us__rows">
+              {%- for line in hours_lines -%}
+                {%- assign parts = line | strip | split: '|' -%}
+                {%- assign row_label = parts[0] | strip -%}
+                {%- if row_label != blank -%}
+                  <div class="ls-find-us__rowline">
+                    <span class="ls-find-us__label">{{ row_label }}</span>
+                    {%- if parts[1] -%}<span class="ls-find-us__value">{{ parts[1] | strip }}</span>{%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if s.contact_rows != blank -%}
+          <div class="ls-find-us__block">
+            {%- if s.contact_heading != blank -%}
+              <h3 class="ls-find-us__sub">{{ s.contact_heading }}</h3>
+            {%- endif -%}
+            <div class="ls-find-us__rows">
+              {%- for line in contact_lines -%}
+                {%- assign parts = line | strip | split: '|' -%}
+                {%- assign row_label = parts[0] | strip -%}
+                {%- if row_label != blank -%}
+                  <div class="ls-find-us__rowline">
+                    <span class="ls-find-us__label">{{ row_label }}</span>
+                    {%- if parts[1] -%}<span class="ls-find-us__value">{{ parts[1] | strip }}</span>{%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if s.button_1_label != blank or s.button_2_label != blank -%}
+          <div class="ls-find-us__buttons">
+            {%- if s.button_1_label != blank -%}
+              <a class="ls-find-us__btn ls-find-us__btn--primary" href="{{ s.button_1_link | default: '#' }}">{{ s.button_1_label }}</a>
+            {%- endif -%}
+            {%- if s.button_2_label != blank -%}
+              <a class="ls-find-us__btn ls-find-us__btn--outline" href="{{ s.button_2_link | default: '#' }}">{{ s.button_2_label }}</a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="ls-find-us__map{% if s.map_dark %} ls-find-us__map--dark{% endif %}">
+        <iframe
+          class="ls-find-us__map-frame"
+          src="https://www.google.com/maps?q={{ q_encoded }}&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          title="{{ s.map_title | default: 'Map' | escape }}"
+        ></iframe>
+      </div>
+    </div>
+
+    {%- if s.parking_text != blank -%}
+      <div class="ls-find-us__parking">
+        <p class="ls-find-us__parking-text">{{ s.parking_text }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  /* Full-bleed dark band. The theme forces .section backgrounds transparent, so
+     the band color lives on a separate full-width element. */
+  .ls-find-us__bg {
+    background-color: var(--ls-bg, #1e1e2e);
+  }
+
+  .ls-find-us__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 1424px;
+    margin: 0 auto;
+    padding-inline: 72px;
+    box-sizing: border-box;
+  }
+
+  .ls-find-us__eyebrow {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--ls-eyebrow, #e8eefa);
+    opacity: 0.5;
+  }
+
+  .ls-find-us__title {
+    margin: 0;
+    text-align: center;
+    line-height: 0.95;
+    color: var(--ls-heading, #eae8f0);
+    text-wrap: balance;
+  }
+
+  .ls-find-us__title-1 {
+    font-family: var(--font-gashroad--family);
+    font-weight: 400;
+    font-size: clamp(2rem, 8vw, 115px);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .ls-find-us__title-2 {
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2rem, 8vw, 115px);
+    letter-spacing: -0.01em;
+  }
+
+  .ls-find-us__diamond {
+    font-family: var(--font-cormorant-garamond--family);
+    font-size: 100px;
+    height: 10px;
+    line-height: 0;
+    color: var(--ls-diamond, #0b4bba);
+  }
+
+  /* ---- Card + map row ---- */
+  .ls-find-us__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 48px;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  /* ---- Card (pixel-matched to Figma) ---- */
+  .ls-find-us__card {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 24px;
+    padding: 48px;
+    border: 1px solid var(--ls-border, #252535);
+    color: var(--ls-ink, #1e1e2e);
+    background-color: var(--ls-paper, #e9e8e6);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    background-repeat: repeat;
+  }
+
+  .ls-find-us__card > * {
+    position: static;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .ls-find-us__identity {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ls-find-us__address {
+    margin: 0;
+    font-family: var(--font-gashroad--family);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--ls-ink, #1e1e2e);
+  }
+
+  .ls-find-us__city {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond--family);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1;
+    color: var(--ls-subtle, #252535);
+  }
+
+  .ls-find-us__block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ls-find-us__sub {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 2.7px;
+    text-transform: uppercase;
+    color: var(--ls-accent, #143379);
+  }
+
+  .ls-find-us__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ls-find-us__rowline {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .ls-find-us__label {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--ls-subtle, #252535);
+  }
+
+  .ls-find-us__value {
+    flex: 0 0 auto;
+    text-align: right;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--ls-ink, #1e1e2e);
+  }
+
+  .ls-find-us__buttons {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 32px;
+    justify-content: left;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .ls-find-us__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 16px 24px;
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .ls-find-us__btn--primary {
+    background-color: var(--ls-button-bg, #0b4bba);
+    color: var(--ls-button-text, #eae8f0);
+  }
+
+  .ls-find-us__btn--outline {
+    background-color: transparent;
+    border-color: var(--ls-button-bg, #0b4bba);
+    color: var(--ls-button-bg, #0b4bba);
+  }
+
+  /* ---- Map ---- */
+  .ls-find-us__map {
+    position: relative;
+    min-height: 0;
+  }
+
+  .ls-find-us__map-frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: var(--ls-map-min-height, 451px);
+    border: 0;
+  }
+
+  /* Dark map: invert + hue-rotate turns Google's light embed into a night map
+     without needing the Maps JS API / API key. */
+  .ls-find-us__map--dark .ls-find-us__map-frame {
+    filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+  }
+
+  /* ---- Parking banner ---- */
+  .ls-find-us__parking {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--ls-parking-border, #3b6bd6);
+    padding: 8px;
+    margin-top: 8px;
+  }
+
+  .ls-find-us__parking-text {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--ls-parking-text, #b8c8f2);
+  }
+
+  /* ---- Mobile ---- */
+  @media screen and (max-width: 749px) {
+    .ls-find-us__inner {
+      padding-inline: 20px;
+    }
+    .ls-find-us__row {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .ls-find-us__card {
+      gap: 16px;
+      padding: 33px 25px;
+    }
+    .ls-find-us__address,
+    .ls-find-us__city {
+      font-size: 24px;
+    }
+    .ls-find-us__label,
+    .ls-find-us__value {
+      font-size: 12px;
+    }
+    .ls-find-us__buttons {
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 0;
+    }
+    .ls-find-us__btn {
+      width: 100%;
+      padding: 16px;
+    }
+    .ls-find-us__map-frame {
+      height: var(--ls-map-min-height, 248px);
+      min-height: 0;
+    }
+    .ls-find-us__parking {
+      padding: 16px;
+      background-color: var(--ls-parking-bg-mobile, #151c33);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Find Us",
+  "tag": "section",
+  "class": "ls-find-us-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "N° 7"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Title (display font)",
+      "default": "Find Us In"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Title (italic serif)",
+      "default": "The Plaza"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_diamond",
+      "label": "Show diamond divider",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Address"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "388 Woodland Avenue"
+    },
+    {
+      "type": "text",
+      "id": "city",
+      "label": "City",
+      "default": "Lexington, KY"
+    },
+    {
+      "type": "header",
+      "content": "Hours"
+    },
+    {
+      "type": "text",
+      "id": "hours_heading",
+      "label": "Hours heading",
+      "default": "Hours"
+    },
+    {
+      "type": "textarea",
+      "id": "hours_rows",
+      "label": "Hours rows",
+      "info": "One row per line. Separate label and value with a | character.",
+      "default": "Wednesday | 4PM – 12AM\nTuesday, Thursday – Saturday | 4PM – 2AM\nSunday - Monday | CLOSED"
+    },
+    {
+      "type": "header",
+      "content": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact heading",
+      "default": "Contact"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_rows",
+      "label": "Contact rows",
+      "info": "One row per line. Separate label and value with a | character.",
+      "default": "Phone Number | (859)456 - 9800\nEmail | 2fistedwillies@gmail.com"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 label",
+      "default": "Get Directions"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 label",
+      "default": "Call Us"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Map"
+    },
+    {
+      "type": "text",
+      "id": "map_query",
+      "label": "Map location",
+      "info": "Address or place name to center the map on.",
+      "default": "2 Fisted Willies, 388 Woodland Avenue, Lexington, KY"
+    },
+    {
+      "type": "text",
+      "id": "map_title",
+      "label": "Map accessible title",
+      "default": "Map to 2 Fisted Willie's"
+    },
+    {
+      "type": "checkbox",
+      "id": "map_dark",
+      "label": "Dark map",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "map_min_height",
+      "label": "Map height",
+      "min": 200,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 450
+    },
+    {
+      "type": "header",
+      "content": "Parking banner"
+    },
+    {
+      "type": "text",
+      "id": "parking_text",
+      "label": "Parking text",
+      "default": "Parking: Free lot in front of the building • Street parking on Woodland"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#1e1e2e"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#e8eefa"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Title",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "diamond_color",
+      "label": "Diamond divider",
+      "default": "#0b4bba"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Card headings",
+      "default": "#143379"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button / outline color",
+      "default": "#0b4bba"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Primary button text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "ink_color",
+      "label": "Card text (address, values)",
+      "default": "#1e1e2e"
+    },
+    {
+      "type": "color",
+      "id": "subtle_color",
+      "label": "Card muted text (city, labels)",
+      "default": "#252535"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#252535"
+    },
+    {
+      "type": "color",
+      "id": "paper_color",
+      "label": "Card background color",
+      "default": "#e9e8e6"
+    },
+    {
+      "type": "image_picker",
+      "id": "paper_texture",
+      "label": "Card background texture",
+      "info": "Optional paper/cardstock texture. Falls back to the baked-in grain + color."
+    },
+    {
+      "type": "color",
+      "id": "parking_border",
+      "label": "Parking border",
+      "default": "#3b6bd6"
+    },
+    {
+      "type": "color",
+      "id": "parking_text_color",
+      "label": "Parking text",
+      "default": "#b8c8f2"
+    },
+    {
+      "type": "color",
+      "id": "parking_bg_mobile",
+      "label": "Parking background (mobile)",
+      "default": "#151c33"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 128
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Find Us",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}
