@@ -938,7 +938,7 @@
         ".background-image-container::before {display: none;}",
         "a {font-family: \"DM Sans\"; letter-spacing: 1.8px;}"
       ],
-      "name": "Floors",
+      "name": "Spaces",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -1405,7 +1405,7 @@
       "custom_css": [
         "a {letter-spacing: 2.4px;}"
       ],
-      "name": "Reservation",
+      "name": "Private Event CTA",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
