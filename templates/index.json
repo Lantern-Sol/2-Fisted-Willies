@@ -1649,6 +1649,21 @@
             "feed_id": "",
             "html_area": "<style>\n.instafeed-new-layout-item {\nborder: 3px solid #004FDF;\n}\n\n@media (max-width: 749px) {\n  .instafeed-new-layout-container {\n    width: 100% !important;\n    box-sizing: border-box !important;\n  }\n.instafeed-new-layout-wrapper {\n    grid-template-columns: repeat(2, 1fr) !important;\n  }\n  .instafeed-new-layout-item {\n    width: auto !important;\n    height: auto !important;\n    aspect-ratio: 1 / 1 !important;\n    border: none;\n  }\n}\n</style>"
           }
+        },
+        "button_brzYKx": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "instagram.com/2fistedwillies",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "link",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
         }
       },
       "block_order": [
@@ -1656,7 +1671,8 @@
         "text_MVF6LQ",
         "text_QF4ykn",
         "text_AbCRLn",
-        "instafeed_app_block_phDMrW"
+        "instafeed_app_block_phDMrW",
+        "button_brzYKx"
       ],
       "custom_css": [
         "p {letter-spacing: 0.4px;}",
@@ -1710,8 +1726,8 @@
         "floating_media_anchor_mobile": "",
         "floating_media_offset_x_mobile": 0,
         "floating_media_offset_y_mobile": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 0,
+        "padding-block-start": 50,
+        "padding-block-end": 50,
         "padding-inline-start": 0,
         "padding-inline-end": 0,
         "use_mobile_padding": false,

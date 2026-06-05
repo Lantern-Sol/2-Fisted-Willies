@@ -127,7 +127,7 @@
           "background": "#1e1e2d",
           "foreground_heading": "#eae8f0",
           "foreground": "#b8c8f2",
-          "primary": "#000000cf",
+          "primary": "#eae8f0",
           "primary_hover": "#ffffff",
           "border": "#9ca0b8",
           "shadow": "#000000",
