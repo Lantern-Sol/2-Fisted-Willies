@@ -1647,7 +1647,7 @@
             "link_color": "#000000",
             "background_color": "",
             "feed_id": "",
-            "html_area": ""
+            "html_area": "<style>\n.instafeed-new-layout-item {\nborder: 3px solid #004FDF;\n}\n</style>"
           }
         }
       },
