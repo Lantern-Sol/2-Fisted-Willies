@@ -147,6 +147,15 @@
     font-display: swap;
   }
 
+  @font-face {
+    font-family: 'Cormorant Garamond Thin';
+    /* TODO: upload CormorantGaramond-Light.ttf to Shopify (Settings → Files) and paste its URL below. */
+    src: url('REPLACE_WITH_CORMORANT_GARAMOND_THIN_FONT_URL') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
   @media only screen and (max-width: 1440px) and (min-width: 750px) { 
     html {
       font-size: calc(16 * 100vw / 1440);
@@ -208,6 +217,8 @@
     --font-cormorant-garamond--weight: 500;
     --font-cormorant-garamond-italic--family: 'Cormorant Garamond Italic', serif;
     --font-cormorant-garamond-italic--weight: 400;
+    --font-cormorant-garamond-thin--family: 'Cormorant Garamond Thin', serif;
+    --font-cormorant-garamond-thin--weight: 300;
 
     /* Margin sizes */
     --font-h1--spacing: 0.25em;
