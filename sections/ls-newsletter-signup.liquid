@@ -172,7 +172,10 @@
     width: 100%;
   }
 
-  .newsletter-signup__input {
+  /* Selector qualified with the section class to beat base.css's
+     `input:not([type=checkbox],[type=radio])` (0,1,1) which otherwise paints
+     the field with --color-input-background. */
+  .newsletter-signup .newsletter-signup__input {
     flex: 1 1 auto;
     min-width: 0;
     background: transparent;

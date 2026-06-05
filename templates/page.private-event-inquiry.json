@@ -78,32 +78,32 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h1><strong>HOST YOUR </strong></h1><h1><strong>EVENT AT</strong></h1>",
+            "text": "<h1><strong>Host Your </strong></h1><h1><strong>Event at</strong></h1>",
             "mobile_text": "",
             "width": "100%",
-            "max_width": "normal",
+            "max_width": "narrow",
             "alignment": "center",
             "height_mode": "custom",
-            "desktop_height": "50",
-            "mobile_height": "20",
-            "type_preset": "custom",
+            "desktop_height": "20",
+            "mobile_height": "15",
+            "type_preset": "h1",
             "font": "var(--font-gashroad--family)",
             "enable_custom_font_weight": false,
             "weight": "400",
-            "font_size": "7.5rem",
+            "font_size": "9.5rem",
             "line_height": 1.4,
-            "letter_spacing": 0,
+            "letter_spacing": 1,
             "case": "none",
             "wrap": "pretty",
             "color": "var(--color-foreground-heading)",
             "type_preset_mobile": "custom",
-            "mobile_font_size": "4rem",
+            "mobile_font_size": "7.5rem",
             "mobile_custom_line_height": 1,
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
             "padding-block-start": 0,
-            "padding-block-end": 20,
+            "padding-block-end": 50,
             "padding-inline-start": 0,
             "padding-inline-end": 0,
             "use_mobile_padding": true,
@@ -126,7 +126,7 @@
             "height_mode": "custom",
             "desktop_height": "120",
             "mobile_height": "80",
-            "type_preset": "custom",
+            "type_preset": "h1",
             "font": "var(--font-cormorant-garamond-italic--family)",
             "enable_custom_font_weight": false,
             "weight": "400",
@@ -138,7 +138,7 @@
             "color": "var(--color-foreground)",
             "type_preset_mobile": "custom",
             "mobile_font_size": "4rem",
-            "mobile_custom_line_height": 1.7,
+            "mobile_custom_line_height": 1.5,
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -175,7 +175,7 @@
             "mobile_gap": 12,
             "width": "custom",
             "custom_width": 55,
-            "width_mobile": "custom",
+            "width_mobile": "fill",
             "custom_width_mobile": 100,
             "height": "fit",
             "custom_height": 100,
@@ -202,8 +202,8 @@
             "use_mobile_padding": true,
             "padding-block-start-mobile": 0,
             "padding-block-end-mobile": 0,
-            "padding-inline-start-mobile": 10,
-            "padding-inline-end-mobile": 10
+            "padding-inline-start-mobile": 5,
+            "padding-inline-end-mobile": 5
           },
           "blocks": {
             "text_WyNiLL": {
@@ -226,7 +226,7 @@
                 "letter_spacing": 0,
                 "case": "none",
                 "wrap": "pretty",
-                "color": "var(--color-foreground)",
+                "color": "var(--color-foreground-heading)",
                 "type_preset_mobile": "custom",
                 "mobile_font_size": "1.25rem",
                 "mobile_custom_line_height": 1.5,
@@ -255,6 +255,12 @@
         "text_VzMyC7",
         "text_abybQE",
         "group_zWpUdG"
+      ],
+      "custom_css": [
+        "h1 {font-size: 128px;}",
+        "p {color: #e1e1f4; font-size: 26px;}",
+        "@media screen and (max-width: 749px) {h1 {font-size: 64px; } p {font-size: 20px; }}",
+        ".hero__media-grid .overlay { background: linear-gradient(180deg, rgba(17, 19, 24, 0.00) 33.55%, rgba(17, 19, 24, 0.80) 82.52%), linear-gradient(0deg, rgba(30, 30, 46, 0.80) 0%, rgba(30, 30, 46, 0.80) 100%); }"
       ],
       "name": "t:names.hero",
       "settings": {
@@ -290,8 +296,8 @@
         "gradient_direction": "to top",
         "blurred_reflection": false,
         "reflection_opacity": 75,
-        "padding-block-start": 40,
-        "padding-block-end": 40,
+        "padding-block-start": 50,
+        "padding-block-end": 50,
         "use_mobile_padding": false,
         "padding-block-start-mobile": 0,
         "padding-block-end-mobile": 0
@@ -406,18 +412,18 @@
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
             "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
+            "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
             "use_mobile_alignment": false,
             "mobile_horizontal_alignment": "flex-start",
             "mobile_vertical_alignment": "center",
             "mobile_horizontal_alignment_flex_direction_column": "flex-start",
             "mobile_vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
+            "gap": 0,
             "use_mobile_gap": false,
             "mobile_gap": 12,
             "width": "custom",
-            "custom_width": 40,
+            "custom_width": 50,
             "width_mobile": "custom",
             "custom_width_mobile": 100,
             "height": "fit",
@@ -439,25 +445,25 @@
             "link": "",
             "open_in_new_tab": false,
             "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 20,
-            "padding-inline-end": 0,
-            "use_mobile_padding": false,
-            "padding-block-start-mobile": 0,
-            "padding-block-end-mobile": 0,
-            "padding-inline-start-mobile": 0,
-            "padding-inline-end-mobile": 0
+            "padding-block-start": 50,
+            "padding-block-end": 50,
+            "padding-inline-start": 50,
+            "padding-inline-end": 50,
+            "use_mobile_padding": true,
+            "padding-block-start-mobile": 20,
+            "padding-block-end-mobile": 20,
+            "padding-inline-start-mobile": 20,
+            "padding-inline-end-mobile": 20
           },
           "blocks": {
-            "text_6kAzww": {
+            "text_EX3a9A": {
               "type": "text",
               "name": "t:names.heading",
               "settings": {
                 "text": "<p>PREFER TO TALK? CALL US AT (859)456-9800 OR EMAIL WILLIESEVENTSLEX@GMAIL.COM</p>",
                 "mobile_text": "",
-                "width": "100%",
-                "max_width": "narrow",
+                "width": "fit-content",
+                "max_width": "normal",
                 "alignment": "left",
                 "height_mode": "custom",
                 "desktop_height": "",
@@ -472,19 +478,19 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-primary)",
-                "type_preset_mobile": "rte",
-                "mobile_font_size": "1rem",
+                "type_preset_mobile": "custom",
+                "mobile_font_size": "0.875rem",
                 "mobile_custom_line_height": 1.5,
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
-                "padding-block-start": 50,
-                "padding-block-end": 50,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0,
                 "use_mobile_padding": true,
-                "padding-block-start-mobile": 20,
-                "padding-block-end-mobile": 20,
+                "padding-block-start-mobile": 0,
+                "padding-block-end-mobile": 0,
                 "padding-inline-start-mobile": 0,
                 "padding-inline-end-mobile": 0
               },
@@ -492,7 +498,7 @@
             }
           },
           "block_order": [
-            "text_6kAzww"
+            "text_EX3a9A"
           ]
         }
       },
@@ -503,8 +509,8 @@
         "group_BrPTX4"
       ],
       "custom_css": [
-        ".shopify-app-block {width: 100%; max-width: 620px;}",
-        "@media screen and (max-width: 749px) {.background-image-container::before {display: none !important;}}"
+        "@media screen and (max-width: 749px) {.background-image-container::before {display: none !important; }}",
+        "p {letter-spacing: 2.7px;}"
       ],
       "settings": {
         "content_direction": "column",
@@ -536,7 +542,19 @@
     },
     "ls_newsletter_signup": {
       "type": "ls-newsletter-signup",
-      "settings": {}
+      "settings": {
+        "eyebrow": "★ Never miss a show",
+        "heading_line_1": "Be the first",
+        "heading_line_2": "to know",
+        "body": "Drop your number. We'll text when tickets go on sale and when a band you've been waiting on rolls through Lexington. No spam — just the show calendar.",
+        "tab_1": "Text (SMS)",
+        "tab_2": "Email",
+        "input_placeholder": "(959) 555 -0142",
+        "button_label": "Sign me up →",
+        "terms": "<p>By signing up you agree to receive recurring marketing texts from 2 Fisted Willie's. Msg & data rates may apply. Text STOP to opt out. View <a href=\"#\">terms.</a></p>",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
     }
   },
   "order": [

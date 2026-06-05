@@ -22,7 +22,7 @@
 -%}
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div
-  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}{% if has_floating_media %} section--has-floating-media{% endif %}{% if section.settings.floating_media_hide_mobile %} section--floating-media-hide-mobile{% endif %}"
+  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}{% if has_floating_media %} section--has-floating-media{% endif %}{% if section.settings.floating_media_hide_mobile %} section--floating-media-hide-mobile{% endif %}{% if section.settings.enable_max_height %} section--limit-height{% endif %}"
   data-testid="ui-test-section"
 
   {% if request.visual_preview_mode %}
@@ -41,6 +41,10 @@
     {% if section.settings.section_height != '' %}
      --section-preview-height: 600px;
      {% endif %}
+
+    {% if section.settings.enable_max_height %}
+      --section-max-height: {{ section.settings.max_height }}px;
+    {% endif %}
   "
 >
   <div class="custom-section-background">
@@ -226,6 +230,15 @@
 
   .custom-section-content {
     z-index: var(--layer-flat);
+  }
+
+  /* Caps the whole section box (not just the inner content) and clips any
+     overflow. min-height is zeroed so the cap wins over the section_height
+     floor — the section itself resizes to fit within --section-max-height. */
+  .section--limit-height {
+    min-height: 0;
+    max-height: var(--section-max-height);
+    overflow: hidden;
   }
 
   /* Floating media — spans full section, positioned absolutely above the content. */
