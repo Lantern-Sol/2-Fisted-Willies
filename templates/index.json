@@ -419,7 +419,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>N° 4</p>",
+            "text": "<h6>N° 4</h6>",
             "mobile_text": "",
             "width": "100%",
             "max_width": "normal",
@@ -938,7 +938,8 @@
       "custom_css": [
         "h2 strong {font-family: \"Gashroad\"; font-weight: normal;}",
         ".background-image-container::before {display: none;}",
-        "a {font-family: \"DM Sans\"; letter-spacing: 1.8px;}"
+        "a {font-family: \"DM Sans\"; letter-spacing: 1.8px;}",
+        "h6 {opacity: 0.5;}"
       ],
       "name": "Spaces",
       "settings": {
@@ -1006,7 +1007,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>N° 5</p>",
+            "text": "<h6>N° 5</h6>",
             "mobile_text": "",
             "width": "100%",
             "max_width": "normal",
@@ -1408,7 +1409,8 @@
       ],
       "custom_css": [
         "a {letter-spacing: 2.4px;}",
-        "p {letter-spacing: 0.4px;}"
+        "p {letter-spacing: 0.4px;}",
+        "h6 {opacity: 0.5;}"
       ],
       "name": "Private Event CTA",
       "settings": {
@@ -1476,7 +1478,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>N° 5</p>",
+            "text": "<h6>N° 6</h6>",
             "mobile_text": "",
             "width": "100%",
             "max_width": "normal",
@@ -1734,7 +1736,8 @@
       "custom_css": [
         "p {letter-spacing: 0.4px;}",
         "p strong {color: #0b4bba;}",
-        "a {font-size: 12px; letter-spacing: 3px; text-decoration: underline; font-family: \"DM Sans\";}"
+        "a {font-size: 12px; letter-spacing: 3px; text-decoration: underline; font-family: \"DM Sans\";}",
+        "h6 {opacity: 0.5;}"
       ],
       "name": "Instagram Feed",
       "settings": {
