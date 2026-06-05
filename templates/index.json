@@ -940,7 +940,7 @@
         ".background-image-container::before {display: none;}",
         "a {font-family: \"DM Sans\"; letter-spacing: 1.8px;}"
       ],
-      "name": "Floors",
+      "name": "Spaces",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -1307,6 +1307,10 @@
                     "gap": 12,
                     "use_mobile_gap": true,
                     "mobile_gap": 8,
+                    "label": "REQUEST A DATE →",
+                    "link": "shopify://pages/private-event",
+                    "open_in_new_tab": false,
+                    "style_class": "button",
                     "width": "custom",
                     "custom_width": 80,
                     "width_mobile": "fit-content",
@@ -1465,7 +1469,7 @@
         "a {letter-spacing: 2.4px;}",
         "p {letter-spacing: 0.4px;}"
       ],
-      "name": "Reservation",
+      "name": "Private Event CTA",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
