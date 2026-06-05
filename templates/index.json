@@ -398,7 +398,7 @@
         "section_height_custom": 100,
         "color_scheme": "scheme-3",
         "toggle_overlay": true,
-        "overlay_color": "#1e1e2ed8",
+        "overlay_color": "#1e1e2ed9",
         "overlay_style": "solid",
         "gradient_direction": "to bottom",
         "blurred_reflection": false,
@@ -1371,7 +1371,7 @@
                   "name": "t:names.button",
                   "settings": {
                     "label": "REQUEST A DATE →",
-                    "link": "shopify://collections/all",
+                    "link": "shopify://pages/private-event",
                     "open_in_new_tab": false,
                     "style_class": "button",
                     "width": "custom",
