@@ -45,6 +45,9 @@
       align-items: center;
       margin-top: 12px;
     }
+    textarea[name="custom#additional_details"]::placeholder {
+      color: #EAE8F0;
+    }
   `;
 
   /** @param {ShadowRoot} shadow */
