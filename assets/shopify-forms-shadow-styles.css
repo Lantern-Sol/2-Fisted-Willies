@@ -139,10 +139,10 @@ form._formFieldset_cit2d_82 > * {
 
 [aria-controls="custom#event_type-selector-dropdown"] ._selectToggleText_12thd_25:empty:before{
   content: "Select event type (optional)";
-  color: #fff;
+  color: #9CA0B8;
 }
 
 [aria-controls="custom#select_time_frame-selector-dropdown"] ._selectToggleText_12thd_25:empty:before{
   content: "Select time frame";
-  color: #fff;
+  color: #9CA0B8;
 }
