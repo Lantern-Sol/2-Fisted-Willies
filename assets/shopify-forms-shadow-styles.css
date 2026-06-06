@@ -110,7 +110,6 @@ div:not(#s) h2._formBannerHeading_z5ku3_9 {
   text-transform: uppercase;
 }
 
-._formFieldContainer_1mxsl_5 {}
 
 div form._formFieldset_cit2d_82 {
     flex-direction: row;
@@ -121,6 +120,9 @@ div ._formFieldContainer_1mxsl_5 {
     width: 100%;
 }
 
+[name="custom#additional_details"]:plcaehoder{
+  color: #EAE8F0!important;
+}
 form._formFieldset_cit2d_82 > * {
     width: calc(100% - 2px);
 }
@@ -133,6 +135,7 @@ form._formFieldset_cit2d_82 > * {
 }
 }
 
-._selectToggleText_12thd_25:before{
+._selectToggleText_12thd_25[aria-controls="custom#event_type-selector-dropdown"]:empty:before{
   content: "Select event type (optional)";
+  color: #fff;
 }
