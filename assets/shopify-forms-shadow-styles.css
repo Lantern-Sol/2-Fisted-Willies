@@ -120,7 +120,7 @@ div ._formFieldContainer_1mxsl_5 {
     width: 100%;
 }
 
-[name="custom#additional_details"]:plcaehoder{
+[name="custom#additional_details"]:placeholder{
   color: #EAE8F0!important;
 }
 form._formFieldset_cit2d_82 > * {
@@ -135,7 +135,7 @@ form._formFieldset_cit2d_82 > * {
 }
 }
 
-._selectToggleText_12thd_25[aria-controls="custom#event_type-selector-dropdown"]:empty:before{
+[aria-controls="custom#event_type-selector-dropdown"] ._selectToggleText_12thd_25:empty:before{
   content: "Select event type (optional)";
   color: #fff;
 }
