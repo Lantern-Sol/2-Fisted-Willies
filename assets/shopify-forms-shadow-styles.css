@@ -119,7 +119,9 @@ div form._formFieldset_cit2d_82 {
 div ._formFieldContainer_1mxsl_5 {
     width: 100%;
 }
-
+._formFieldContainer_1mxsl_5:has(input[id*="date"])::placeholder{
+  color: #EAE8F0!important;
+}
 [name="custom#additional_details"]:placeholder{
   color: #EAE8F0!important;
 }
