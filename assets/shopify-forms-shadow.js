@@ -43,6 +43,7 @@
       pointer-events: none;
       display: flex;
       align-items: center;
+      margin-top: 12px;
     }
   `;
 
