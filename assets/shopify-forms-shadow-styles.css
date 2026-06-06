@@ -132,3 +132,7 @@ form._formFieldset_cit2d_82 > * {
         width: 100%;
 }
 }
+
+._selectToggleText_12thd_25:before{
+  content: "Select event type (optional)";
+}

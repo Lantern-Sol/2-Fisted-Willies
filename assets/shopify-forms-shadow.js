@@ -26,7 +26,6 @@
       color-scheme: dark;
     }
     ._formFieldContainer_1mxsl_5:has(input[id*="date"]) input[id*="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1);
       cursor: pointer;
     }
   `;
