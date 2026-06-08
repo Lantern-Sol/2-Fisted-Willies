@@ -166,8 +166,8 @@
               "settings": {
                 "text": "<p>Downstairs runs hot — full stage, real sound, the show as it should be. Upstairs is its own bar, open air, looking out over the corner of Woodland and Euclid.</p>",
                 "font_family": "var(--font-cormorant-garamond--family)",
-                "font_size": 20,
-                "font_size_mobile": 0,
+                "font_size": 26,
+                "font_size_mobile": 20,
                 "letter_spacing": 0,
                 "line_height": 1.4,
                 "font_weight": "400",
@@ -392,6 +392,7 @@
         "section_width-mobile": "page-width",
         "section_height": "custom",
         "section_height_custom": 80,
+        "enable_max_height": false,
         "max_height": 1200,
         "color_scheme": "scheme-3",
         "toggle_overlay": true,
