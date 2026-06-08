@@ -198,7 +198,7 @@
               "settings": {
                 "text": "<p>388 Woodland Avenue - Lexington, KY<br/><br/></p>",
                 "font_family": "var(--font-cormorant-garamond-italic--family)",
-                "font_size": 16,
+                "font_size": 20,
                 "font_size_mobile": 0,
                 "letter_spacing": 0,
                 "line_height": 1.4,
