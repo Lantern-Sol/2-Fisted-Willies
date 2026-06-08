@@ -9,39 +9,74 @@
  */
 {
   "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 40,
+        "padding-block-end": 80
+      }
+    },
     "hero_WyaXtp": {
       "type": "hero",
       "blocks": {
-        "text_6UGfw8": {
-          "type": "text",
-          "name": "t:names.text",
+        "ls_text_37bD3N": {
+          "type": "ls-text",
+          "name": "LS Text",
           "settings": {
-            "text": "<h1>Frequently</h1><h1>Asked</h1>",
-            "mobile_text": "",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "height_mode": "custom",
-            "desktop_height": "28",
-            "mobile_height": "",
-            "type_preset": "custom",
-            "font": "var(--font-gashroad--family)",
-            "enable_custom_font_weight": false,
-            "weight": "400",
-            "font_size": "1rem",
-            "line_height": 1.4,
-            "letter_spacing": 0,
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "type_preset_mobile": "rte",
-            "mobile_font_size": "1rem",
-            "mobile_custom_line_height": 1.5,
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
+            "text": "<p>Frequently</p>",
+            "font_family": "var(--font-gashroad--family)",
+            "font_size": 128,
+            "font_size_mobile": 64,
+            "letter_spacing": -5,
+            "line_height": 0.4,
+            "font_weight": "400",
+            "text_transform": "none",
+            "text_align": "left",
+            "text_align_mobile": "",
+            "max_width": "none",
+            "text_color": "#eae8f0",
+            "emphasis_color": "",
+            "emphasis_font": "",
+            "emphasis_weight": "",
+            "opacity": 100,
             "padding-block-start": 0,
-            "padding-block-end": 40,
+            "padding-block-end": 8,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "use_mobile_padding": true,
+            "padding-block-start-mobile": 0,
+            "padding-block-end-mobile": 0,
+            "padding-inline-start-mobile": 0,
+            "padding-inline-end-mobile": 0
+          },
+          "blocks": {}
+        },
+        "ls_text_NcHh8m": {
+          "type": "ls-text",
+          "name": "LS Text",
+          "settings": {
+            "text": "<p>Asked</p>",
+            "font_family": "var(--font-gashroad--family)",
+            "font_size": 128,
+            "font_size_mobile": 64,
+            "letter_spacing": -5,
+            "line_height": 0.6,
+            "font_weight": "400",
+            "text_transform": "none",
+            "text_align": "left",
+            "text_align_mobile": "",
+            "max_width": "none",
+            "text_color": "#eae8f0",
+            "emphasis_color": "",
+            "emphasis_font": "",
+            "emphasis_weight": "",
+            "opacity": 100,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0,
             "use_mobile_padding": false,
@@ -52,36 +87,28 @@
           },
           "blocks": {}
         },
-        "text_g4Q3CU": {
-          "type": "text",
-          "name": "t:names.text",
+        "ls_text_mEyTdi": {
+          "type": "ls-text",
+          "name": "LS Text",
           "settings": {
-            "text": "<h2>Questions</h2>",
-            "mobile_text": "",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "height_mode": "custom",
-            "desktop_height": "115",
-            "mobile_height": "",
-            "type_preset": "rte",
-            "font": "var(--font-cormorant-garamond-italic--family)",
-            "enable_custom_font_weight": false,
-            "weight": "400",
-            "font_size": "1rem",
-            "line_height": 1.4,
-            "letter_spacing": 0,
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "type_preset_mobile": "rte",
-            "mobile_font_size": "1rem",
-            "mobile_custom_line_height": 1.5,
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
+            "text": "<p>Questions</p>",
+            "font_family": "var(--font-cormorant-garamond-italic--family)",
+            "font_size": 128,
+            "font_size_mobile": 64,
+            "letter_spacing": -5,
+            "line_height": 0.5,
+            "font_weight": "400",
+            "text_transform": "uppercase",
+            "text_align": "left",
+            "text_align_mobile": "",
+            "max_width": "none",
+            "text_color": "",
+            "emphasis_color": "",
+            "emphasis_font": "",
+            "emphasis_weight": "",
+            "opacity": 100,
             "padding-block-start": 0,
-            "padding-block-end": 0,
+            "padding-block-end": 16,
             "padding-inline-start": 0,
             "padding-inline-end": 0,
             "use_mobile_padding": false,
@@ -113,8 +140,8 @@
             "mobile_gap": 12,
             "width": "custom",
             "custom_width": 60,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
+            "width_mobile": "custom",
+            "custom_width_mobile": 95,
             "height": "fit",
             "custom_height": 100,
             "inherit_color_scheme": true,
@@ -144,35 +171,27 @@
             "padding-inline-end-mobile": 0
           },
           "blocks": {
-            "text_N9AK7z": {
-              "type": "text",
-              "name": "t:names.text",
+            "ls_text_pwYGFe": {
+              "type": "ls-text",
+              "name": "LS Text",
               "settings": {
                 "text": "<p>Everything you need to know before you roll into Willie's — tickets, parking, private parties, and the rest.</p>",
-                "mobile_text": "",
-                "width": "fit-content",
-                "max_width": "none",
-                "alignment": "left",
-                "height_mode": "auto",
-                "desktop_height": "",
-                "mobile_height": "",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "enable_custom_font_weight": false,
-                "weight": "400",
-                "font_size": "1rem",
-                "line_height": 1.4,
+                "font_family": "var(--font-cormorant-garamond--family)",
+                "font_size": 26,
+                "font_size_mobile": 20,
                 "letter_spacing": 0,
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "type_preset_mobile": "rte",
-                "mobile_font_size": "1rem",
-                "mobile_custom_line_height": 1.5,
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
+                "line_height": 1,
+                "font_weight": "400",
+                "text_transform": "none",
+                "text_align": "center",
+                "text_align_mobile": "",
+                "max_width": "none",
+                "text_color": "",
+                "emphasis_color": "",
+                "emphasis_font": "",
+                "emphasis_weight": "",
+                "opacity": 100,
+                "padding-block-start": 16,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0,
@@ -186,20 +205,17 @@
             }
           },
           "block_order": [
-            "text_N9AK7z"
+            "ls_text_pwYGFe"
           ]
         }
       },
       "block_order": [
-        "text_6UGfw8",
-        "text_g4Q3CU",
+        "ls_text_37bD3N",
+        "ls_text_NcHh8m",
+        "ls_text_mEyTdi",
         "group_LMy4Jn"
       ],
-      "custom_css": [
-        "h1 {color: #eae8f0; font-size: 128px; letter-spacing: -6.4px;}",
-        "h2 {color: #b8c8f2; font-size: 128px; letter-spacing: -6.4px; text-transform: uppercase;}",
-        "p {color: #b8c8f2; text-align: center; font-family: \"Cormorant Garamond\"; font-size: 26px; font-style: normal; font-weight: 400; line-height: normal;}"
-      ],
+      "custom_css": [],
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
@@ -243,20 +259,493 @@
         "padding-block-end-mobile": 0
       }
     },
-    "main": {
-      "type": "main-page",
-      "disabled": true,
+    "ls_faq_page_C9FXpd": {
+      "type": "ls-faq-page",
+      "blocks": {
+        "ls_faq_category_TzLXMm": {
+          "type": "ls-faq-category",
+          "settings": {
+            "heading": "General"
+          },
+          "blocks": {
+            "ls_faq_item_KBMbNN": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "How long has 2 Fisted Willie's been around?",
+                "answer": "<p>90 years and counting. We're not a themed bar trying to look old — we're the real thing, and we've been a Chevy Chase staple longer than most folks have been alive.</p>",
+                "open_by_default": false
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_yQXdcq": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "Where are you located?",
+                "answer": "<p>Right in the heart of Lexington's neighborhood, steps from the University of Kentucky campus and Kroger Field, over the corner of Woodland and Euclid.</p>",
+                "open_by_default": false
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_fgAb6a": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "What are your hours?",
+                "answer": "<p>We're open daily, except Sundays, with live music every Friday and Saturday night. Hours are Thu–Sat: 4PM – 2AM, and Mon – Tue 4PM – 12AM.</p>",
+                "open_by_default": false
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_mPme6F": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "Can I bring outside food?",
+                "answer": "<p>Absolutely. There's a Great Bagel, Wing Stop, and Subway right in the same center, so grab what you want and bring it on in. We're a bar first — the food's on you, the drinks are on us.</p>",
+                "open_by_default": false
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_JiTwVD": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "is there a dress code?",
+                "answer": "<p>Nope. Come as you are. Game day jersey, work clothes, boots — whatever gets you here.</p>",
+                "open_by_default": false
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "ls_faq_item_KBMbNN",
+            "ls_faq_item_yQXdcq",
+            "ls_faq_item_fgAb6a",
+            "ls_faq_item_mPme6F",
+            "ls_faq_item_JiTwVD"
+          ]
+        },
+        "ls_faq_category_xQ9qXJ": {
+          "type": "ls-faq-category",
+          "settings": {
+            "heading": "TICKETS & EVENTS"
+          },
+          "blocks": {
+            "ls_faq_item_nbtUNf": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "How do I buy tickets for a show?",
+                "answer": "<p>Head to our Events page, find the show you want, and grab tickets right there. Bigger touring acts are ticketed in advance; smaller shows may just have a cover at the door.</p>",
+                "open_by_default": true
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_rn8TaT": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "Do you have live music every weekend?",
+                "answer": "<p>Every Friday and Saturday night, year-round. Local college bands, DJs, and nationally touring artists — the guitar never stops at Willie's.</p>",
+                "open_by_default": true
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_eWCLWA": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "Can I get a refund on tickets?",
+                "answer": "<p>Refund policies depend on the event and the ticketing platform. Reach out before the show and we'll point you in the right direction.</p>",
+                "open_by_default": true
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "ls_faq_item_nbtUNf",
+            "ls_faq_item_rn8TaT",
+            "ls_faq_item_eWCLWA"
+          ]
+        },
+        "group_ACptBU": {
+          "type": "group",
+          "name": "Still Got Questions?",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "use_mobile_alignment": false,
+            "mobile_horizontal_alignment": "flex-start",
+            "mobile_vertical_alignment": "center",
+            "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+            "mobile_vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "use_mobile_gap": false,
+            "mobile_gap": 12,
+            "width": "custom",
+            "custom_width": 95,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "image",
+            "video_position": "cover",
+            "background_image": "shopify://shop_images/cardstock-large.jpg",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 64,
+            "padding-block-end": 48,
+            "padding-inline-start": 48,
+            "padding-inline-end": 48,
+            "use_mobile_padding": true,
+            "padding-block-start-mobile": 24,
+            "padding-block-end-mobile": 0,
+            "padding-inline-start-mobile": 0,
+            "padding-inline-end-mobile": 0
+          },
+          "blocks": {
+            "ls_text_CPy6Db": {
+              "type": "ls-text",
+              "name": "LS Text",
+              "settings": {
+                "text": "<p>Still Got</p>",
+                "font_family": "var(--font-gashroad--family)",
+                "font_size": 56,
+                "font_size_mobile": 0,
+                "letter_spacing": 0,
+                "line_height": 1,
+                "font_weight": "400",
+                "text_transform": "none",
+                "text_align": "left",
+                "text_align_mobile": "",
+                "max_width": "none",
+                "text_color": "#143379",
+                "emphasis_color": "",
+                "emphasis_font": "",
+                "emphasis_weight": "",
+                "opacity": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "use_mobile_padding": false,
+                "padding-block-start-mobile": 0,
+                "padding-block-end-mobile": 0,
+                "padding-inline-start-mobile": 0,
+                "padding-inline-end-mobile": 0
+              },
+              "blocks": {}
+            },
+            "ls_text_RqkiLE": {
+              "type": "ls-text",
+              "name": "LS Text",
+              "settings": {
+                "text": "<p>Questions?</p>",
+                "font_family": "var(--font-cormorant-garamond-italic--family)",
+                "font_size": 84,
+                "font_size_mobile": 0,
+                "letter_spacing": -4.2,
+                "line_height": 0,
+                "font_weight": "400",
+                "text_transform": "none",
+                "text_align": "left",
+                "text_align_mobile": "",
+                "max_width": "none",
+                "text_color": "#1e1e2e",
+                "emphasis_color": "",
+                "emphasis_font": "",
+                "emphasis_weight": "",
+                "opacity": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 48,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "use_mobile_padding": false,
+                "padding-block-start-mobile": 0,
+                "padding-block-end-mobile": 0,
+                "padding-inline-start-mobile": 0,
+                "padding-inline-end-mobile": 0
+              },
+              "blocks": {}
+            },
+            "group_4iTjh4": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "center",
+                "use_mobile_alignment": false,
+                "mobile_horizontal_alignment": "flex-start",
+                "mobile_vertical_alignment": "center",
+                "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                "mobile_vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "use_mobile_gap": false,
+                "mobile_gap": 12,
+                "width": "custom",
+                "custom_width": 95,
+                "width_mobile": "custom",
+                "custom_width_mobile": 90,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "use_mobile_padding": false,
+                "padding-block-start-mobile": 0,
+                "padding-block-end-mobile": 0,
+                "padding-inline-start-mobile": 0,
+                "padding-inline-end-mobile": 0
+              },
+              "blocks": {
+                "ls_text_BBxDwB": {
+                  "type": "ls-text",
+                  "name": "LS Text",
+                  "settings": {
+                    "text": "<p>Give us a shout and we'll get you sorted — or start planning your private party with us.</p>",
+                    "font_family": "var(--font-cormorant-garamond--family)",
+                    "font_size": 20,
+                    "font_size_mobile": 0,
+                    "letter_spacing": 0.5,
+                    "line_height": 1,
+                    "font_weight": "400",
+                    "text_transform": "none",
+                    "text_align": "center",
+                    "text_align_mobile": "",
+                    "max_width": "none",
+                    "text_color": "#1e1e2e",
+                    "emphasis_color": "",
+                    "emphasis_font": "",
+                    "emphasis_weight": "",
+                    "opacity": 100,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 0,
+                    "padding-block-end-mobile": 0,
+                    "padding-inline-start-mobile": 0,
+                    "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "ls_text_BBxDwB"
+              ]
+            },
+            "group_inVNRh": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "center",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "use_mobile_alignment": false,
+                "mobile_horizontal_alignment": "flex-start",
+                "mobile_vertical_alignment": "center",
+                "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                "mobile_vertical_alignment_flex_direction_column": "center",
+                "gap": 16,
+                "use_mobile_gap": false,
+                "mobile_gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 16,
+                "padding-block-end": 16,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16,
+                "use_mobile_padding": false,
+                "padding-block-start-mobile": 0,
+                "padding-block-end-mobile": 0,
+                "padding-inline-start-mobile": 0,
+                "padding-inline-end-mobile": 0
+              },
+              "blocks": {
+                "ls_button_4jm4p4": {
+                  "type": "ls-button",
+                  "name": "LS Button",
+                  "settings": {
+                    "label": "Contact Us",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "style": "filled",
+                    "alignment": "flex-start",
+                    "alignment_mobile": "",
+                    "full_width": false,
+                    "full_width_mobile": true,
+                    "font_family": "var(--font-body--family)",
+                    "font_size": 16,
+                    "letter_spacing": 2.4,
+                    "text_transform": "uppercase",
+                    "bg_color": "#0b4bba",
+                    "text_color": "#eae8f0",
+                    "border_color": "",
+                    "bg_hover_color": "",
+                    "text_hover_color": "",
+                    "border_hover_color": "",
+                    "padding-block-start": 16,
+                    "padding-block-end": 16,
+                    "padding-inline-start": 16,
+                    "padding-inline-end": 16,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 16,
+                    "padding-block-end-mobile": 16,
+                    "padding-inline-start-mobile": 24,
+                    "padding-inline-end-mobile": 24
+                  },
+                  "blocks": {}
+                },
+                "ls_button_fniGmW": {
+                  "type": "ls-button",
+                  "name": "LS Button",
+                  "settings": {
+                    "label": "Plan a Private Event",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "style": "filled",
+                    "alignment": "flex-start",
+                    "alignment_mobile": "",
+                    "full_width": false,
+                    "full_width_mobile": true,
+                    "font_family": "var(--font-body--family)",
+                    "font_size": 16,
+                    "letter_spacing": 2.4,
+                    "text_transform": "uppercase",
+                    "bg_color": "#b8c8f2",
+                    "text_color": "#004fdf",
+                    "border_color": "",
+                    "bg_hover_color": "",
+                    "text_hover_color": "",
+                    "border_hover_color": "",
+                    "padding-block-start": 16,
+                    "padding-block-end": 16,
+                    "padding-inline-start": 16,
+                    "padding-inline-end": 16,
+                    "use_mobile_padding": true,
+                    "padding-block-start-mobile": 16,
+                    "padding-block-end-mobile": 16,
+                    "padding-inline-start-mobile": 0,
+                    "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "ls_button_4jm4p4",
+                "ls_button_fniGmW"
+              ]
+            }
+          },
+          "block_order": [
+            "ls_text_CPy6Db",
+            "ls_text_RqkiLE",
+            "group_4iTjh4",
+            "group_inVNRh"
+          ]
+        }
+      },
+      "block_order": [
+        "ls_faq_category_TzLXMm",
+        "ls_faq_category_xQ9qXJ",
+        "group_ACptBU"
+      ],
+      "custom_css": [
+        ".background-image-container::before {display: none;}"
+      ],
+      "name": "LS FAQ Page",
       "settings": {
-        "content_direction": "column",
-        "gap": 32,
-        "color_scheme": "",
-        "padding-block-start": 40,
-        "padding-block-end": 80
+        "heading": "",
+        "bg_color": "#0e1018",
+        "heading_color": "#eae8f0",
+        "question_color": "#9ca0b8",
+        "icon_color": "#7e9de4",
+        "answer_color": "#eae8f0",
+        "border_color": "#1e1e2e",
+        "padding-block-start": 64,
+        "padding-block-end": 96
+      }
+    },
+    "ls_newsletter_signup_pi3t3Q": {
+      "type": "ls-newsletter-signup",
+      "name": "LS Newsletter Signup",
+      "settings": {
+        "eyebrow": "★ Never miss a show",
+        "heading_line_1": "Be the first",
+        "heading_line_2": "to know",
+        "body": "Drop your number. We'll text when tickets go on sale and when a band you've been waiting on rolls through Lexington. No spam — just the show calendar.",
+        "tab_1": "Text (SMS)",
+        "tab_2": "Email",
+        "input_placeholder": "(959) 555 -0142",
+        "button_label": "Sign me up →",
+        "terms": "<p>By signing up you agree to receive recurring marketing texts from 2 Fisted Willie's. Msg & data rates may apply. Text STOP to opt out. View <a href=\"#\">terms.</a></p>",
+        "padding-block-start": 64,
+        "padding-block-end": 64
       }
     }
   },
   "order": [
+    "main",
     "hero_WyaXtp",
-    "main"
+    "ls_faq_page_C9FXpd",
+    "ls_newsletter_signup_pi3t3Q"
   ]
 }
