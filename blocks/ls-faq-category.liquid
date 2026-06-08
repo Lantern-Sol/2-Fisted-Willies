@@ -1,0 +1,85 @@
+{%- liquid
+  assign b = block.settings
+-%}
+<div class="ls-faq-cat" {{ block.shopify_attributes }}>
+  {%- if b.heading != blank -%}
+    <h3 class="ls-faq-cat__title">{{ b.heading }}</h3>
+  {%- endif -%}
+  <div class="ls-faq-cat__items">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-faq-cat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px;
+    border: 1px solid var(--ls-faq-border, #1e1e2e);
+  }
+
+  .ls-faq-cat__title {
+    margin: 0;
+    font-family: var(--font-gashroad--family);
+    font-weight: 400;
+    font-size: clamp(40px, 7vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.36px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--ls-faq-heading, #eae8f0);
+  }
+
+  .ls-faq-cat__items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS FAQ Category",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "ls-faq-item"
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Category heading",
+      "default": "General"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS FAQ Category",
+      "category": "t:categories.custom",
+      "blocks": [
+        {
+          "type": "ls-faq-item",
+          "settings": {
+            "question": "How long has 2 Fisted Willie's been around?",
+            "answer": "<p>90 years and counting. We're not a themed bar trying to look old — we're the real thing, and we've been a Chevy Chase staple longer than most folks have been alive.</p>"
+          }
+        },
+        {
+          "type": "ls-faq-item",
+          "settings": {
+            "question": "Where are you located?",
+            "answer": "<p>Right in the heart of Lexington's neighborhood, steps from the University of Kentucky campus and Kroger Field, over the corner of Woodland and Euclid.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
