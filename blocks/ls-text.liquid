@@ -1,0 +1,382 @@
+{%- liquid
+  assign s = block.settings
+
+  assign msize = s.font_size_mobile
+  if msize == 0
+    assign msize = s.font_size
+  endif
+-%}
+<div
+  class="ls-text spacing-style"
+  {{ block.shopify_attributes }}
+  style="
+    --ls-text-font: {{ s.font_family }};
+    --ls-text-size: {{ s.font_size }}px;
+    --ls-text-size-mobile: {{ msize }}px;
+    --ls-text-ls: {{ s.letter_spacing }}px;
+    --ls-text-lh: {{ s.line_height }};
+    --ls-text-weight: {{ s.font_weight }};
+    --ls-text-transform: {{ s.text_transform }};
+    --ls-text-align: {{ s.text_align }};
+    {%- if s.text_align_mobile != blank %} --ls-text-align-mobile: {{ s.text_align_mobile }};{% endif -%}
+    --ls-text-maxwidth: {{ s.max_width }};
+    {%- if s.opacity != blank and s.opacity < 100 %} --ls-text-opacity: {{ s.opacity | divided_by: 100.0 }};{% endif -%}
+    {%- if s.text_color != blank %} --ls-text-color: {{ s.text_color }};{% endif -%}
+    {%- if s.emphasis_color != blank %} --ls-text-emph-color: {{ s.emphasis_color }};{% endif -%}
+    {%- if s.emphasis_font != blank %} --ls-text-emph-font: {{ s.emphasis_font }};{% endif -%}
+    {%- if s.emphasis_weight != blank %} --ls-text-emph-weight: {{ s.emphasis_weight }};{% endif -%}
+    {% render 'spacing-style', settings: block.settings %}
+  "
+>
+  <div class="ls-text__content rte">{{ s.text }}</div>
+</div>
+
+{% stylesheet %}
+  .ls-text {
+    box-sizing: border-box;
+    max-width: var(--ls-text-maxwidth, none);
+    font-family: var(--ls-text-font, var(--font-body--family));
+    font-size: var(--ls-text-size, 16px);
+    letter-spacing: var(--ls-text-ls, 0);
+    line-height: var(--ls-text-lh, 1.4);
+    font-weight: var(--ls-text-weight, 400);
+    text-transform: var(--ls-text-transform, none);
+    text-align: var(--ls-text-align, left);
+    color: var(--ls-text-color, var(--color-foreground, currentColor));
+  }
+
+  .ls-text__content {
+    opacity: var(--ls-text-opacity, 1);
+  }
+
+  /* Inherit the block's type so headings/paragraphs inside the rte all adopt
+     these settings instead of the theme presets. */
+  .ls-text__content,
+  .ls-text__content h1,
+  .ls-text__content h2,
+  .ls-text__content h3,
+  .ls-text__content h4,
+  .ls-text__content h5,
+  .ls-text__content h6,
+  .ls-text__content p {
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+    text-transform: inherit;
+    color: inherit;
+  }
+
+  .ls-text__content > :first-child {
+    margin-top: 0;
+  }
+  .ls-text__content > :last-child {
+    margin-bottom: 0;
+  }
+
+  /* Emphasis (<strong>/<b>): optional distinct color + font. Replaces
+     `p strong { color: … }` and `h2 strong { font-family: … }` custom_css. */
+  .ls-text__content strong,
+  .ls-text__content b {
+    color: var(--ls-text-emph-color, inherit);
+    font-family: var(--ls-text-emph-font, inherit);
+    font-weight: var(--ls-text-emph-weight, bold);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ls-text {
+      font-size: var(--ls-text-size-mobile, var(--ls-text-size, 16px));
+      text-align: var(--ls-text-align-mobile, var(--ls-text-align, left));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Text",
+  "tag": null,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Add your text here.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Type"
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font",
+      "options": [
+        { "value": "var(--font-body--family)", "label": "Body (DM Sans)" },
+        { "value": "var(--font-heading--family)", "label": "Heading" },
+        { "value": "var(--font-gashroad--family)", "label": "Gashroad" },
+        { "value": "var(--font-cormorant-garamond--family)", "label": "Cormorant Garamond" },
+        { "value": "var(--font-cormorant-garamond-italic--family)", "label": "Cormorant Garamond Italic" },
+        { "value": "var(--font-accent--family)", "label": "Accent" }
+      ],
+      "default": "var(--font-body--family)"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Font size (mobile)",
+      "info": "0 = same as desktop.",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": -5,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height",
+      "min": 0,
+      "max": 2.5,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Weight",
+      "options": [
+        { "value": "300", "label": "Light (300)" },
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semibold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Case",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "lowercase", "label": "lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_align_mobile",
+      "label": "Alignment (mobile)",
+      "options": [
+        { "value": "", "label": "Same as desktop" },
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "max_width",
+      "label": "Max width",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "40ch", "label": "Narrow" },
+        { "value": "60ch", "label": "Normal" },
+        { "value": "80ch", "label": "Wide" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave blank to inherit the section color."
+    },
+    {
+      "type": "color",
+      "id": "emphasis_color",
+      "label": "Emphasis color (bold text)",
+      "info": "Color for <strong>/<b>. Blank = same as text."
+    },
+    {
+      "type": "select",
+      "id": "emphasis_font",
+      "label": "Emphasis font (bold text)",
+      "options": [
+        { "value": "", "label": "Same as text" },
+        { "value": "var(--font-gashroad--family)", "label": "Gashroad" },
+        { "value": "var(--font-cormorant-garamond--family)", "label": "Cormorant Garamond" },
+        { "value": "var(--font-cormorant-garamond-italic--family)", "label": "Cormorant Garamond Italic" },
+        { "value": "var(--font-heading--family)", "label": "Heading" },
+        { "value": "var(--font-accent--family)", "label": "Accent" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "emphasis_weight",
+      "label": "Emphasis weight (bold text)",
+      "info": "Set to Regular when using bold only to switch fonts.",
+      "options": [
+        { "value": "", "label": "Bold (default)" },
+        { "value": "inherit", "label": "Match text" },
+        { "value": "300", "label": "Light (300)" },
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semibold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "range",
+      "id": "opacity",
+      "label": "Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_padding",
+      "label": "Use mobile padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start-mobile",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end-mobile",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start-mobile",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end-mobile",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Text",
+      "category": "t:categories.custom"
+    }
+  ]
+}
+{% endschema %}

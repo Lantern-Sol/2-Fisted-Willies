@@ -1,0 +1,403 @@
+{%- liquid
+  assign s = block.settings
+  # The wrap only needs full width to position a lone button (center/right) or to
+  # stretch it. Left/default stays fit-content so multiple buttons sit next to each
+  # other and the parent group's gap controls spacing (like the hero buttons).
+  assign wrap_fill = false
+  if s.full_width or s.alignment != 'flex-start'
+    assign wrap_fill = true
+  endif
+  if s.alignment_mobile != blank and s.alignment_mobile != 'flex-start'
+    assign wrap_fill = true
+  endif
+-%}
+<div
+  class="ls-button-wrap{% if wrap_fill %} ls-button-wrap--fill{% endif %}{% if s.full_width_mobile %} ls-button-wrap--fill-mobile{% endif %}"
+  {{ block.shopify_attributes }}
+  style="--ls-btn-align: {{ s.alignment }};{% if s.alignment_mobile != blank %} --ls-btn-align-mobile: {{ s.alignment_mobile }};{% endif %}"
+>
+  <a
+    class="ls-button ls-button--{{ s.style }}{% if s.full_width %} ls-button--full{% endif %}{% if s.full_width_mobile %} ls-button--full-mobile{% endif %}"
+    href="{{ s.link | default: '#' }}"
+    {% if s.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}
+    style="
+      --ls-btn-font: {{ s.font_family }};
+      --ls-btn-size: {{ s.font_size }}px;
+      --ls-btn-ls: {{ s.letter_spacing }}px;
+      --ls-btn-transform: {{ s.text_transform }};
+      {%- if s.bg_color != blank %} --ls-btn-bg: {{ s.bg_color }};{% endif -%}
+      {%- if s.text_color != blank %} --ls-btn-text: {{ s.text_color }};{% endif -%}
+      {%- if s.border_color != blank %} --ls-btn-border: {{ s.border_color }};{% endif -%}
+      {%- if s.bg_hover_color != blank %} --ls-btn-bg-hover: {{ s.bg_hover_color }};{% endif -%}
+      {%- if s.text_hover_color != blank %} --ls-btn-text-hover: {{ s.text_hover_color }};{% endif -%}
+      {%- if s.border_hover_color != blank %} --ls-btn-border-hover: {{ s.border_hover_color }};{% endif -%}
+      {% render 'spacing-style', settings: block.settings %}
+    "
+  >
+    {{ s.label }}
+  </a>
+</div>
+
+{% stylesheet %}
+  /* fit-content by default: buttons sit next to each other and the container's
+     gap/distribution controls spacing. --fill expands it only when a lone button
+     needs centering/right-alignment or full width. */
+  .ls-button-wrap {
+    display: flex;
+    justify-content: var(--ls-btn-align, flex-start);
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .ls-button-wrap--fill {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ls-button-wrap {
+      justify-content: var(--ls-btn-align-mobile, var(--ls-btn-align, flex-start));
+    }
+    .ls-button-wrap--fill-mobile {
+      width: 100%;
+    }
+    .ls-button--full-mobile {
+      width: 100%;
+    }
+  }
+
+  .ls-button {
+    --pad-bs: var(--padding-block-start, 1rem);
+    --pad-be: var(--padding-block-end, 1rem);
+    --pad-is: var(--padding-inline-start, 1.5rem);
+    --pad-ie: var(--padding-inline-end, 1.5rem);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: var(--pad-bs) var(--pad-ie) var(--pad-be) var(--pad-is);
+    font-family: var(--ls-btn-font, var(--font-body--family));
+    font-size: var(--ls-btn-size, 16px);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: var(--ls-btn-ls, 2.4px);
+    text-transform: var(--ls-btn-transform, uppercase);
+    text-decoration: none;
+    border: 1px solid var(--ls-btn-border, transparent);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .ls-button--full {
+    width: 100%;
+  }
+
+  /* Filled */
+  .ls-button--filled {
+    background-color: var(--ls-btn-bg, #0b4bba);
+    color: var(--ls-btn-text, #eae8f0);
+  }
+  .ls-button--filled:hover {
+    background-color: var(--ls-btn-bg-hover, var(--ls-btn-text, #eae8f0));
+    color: var(--ls-btn-text-hover, var(--ls-btn-bg, #0b4bba));
+    border-color: var(--ls-btn-border-hover, var(--ls-btn-border, transparent));
+  }
+
+  /* Outline */
+  .ls-button--outline {
+    background-color: transparent;
+    color: var(--ls-btn-bg, #0b4bba);
+    border-color: var(--ls-btn-border, var(--ls-btn-bg, #0b4bba));
+  }
+  .ls-button--outline:hover {
+    background-color: var(--ls-btn-bg-hover, var(--ls-btn-bg, #0b4bba));
+    color: var(--ls-btn-text-hover, #eae8f0);
+    border-color: var(--ls-btn-border-hover, var(--ls-btn-border, var(--ls-btn-bg, #0b4bba)));
+  }
+
+  /* Underline link (replaces the `a { text-decoration: underline; … }` hack) */
+  .ls-button--link {
+    padding-inline: 0;
+    background: transparent;
+    border: 0;
+    color: var(--ls-btn-text, var(--color-foreground, currentColor));
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ls-button--link:hover {
+    color: var(--ls-btn-text-hover, var(--ls-btn-text, currentColor));
+  }
+
+  /* Mobile padding remap — must come after the base .ls-button rule so it wins
+     the cascade on mobile (equal specificity → later rule wins). */
+  @media screen and (max-width: 749px) {
+    .ls-button {
+      --pad-bs: var(--padding-block-start-mobile, var(--padding-block-start, 1rem));
+      --pad-be: var(--padding-block-end-mobile, var(--padding-block-end, 1rem));
+      --pad-is: var(--padding-inline-start-mobile, var(--padding-inline-start, 1.5rem));
+      --pad-ie: var(--padding-inline-end-mobile, var(--padding-inline-end, 1.5rem));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Get Directions"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Open in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        { "value": "filled", "label": "Filled" },
+        { "value": "outline", "label": "Outline" },
+        { "value": "link", "label": "Underline link" }
+      ],
+      "default": "filled"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "select",
+      "id": "alignment_mobile",
+      "label": "Alignment (mobile)",
+      "options": [
+        { "value": "", "label": "Same as desktop" },
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_mobile",
+      "label": "Full width on mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Type"
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font",
+      "options": [
+        { "value": "var(--font-body--family)", "label": "Body (DM Sans)" },
+        { "value": "var(--font-heading--family)", "label": "Heading" },
+        { "value": "var(--font-gashroad--family)", "label": "Gashroad" },
+        { "value": "var(--font-cormorant-garamond--family)", "label": "Cormorant Garamond" },
+        { "value": "var(--font-accent--family)", "label": "Accent" }
+      ],
+      "default": "var(--font-body--family)"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 6,
+      "step": 0.1,
+      "unit": "px",
+      "default": 2.4
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Case",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "lowercase", "label": "lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background / accent",
+      "default": "#0b4bba"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Applies to any style. Outline uses the accent color if left blank."
+    },
+    {
+      "type": "color",
+      "id": "bg_hover_color",
+      "label": "Background (hover)"
+    },
+    {
+      "type": "color",
+      "id": "text_hover_color",
+      "label": "Text (hover)"
+    },
+    {
+      "type": "color",
+      "id": "border_hover_color",
+      "label": "Border (hover)"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_padding",
+      "label": "Use mobile padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start-mobile",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end-mobile",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start-mobile",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end-mobile",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Button",
+      "category": "t:categories.custom"
+    }
+  ]
+}
+{% endschema %}
