@@ -625,7 +625,7 @@
                   "name": "LS Button",
                   "settings": {
                     "label": "Contact Us",
-                    "link": "",
+                    "link": "shopify://pages/contact",
                     "open_in_new_tab": false,
                     "style": "filled",
                     "alignment": "flex-start",
@@ -659,7 +659,7 @@
                   "name": "LS Button",
                   "settings": {
                     "label": "Plan a Private Event",
-                    "link": "",
+                    "link": "shopify://pages/private-event",
                     "open_in_new_tab": false,
                     "style": "filled",
                     "alignment": "flex-start",
