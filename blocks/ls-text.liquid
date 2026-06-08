@@ -18,11 +18,13 @@
     --ls-text-weight: {{ s.font_weight }};
     --ls-text-transform: {{ s.text_transform }};
     --ls-text-align: {{ s.text_align }};
+    {%- if s.text_align_mobile != blank %} --ls-text-align-mobile: {{ s.text_align_mobile }};{% endif -%}
     --ls-text-maxwidth: {{ s.max_width }};
-    --ls-text-opacity: {{ s.opacity | divided_by: 100.0 }};
+    {%- if s.opacity != blank and s.opacity < 100 %} --ls-text-opacity: {{ s.opacity | divided_by: 100.0 }};{% endif -%}
     {%- if s.text_color != blank %} --ls-text-color: {{ s.text_color }};{% endif -%}
     {%- if s.emphasis_color != blank %} --ls-text-emph-color: {{ s.emphasis_color }};{% endif -%}
     {%- if s.emphasis_font != blank %} --ls-text-emph-font: {{ s.emphasis_font }};{% endif -%}
+    {%- if s.emphasis_weight != blank %} --ls-text-emph-weight: {{ s.emphasis_weight }};{% endif -%}
     {% render 'spacing-style', settings: block.settings %}
   "
 >
@@ -40,7 +42,7 @@
     font-weight: var(--ls-text-weight, 400);
     text-transform: var(--ls-text-transform, none);
     text-align: var(--ls-text-align, left);
-    color: var(--ls-text-color, inherit);
+    color: var(--ls-text-color, var(--color-foreground, currentColor));
   }
 
   .ls-text__content {
@@ -79,11 +81,13 @@
   .ls-text__content b {
     color: var(--ls-text-emph-color, inherit);
     font-family: var(--ls-text-emph-font, inherit);
+    font-weight: var(--ls-text-emph-weight, bold);
   }
 
   @media screen and (max-width: 749px) {
     .ls-text {
       font-size: var(--ls-text-size-mobile, var(--ls-text-size, 16px));
+      text-align: var(--ls-text-align-mobile, var(--ls-text-align, left));
     }
   }
 {% endstylesheet %}
@@ -152,7 +156,7 @@
       "type": "range",
       "id": "line_height",
       "label": "Line height",
-      "min": 0.8,
+      "min": 0,
       "max": 2.5,
       "step": 0.1,
       "default": 1.4
@@ -195,6 +199,18 @@
     },
     {
       "type": "select",
+      "id": "text_align_mobile",
+      "label": "Alignment (mobile)",
+      "options": [
+        { "value": "", "label": "Same as desktop" },
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
       "id": "max_width",
       "label": "Max width",
       "options": [
@@ -234,6 +250,32 @@
         { "value": "var(--font-accent--family)", "label": "Accent" }
       ],
       "default": ""
+    },
+    {
+      "type": "select",
+      "id": "emphasis_weight",
+      "label": "Emphasis weight (bold text)",
+      "info": "Set to Regular when using bold only to switch fonts.",
+      "options": [
+        { "value": "", "label": "Bold (default)" },
+        { "value": "inherit", "label": "Match text" },
+        { "value": "300", "label": "Light (300)" },
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semibold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "range",
+      "id": "opacity",
+      "label": "Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100
     },
     {
       "type": "header",

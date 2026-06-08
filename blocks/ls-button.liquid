@@ -1,13 +1,23 @@
 {%- liquid
   assign s = block.settings
+  # The wrap only needs full width to position a lone button (center/right) or to
+  # stretch it. Left/default stays fit-content so multiple buttons sit next to each
+  # other and the parent group's gap controls spacing (like the hero buttons).
+  assign wrap_fill = false
+  if s.full_width or s.alignment != 'flex-start'
+    assign wrap_fill = true
+  endif
+  if s.alignment_mobile != blank and s.alignment_mobile != 'flex-start'
+    assign wrap_fill = true
+  endif
 -%}
 <div
-  class="ls-button-wrap"
+  class="ls-button-wrap{% if wrap_fill %} ls-button-wrap--fill{% endif %}{% if s.full_width_mobile %} ls-button-wrap--fill-mobile{% endif %}"
   {{ block.shopify_attributes }}
-  style="--ls-btn-align: {{ s.alignment }};"
+  style="--ls-btn-align: {{ s.alignment }};{% if s.alignment_mobile != blank %} --ls-btn-align-mobile: {{ s.alignment_mobile }};{% endif %}"
 >
   <a
-    class="ls-button ls-button--{{ s.style }}{% if s.full_width %} ls-button--full{% endif %}"
+    class="ls-button ls-button--{{ s.style }}{% if s.full_width %} ls-button--full{% endif %}{% if s.full_width_mobile %} ls-button--full-mobile{% endif %}"
     href="{{ s.link | default: '#' }}"
     {% if s.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}
     style="
@@ -15,11 +25,12 @@
       --ls-btn-size: {{ s.font_size }}px;
       --ls-btn-ls: {{ s.letter_spacing }}px;
       --ls-btn-transform: {{ s.text_transform }};
-      --ls-btn-bg: {{ s.bg_color }};
-      --ls-btn-text: {{ s.text_color }};
-      --ls-btn-border: {{ s.border_color }};
-      --ls-btn-bg-hover: {{ s.bg_hover_color }};
-      --ls-btn-text-hover: {{ s.text_hover_color }};
+      {%- if s.bg_color != blank %} --ls-btn-bg: {{ s.bg_color }};{% endif -%}
+      {%- if s.text_color != blank %} --ls-btn-text: {{ s.text_color }};{% endif -%}
+      {%- if s.border_color != blank %} --ls-btn-border: {{ s.border_color }};{% endif -%}
+      {%- if s.bg_hover_color != blank %} --ls-btn-bg-hover: {{ s.bg_hover_color }};{% endif -%}
+      {%- if s.text_hover_color != blank %} --ls-btn-text-hover: {{ s.text_hover_color }};{% endif -%}
+      {%- if s.border_hover_color != blank %} --ls-btn-border-hover: {{ s.border_hover_color }};{% endif -%}
       {% render 'spacing-style', settings: block.settings %}
     "
   >
@@ -28,10 +39,30 @@
 </div>
 
 {% stylesheet %}
+  /* fit-content by default: buttons sit next to each other and the container's
+     gap/distribution controls spacing. --fill expands it only when a lone button
+     needs centering/right-alignment or full width. */
   .ls-button-wrap {
     display: flex;
     justify-content: var(--ls-btn-align, flex-start);
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .ls-button-wrap--fill {
     width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ls-button-wrap {
+      justify-content: var(--ls-btn-align-mobile, var(--ls-btn-align, flex-start));
+    }
+    .ls-button-wrap--fill-mobile {
+      width: 100%;
+    }
+    .ls-button--full-mobile {
+      width: 100%;
+    }
   }
 
   .ls-button {
@@ -52,7 +83,7 @@
     letter-spacing: var(--ls-btn-ls, 2.4px);
     text-transform: var(--ls-btn-transform, uppercase);
     text-decoration: none;
-    border: 1px solid transparent;
+    border: 1px solid var(--ls-btn-border, transparent);
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
@@ -69,6 +100,7 @@
   .ls-button--filled:hover {
     background-color: var(--ls-btn-bg-hover, var(--ls-btn-text, #eae8f0));
     color: var(--ls-btn-text-hover, var(--ls-btn-bg, #0b4bba));
+    border-color: var(--ls-btn-border-hover, var(--ls-btn-border, transparent));
   }
 
   /* Outline */
@@ -80,6 +112,7 @@
   .ls-button--outline:hover {
     background-color: var(--ls-btn-bg-hover, var(--ls-btn-bg, #0b4bba));
     color: var(--ls-btn-text-hover, #eae8f0);
+    border-color: var(--ls-btn-border-hover, var(--ls-btn-border, var(--ls-btn-bg, #0b4bba)));
   }
 
   /* Underline link (replaces the `a { text-decoration: underline; … }` hack) */
@@ -87,12 +120,23 @@
     padding-inline: 0;
     background: transparent;
     border: 0;
-    color: var(--ls-btn-text, currentColor);
+    color: var(--ls-btn-text, var(--color-foreground, currentColor));
     text-decoration: underline;
     text-underline-offset: 3px;
   }
   .ls-button--link:hover {
     color: var(--ls-btn-text-hover, var(--ls-btn-text, currentColor));
+  }
+
+  /* Mobile padding remap — must come after the base .ls-button rule so it wins
+     the cascade on mobile (equal specificity → later rule wins). */
+  @media screen and (max-width: 749px) {
+    .ls-button {
+      --pad-bs: var(--padding-block-start-mobile, var(--padding-block-start, 1rem));
+      --pad-be: var(--padding-block-end-mobile, var(--padding-block-end, 1rem));
+      --pad-is: var(--padding-inline-start-mobile, var(--padding-inline-start, 1.5rem));
+      --pad-ie: var(--padding-inline-end-mobile, var(--padding-inline-end, 1.5rem));
+    }
   }
 {% endstylesheet %}
 
@@ -145,9 +189,27 @@
       "default": "flex-start"
     },
     {
+      "type": "select",
+      "id": "alignment_mobile",
+      "label": "Alignment (mobile)",
+      "options": [
+        { "value": "", "label": "Same as desktop" },
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": ""
+    },
+    {
       "type": "checkbox",
       "id": "full_width",
       "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_mobile",
+      "label": "Full width on mobile",
       "default": false
     },
     {
@@ -218,8 +280,8 @@
     {
       "type": "color",
       "id": "border_color",
-      "label": "Border (outline style)",
-      "default": "#0b4bba"
+      "label": "Border color",
+      "info": "Applies to any style. Outline uses the accent color if left blank."
     },
     {
       "type": "color",
@@ -230,6 +292,11 @@
       "type": "color",
       "id": "text_hover_color",
       "label": "Text (hover)"
+    },
+    {
+      "type": "color",
+      "id": "border_hover_color",
+      "label": "Border (hover)"
     },
     {
       "type": "header",
@@ -274,6 +341,56 @@
       "step": 1,
       "unit": "px",
       "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_padding",
+      "label": "Use mobile padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start-mobile",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end-mobile",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start-mobile",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end-mobile",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.use_mobile_padding }}"
     }
   ],
   "presets": [
