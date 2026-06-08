@@ -1,0 +1,183 @@
+{% liquid
+  assign s = section.settings
+%}
+
+{%- capture section_vars -%}
+  --ls-faq-bg: {{ s.bg_color }};
+  --ls-faq-heading: {{ s.heading_color }};
+  --ls-faq-q: {{ s.question_color }};
+  --ls-faq-icon: {{ s.icon_color }};
+  --ls-faq-a: {{ s.answer_color }};
+  --ls-faq-border: {{ s.border_color }};
+{%- endcapture -%}
+
+<div class="section-background ls-faq__bg"></div>
+<div
+  class="section ls-faq spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ section_vars }}"
+>
+  <div class="ls-faq__inner">
+    {%- if s.heading != blank -%}
+      <h2 class="ls-faq__title">{{ s.heading }}</h2>
+    {%- endif -%}
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-faq__bg {
+    background-color: var(--ls-faq-bg, #0e1018);
+  }
+
+  .ls-faq__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    max-width: 684px;
+    margin: 0 auto;
+    padding-inline: 24px;
+    box-sizing: border-box;
+  }
+
+  .ls-faq__title {
+    margin: 0;
+    font-family: var(--font-gashroad--family);
+    font-weight: 400;
+    font-size: clamp(40px, 8vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--ls-faq-heading, #eae8f0);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS FAQ Page",
+  "tag": "section",
+  "class": "ls-faq-page-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "ls-faq-category"
+    },
+    {
+      "type": "ls-faq-item"
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading (optional)",
+      "info": "Leave blank if the page already has a hero/title above."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#0e1018"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Category headings",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question text",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Chevron / icon",
+      "default": "#7e9de4"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Card border",
+      "default": "#1e1e2e"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS FAQ Page",
+      "category": "t:categories.other_sections",
+      "blocks": [
+        {
+          "type": "ls-faq-category",
+          "settings": {
+            "heading": "General"
+          },
+          "blocks": [
+            {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "How long has 2 Fisted Willie's been around?",
+                "answer": "<p>90 years and counting. We're not a themed bar trying to look old — we're the real thing, and we've been a Chevy Chase staple longer than most folks have been alive.</p>"
+              }
+            },
+            {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "Where are you located?",
+                "answer": "<p>Right in the heart of Lexington's neighborhood, steps from the University of Kentucky campus and Kroger Field, over the corner of Woodland and Euclid.</p>"
+              }
+            },
+            {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "What are your hours?",
+                "answer": "<p>We're open daily, except Sundays, with live music every Friday and Saturday night. Hours are Thu–Sat: 4PM – 2AM, and Mon – Tue 4PM – 12AM.</p>"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

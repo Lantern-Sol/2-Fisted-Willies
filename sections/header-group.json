@@ -11,65 +11,6 @@
   "type": "header",
   "name": "Header",
   "sections": {
-    "header_announcements_9jGBFp": {
-      "type": "header-announcements",
-      "blocks": {
-        "announcement_qAbYWq": {
-          "type": "_announcement",
-          "name": "t:names.announcement",
-          "settings": {
-            "text": "Save 15% with subscription",
-            "link": "",
-            "font": "var(--font-subheading--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "custom_line_height": 1.5,
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "uppercase",
-            "type_preset_mobile": "custom",
-            "mobile_font_size": "0.875rem",
-            "mobile_custom_line_height": 1
-          },
-          "blocks": {}
-        },
-        "announcement_BxgCk9": {
-          "type": "_announcement",
-          "settings": {
-            "text": "Free shipping on all orders $75+",
-            "link": "",
-            "font": "var(--font-subheading--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "custom_line_height": 1.5,
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "uppercase",
-            "type_preset_mobile": "custom",
-            "mobile_font_size": "0.875rem",
-            "mobile_custom_line_height": 1
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "announcement_qAbYWq",
-        "announcement_BxgCk9"
-      ],
-      "disabled": true,
-      "name": "t:names.announcement_bar",
-      "settings": {
-        "speed": 3,
-        "section_width": "page-width",
-        "color_scheme": "scheme-2",
-        "divider_width": 0,
-        "padding-block-start": 15,
-        "padding-block-end": 15,
-        "use_mobile_padding": true,
-        "padding-block-start-mobile": 8,
-        "padding-block-end-mobile": 8
-      }
-    },
     "header_section": {
       "type": "header",
       "blocks": {
@@ -149,7 +90,6 @@
     }
   },
   "order": [
-    "header_announcements_9jGBFp",
     "header_section"
   ]
 }
