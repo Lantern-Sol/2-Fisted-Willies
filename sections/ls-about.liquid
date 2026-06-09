@@ -25,7 +25,7 @@
 >
   <div class="ls-about__stage">
     {%- if s.polaroid_1 != blank -%}
-      <div class="ls-about__polaroid ls-about__polaroid--1" style="--ls-rot: {{ s.polaroid_1_rotation }}deg; --ls-x: {{ s.polaroid_1_x }}px; --ls-y: {{ s.polaroid_1_y }}px;">
+      <div class="ls-about__polaroid ls-about__polaroid--1" style="--ls-rot: {{ s.polaroid_1_rotation }}deg; --ls-x: {{ s.polaroid_1_x }}px; --ls-y: {{ s.polaroid_1_y }}px; --ls-x-m: {{ s.polaroid_1_x_mobile }}px; --ls-y-m: {{ s.polaroid_1_y_mobile }}px;">
         <div class="ls-about__photo">
           {{ s.polaroid_1 | image_url: width: 900 | image_tag: alt: s.polaroid_1.alt, widths: '300,450,600,900', sizes: '(max-width: 989px) 80vw, 410px', loading: 'lazy' }}
         </div>
@@ -37,7 +37,7 @@
     </div>
 
     {%- if s.polaroid_2 != blank -%}
-      <div class="ls-about__polaroid ls-about__polaroid--2" style="--ls-rot: {{ s.polaroid_2_rotation }}deg; --ls-x: {{ s.polaroid_2_x }}px; --ls-y: {{ s.polaroid_2_y }}px;">
+      <div class="ls-about__polaroid ls-about__polaroid--2" style="--ls-rot: {{ s.polaroid_2_rotation }}deg; --ls-x: {{ s.polaroid_2_x }}px; --ls-y: {{ s.polaroid_2_y }}px; --ls-x-m: {{ s.polaroid_2_x_mobile }}px; --ls-y-m: {{ s.polaroid_2_y_mobile }}px;">
         <div class="ls-about__photo">
           {{ s.polaroid_2 | image_url: width: 900 | image_tag: alt: s.polaroid_2.alt, widths: '300,450,600,900', sizes: '(max-width: 989px) 80vw, 410px', loading: 'lazy' }}
         </div>
@@ -147,9 +147,15 @@
     .ls-about__stage {
       flex-direction: column;
       align-items: center;
+      position: relative;
+    }
+    .ls-about__logo {
+      align-self: flex-start;
+      margin-left: 32px;
+      margin-top: 80px;
     }
     .ls-about__card-slot {
-      max-width: 340px;
+      max-width: 300px;
       z-index: 2;
     }
     .ls-about__polaroid {
@@ -158,12 +164,18 @@
     }
     .ls-about__polaroid--1 {
       margin: 0 0 -44px 0;
-      transform: translateX(-12px) rotate(var(--ls-rot, -11deg));
+      transform: translate(var(--ls-x-m, -12px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, -11deg));
       z-index: 3;
     }
+    /* Absolute so it floats over the card's bottom without pushing the logo down.
+       --ls-about-p2-overlap = how far up into the card it reaches. */
     .ls-about__polaroid--2 {
-      margin: -44px 0 0 0;
-      transform: translateX(16px) rotate(var(--ls-rot, 3deg));
+      position: absolute;
+      top: calc(100% - 120px);
+      right: 0;
+      width: min(72%, 280px);
+      margin: 0;
+      transform: translate(var(--ls-x-m, 16px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, 3deg));
       z-index: 3;
     }
   }
@@ -237,6 +249,26 @@
       "default": -24
     },
     {
+      "type": "range",
+      "id": "polaroid_1_x_mobile",
+      "label": "Polaroid 1 X offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": -12
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_y_mobile",
+      "label": "Polaroid 1 Y offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
       "type": "image_picker",
       "id": "polaroid_2",
       "label": "Polaroid 2 (right)"
@@ -270,6 +302,26 @@
       "step": 4,
       "unit": "px",
       "default": 80
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_x_mobile",
+      "label": "Polaroid 2 X offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_y_mobile",
+      "label": "Polaroid 2 Y offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
     },
     {
       "type": "color",
@@ -331,6 +383,34 @@
       "step": 4,
       "unit": "px",
       "default": 88
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_padding",
+      "label": "Use mobile padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start-mobile",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end-mobile",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
     }
   ],
   "presets": [
