@@ -17,24 +17,38 @@
           "name": "Title",
           "settings": {
             "text": "<h1>{{ closest.page.title }}</h1>",
+            "mobile_text": "",
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
+            "height_mode": "auto",
+            "desktop_height": "",
+            "mobile_height": "",
             "type_preset": "h2",
             "font": "var(--font-primary--family)",
+            "enable_custom_font_weight": false,
+            "weight": "400",
             "font_size": "",
             "line_height": 1.4,
             "letter_spacing": 0,
             "case": "none",
             "wrap": "pretty",
             "color": "",
+            "type_preset_mobile": "rte",
+            "mobile_font_size": "1rem",
+            "mobile_custom_line_height": 1.5,
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "use_mobile_padding": false,
+            "padding-block-start-mobile": 0,
+            "padding-block-end-mobile": 0,
+            "padding-inline-start-mobile": 0,
+            "padding-inline-end-mobile": 0
           },
           "blocks": {}
         },
@@ -48,6 +62,7 @@
         "heading",
         "page-content"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -55,9 +70,37 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "ls_events_e4RmCg": {
+      "type": "ls-events",
+      "name": "LS Events",
+      "settings": {
+        "heading_1": "This week",
+        "heading_2": "& Next",
+        "subtitle": "Live music, game watches, themed nights.",
+        "show_diamond": true,
+        "archive_heading_1": "Past shows",
+        "archive_heading_2": "Archive",
+        "archive_subtitle": "What you missed. Don't miss the next one — sign up below.",
+        "bg_color": "#0e1018",
+        "heading_color": "#eae8f0",
+        "heading_accent_color": "#7e9de4",
+        "subtitle_color": "#9ca0b8",
+        "text_color": "#eae8f0",
+        "muted_color": "#9ca0b8",
+        "card_bg": "#141824",
+        "card_border": "#2a3348",
+        "cta_bg": "#0b4bba",
+        "cta_text_color": "#eae8f0",
+        "filter_border": "#3d4a66",
+        "filter_active_bg": "#1a2540",
+        "padding-block-start": 64,
+        "padding-block-end": 96
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "ls_events_e4RmCg"
   ]
 }
