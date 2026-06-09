@@ -418,7 +418,7 @@
         "show_diamond": true,
         "show_filters": false,
         "enable_debug": false,
-        "bg_color": "#0e1018",
+        "bg_color": "#111318",
         "heading_color": "#eae8f0",
         "heading_accent_color": "#7e9de4",
         "subtitle_color": "#9ca0b8",
