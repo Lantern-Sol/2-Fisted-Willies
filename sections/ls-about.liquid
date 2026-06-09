@@ -1,0 +1,428 @@
+{%- liquid
+  assign s = section.settings
+  assign has_frame_texture = false
+  if s.frame_texture != blank
+    assign has_frame_texture = true
+  endif
+-%}
+
+{%- capture bg_style -%}
+  --ls-about-bg-color: {{ s.bg_color }};
+  --ls-about-border-color: {{ s.border_color }};
+  --ls-about-border-width: {{ s.border_width }}px;
+  {%- if s.bg_image != blank %} --ls-about-bg-image: url({{ s.bg_image | image_url: width: 2400 }});{% endif -%}
+{%- endcapture -%}
+
+{%- capture frame_style -%}
+  --ls-frame-paper: {{ s.frame_color }};
+  {%- if has_frame_texture %} --ls-frame-texture: url({{ s.frame_texture | image_url: width: 1000 }});{% endif -%}
+{%- endcapture -%}
+
+<div class="section-background ls-about__bg" style="{{ bg_style }}"></div>
+<div
+  class="section ls-about spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ frame_style }}"
+>
+  <div class="ls-about__stage">
+    {%- if s.polaroid_1 != blank -%}
+      <div class="ls-about__polaroid ls-about__polaroid--1" style="--ls-rot: {{ s.polaroid_1_rotation }}deg; --ls-x: {{ s.polaroid_1_x }}px; --ls-y: {{ s.polaroid_1_y }}px; --ls-x-m: {{ s.polaroid_1_x_mobile }}px; --ls-y-m: {{ s.polaroid_1_y_mobile }}px;">
+        <div class="ls-about__photo">
+          {{ s.polaroid_1 | image_url: width: 900 | image_tag: alt: s.polaroid_1.alt, widths: '300,450,600,900', sizes: '(max-width: 989px) 80vw, 410px', loading: 'lazy' }}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="ls-about__card-slot">
+      {% content_for 'blocks' %}
+    </div>
+
+    {%- if s.polaroid_2 != blank -%}
+      <div class="ls-about__polaroid ls-about__polaroid--2" style="--ls-rot: {{ s.polaroid_2_rotation }}deg; --ls-x: {{ s.polaroid_2_x }}px; --ls-y: {{ s.polaroid_2_y }}px; --ls-x-m: {{ s.polaroid_2_x_mobile }}px; --ls-y-m: {{ s.polaroid_2_y_mobile }}px;">
+        <div class="ls-about__photo">
+          {{ s.polaroid_2 | image_url: width: 900 | image_tag: alt: s.polaroid_2.alt, widths: '300,450,600,900', sizes: '(max-width: 989px) 80vw, 410px', loading: 'lazy' }}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if s.logo != blank -%}
+    <div class="ls-about__logo">
+      {{ s.logo | image_url: width: 200 | image_tag: alt: s.logo.alt, widths: '100,150,200', loading: 'lazy' }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  /* Full-bleed dark band + faint photo overlay + bottom border. */
+  .ls-about__bg {
+    background-color: var(--ls-about-bg-color, #111318);
+    border-bottom: var(--ls-about-border-width, 8px) solid var(--ls-about-border-color, #004fdf);
+  }
+  .ls-about__bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--ls-about-bg-image, none);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .ls-about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    overflow: hidden;
+  }
+
+  /* ---- Stage: card centered, polaroids flank + overlap it ---- */
+  .ls-about__stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ls-about__card-slot {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .ls-about__polaroid {
+    position: relative;
+    z-index: 2;
+    flex: 0 1 410px;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 12px;
+    background-color: var(--ls-frame-paper, #f4f1e9);
+    background-image: var(--ls-frame-texture, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"));
+    background-size: cover, 240px 240px;
+    background-repeat: no-repeat, repeat;
+    box-shadow: 0 4px 4px rgba(30, 30, 46, 0.15);
+  }
+
+  .ls-about__polaroid--1 {
+    margin-right: -36px;
+    transform: translate(var(--ls-x, 0px), var(--ls-y, -24px)) rotate(var(--ls-rot, -11deg));
+  }
+  .ls-about__polaroid--2 {
+    margin-left: -36px;
+    transform: translate(var(--ls-x, 0px), var(--ls-y, 80px)) rotate(var(--ls-rot, 3deg));
+  }
+
+  .ls-about__photo {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .ls-about__photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ls-about__logo {
+    position: relative;
+    z-index: 3;
+    width: 51px;
+    margin-top: 8px;
+  }
+  .ls-about__logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ---- Mobile: stack — polaroid over card top, card, polaroid over card bottom ---- */
+  @media screen and (max-width: 989px) {
+    .ls-about__stage {
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .ls-about__logo {
+      align-self: flex-start;
+      margin-left: 32px;
+      margin-top: 80px;
+    }
+    .ls-about__card-slot {
+      max-width: 300px;
+      z-index: 2;
+    }
+    .ls-about__polaroid {
+      flex: 0 0 auto;
+      width: min(78%, 300px);
+    }
+    .ls-about__polaroid--1 {
+      margin: 0 0 -44px 0;
+      transform: translate(var(--ls-x-m, -12px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, -11deg));
+      z-index: 3;
+    }
+    /* Absolute so it floats over the card's bottom without pushing the logo down.
+       --ls-about-p2-overlap = how far up into the card it reaches. */
+    .ls-about__polaroid--2 {
+      position: absolute;
+      top: calc(100% - 120px);
+      right: 0;
+      width: min(72%, 280px);
+      margin: 0;
+      transform: translate(var(--ls-x-m, 16px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, 3deg));
+      z-index: 3;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS About",
+  "tag": "section",
+  "class": "ls-about-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    { "type": "ls-about-card" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#111318"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Faint background photo",
+      "info": "Shown at 10% opacity behind everything."
+    },
+    {
+      "type": "header",
+      "content": "Polaroids"
+    },
+    {
+      "type": "image_picker",
+      "id": "polaroid_1",
+      "label": "Polaroid 1 (left)"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_rotation",
+      "label": "Polaroid 1 rotation",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "°",
+      "default": -11
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_x",
+      "label": "Polaroid 1 X offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_y",
+      "label": "Polaroid 1 Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": -24
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_x_mobile",
+      "label": "Polaroid 1 X offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": -12
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_y_mobile",
+      "label": "Polaroid 1 Y offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "polaroid_2",
+      "label": "Polaroid 2 (right)"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_rotation",
+      "label": "Polaroid 2 rotation",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "°",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_x",
+      "label": "Polaroid 2 X offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_y",
+      "label": "Polaroid 2 Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_x_mobile",
+      "label": "Polaroid 2 X offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_y_mobile",
+      "label": "Polaroid 2 Y offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "frame_color",
+      "label": "Polaroid frame color",
+      "default": "#f4f1e9"
+    },
+    {
+      "type": "image_picker",
+      "id": "frame_texture",
+      "label": "Polaroid frame texture",
+      "info": "Optional. Falls back to the baked-in paper grain + color."
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo / icon"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bottom border",
+      "default": "#004fdf"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Bottom border width",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_padding",
+      "label": "Use mobile padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start-mobile",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end-mobile",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS About",
+      "category": "t:categories.other_sections",
+      "blocks": [
+        {
+          "type": "ls-about-card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
