@@ -1,0 +1,200 @@
+{% liquid
+  assign s = section.settings
+  assign today = 'now' | date: '%Y-%m-%d'
+  assign all_events = shop.metaobjects.event.values | sort: 'event_date'
+  assign featured_count = 0
+
+  for event in all_events
+    assign event_date = event.event_date.value | date: '%Y-%m-%d'
+    if event_date >= today
+      for tag in event.tags.value
+        assign tag_key = tag | handleize | replace: '-', '_'
+        if tag_key == 'featured'
+          assign featured_count = featured_count | plus: 1
+          break
+        endif
+      endfor
+    endif
+  endfor
+%}
+
+{%- if featured_count > 0 or s.hide_when_empty == false -%}
+<div class="section-background ls-events__bg"></div>
+<div
+  class="section ls-events ls-events--featured spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{% render 'ls-events-theme-vars', settings: section.settings %}"
+>
+  <div class="ls-events__inner">
+    {%- if s.heading != blank -%}
+      <h2 class="ls-events__section-label">{{ s.heading }}</h2>
+    {%- endif -%}
+
+    {%- if featured_count > 0 -%}
+      <div class="ls-events__featured-list">
+        {%- for event in all_events -%}
+          {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
+          {%- if event_date >= today -%}
+            {%- assign is_featured = false -%}
+            {%- for tag in event.tags.value -%}
+              {%- assign tag_key = tag | handleize | replace: '-', '_' -%}
+              {%- if tag_key == 'featured' -%}
+                {%- assign is_featured = true -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if is_featured -%}
+              {% render 'ls-event-card', event: event, layout: 'featured' %}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+  {%- elsif s.hide_when_empty == false -%}
+      <p class="ls-events__empty">No featured events right now.</p>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% render 'ls-events-styles' %}
+
+{% stylesheet %}
+  .ls-events__section-label {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.65px;
+    text-transform: uppercase;
+    color: var(--ls-events-muted, #9ca0b8);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Events — Featured",
+  "tag": "section",
+  "class": "ls-events-featured-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section label (optional)",
+      "info": "Leave blank for no label above the cards."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_empty",
+      "label": "Hide section when no featured events",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#0e1018"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "heading_accent_color",
+      "label": "Heading accent",
+      "default": "#7e9de4"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle / genre",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#141824"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#2a3348"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg",
+      "label": "CTA background",
+      "default": "#0b4bba"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "filter_border",
+      "label": "Filter border",
+      "default": "#3d4a66"
+    },
+    {
+      "type": "color",
+      "id": "filter_active_bg",
+      "label": "Filter active background",
+      "default": "#1a2540"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Events — Featured",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}

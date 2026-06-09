@@ -9,20 +9,42 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "ls-events",
+    "ls_events_featured": {
+      "type": "ls-events-featured",
+      "settings": {
+        "hide_when_empty": true,
+        "padding-block-start": 64,
+        "padding-block-end": 24
+      }
+    },
+    "ls_events_upcoming": {
+      "type": "ls-events-upcoming",
       "settings": {
         "heading_1": "This week",
         "heading_2": "& Next",
         "subtitle": "Live music, game watches, themed nights.",
         "show_diamond": true,
-        "archive_heading_1": "Past shows",
-        "archive_heading_2": "Archive",
-        "archive_subtitle": "What you missed. Don't miss the next one — sign up below.",
-        "padding-block-start": 64,
+        "show_filters": true,
+        "padding-block-start": 24,
+        "padding-block-end": 64
+      }
+    },
+    "ls_events_past": {
+      "type": "ls-events-past",
+      "settings": {
+        "heading_1": "Past shows",
+        "heading_2": "Archive",
+        "subtitle": "What you missed. Don't miss the next one — sign up below.",
+        "max_events": 3,
+        "hide_when_empty": true,
+        "padding-block-start": 48,
         "padding-block-end": 96
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "ls_events_featured",
+    "ls_events_upcoming",
+    "ls_events_past"
+  ]
 }

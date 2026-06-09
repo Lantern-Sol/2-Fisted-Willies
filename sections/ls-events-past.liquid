@@ -1,0 +1,206 @@
+{% liquid
+  assign s = section.settings
+  assign today = 'now' | date: '%Y-%m-%d'
+  assign all_events = shop.metaobjects.event.values | sort: 'event_date'
+  assign past_count = 0
+  assign max_past = s.max_events | default: 3
+
+  for event in all_events reversed
+    assign event_date = event.event_date.value | date: '%Y-%m-%d'
+    if event_date < today
+      assign past_count = past_count | plus: 1
+    endif
+  endfor
+%}
+
+{%- if past_count > 0 or s.hide_when_empty == false -%}
+<div class="section-background ls-events__bg"></div>
+<div
+  class="section ls-events ls-events--past spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{% render 'ls-events-theme-vars', settings: section.settings %}"
+>
+  <div class="ls-events__inner">
+    <header class="ls-events__archive-header">
+      <h2 class="ls-events__archive-title">
+        {%- if s.heading_1 != blank -%}<span class="ls-events__archive-title-1">{{ s.heading_1 }}</span>{%- endif -%}
+        {%- if s.heading_2 != blank -%}<span class="ls-events__archive-title-2">{{ s.heading_2 }}</span>{%- endif -%}
+      </h2>
+      {%- if s.subtitle != blank -%}
+        <p class="ls-events__archive-subtitle">{{ s.subtitle }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if past_count > 0 -%}
+      <div class="ls-events__grid">
+        {%- assign shown_past = 0 -%}
+        {%- for event in all_events reversed -%}
+          {%- if shown_past >= max_past -%}
+            {%- break -%}
+          {%- endif -%}
+          {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
+          {%- if event_date < today -%}
+            {% render 'ls-event-card', event: event, layout: 'past' %}
+            {%- assign shown_past = shown_past | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- elsif s.hide_when_empty == false -%}
+      <p class="ls-events__empty">No past events to show yet.</p>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% render 'ls-events-styles' %}
+
+{% schema %}
+{
+  "name": "LS Events — Past",
+  "tag": "section",
+  "class": "ls-events-past-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading line 1",
+      "default": "Past shows"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading line 2",
+      "default": "Archive"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "What you missed. Don't miss the next one — sign up below."
+    },
+    {
+      "type": "range",
+      "id": "max_events",
+      "label": "Maximum past events to show",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_empty",
+      "label": "Hide section when no past events",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#0e1018"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "heading_accent_color",
+      "label": "Heading accent",
+      "default": "#7e9de4"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle / genre",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#141824"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#2a3348"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg",
+      "label": "CTA background",
+      "default": "#0b4bba"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "filter_border",
+      "label": "Filter border",
+      "default": "#3d4a66"
+    },
+    {
+      "type": "color",
+      "id": "filter_active_bg",
+      "label": "Filter active background",
+      "default": "#1a2540"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Events — Past",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}

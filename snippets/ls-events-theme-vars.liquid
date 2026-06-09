@@ -1,0 +1,20 @@
+{% doc %}
+Outputs CSS custom properties for event sections.
+@param {object} settings - section.settings
+{% enddoc %}
+
+{%- liquid
+  assign s = settings
+-%}
+--ls-events-bg: {{ s.bg_color }};
+--ls-events-heading: {{ s.heading_color }};
+--ls-events-heading-accent: {{ s.heading_accent_color }};
+--ls-events-subtitle: {{ s.subtitle_color }};
+--ls-events-card-bg: {{ s.card_bg }};
+--ls-events-card-border: {{ s.card_border }};
+--ls-events-text: {{ s.text_color }};
+--ls-events-muted: {{ s.muted_color }};
+--ls-events-cta-bg: {{ s.cta_bg }};
+--ls-events-cta-text: {{ s.cta_text_color }};
+--ls-events-filter-border: {{ s.filter_border }};
+--ls-events-filter-active: {{ s.filter_active_bg }};

@@ -1,0 +1,249 @@
+{% liquid
+  assign s = section.settings
+  assign today = 'now' | date: '%Y-%m-%d'
+  assign all_events = shop.metaobjects.event.values | sort: 'event_date'
+  assign upcoming_count = 0
+
+  for event in all_events
+    assign event_date = event.event_date.value | date: '%Y-%m-%d'
+    if event_date >= today
+      assign is_featured = false
+      for tag in event.tags.value
+        assign tag_key = tag | handleize | replace: '-', '_'
+        if tag_key == 'featured'
+          assign is_featured = true
+        endif
+      endfor
+      unless is_featured
+        assign upcoming_count = upcoming_count | plus: 1
+      endunless
+    endif
+  endfor
+%}
+
+<div class="section-background ls-events__bg"></div>
+<div
+  class="section ls-events ls-events--upcoming spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{% render 'ls-events-theme-vars', settings: section.settings %}"
+>
+  <div class="ls-events__inner">
+    {%- if s.heading_1 != blank or s.heading_2 != blank -%}
+      <header class="ls-events__header">
+        <h2 class="ls-events__title">
+          {%- if s.heading_1 != blank -%}<span class="ls-events__title-1">{{ s.heading_1 }}</span>{%- endif -%}
+          {%- if s.heading_2 != blank -%}<span class="ls-events__title-2">{{ s.heading_2 }}</span>{%- endif -%}
+        </h2>
+        {%- if s.subtitle != blank -%}
+          <p class="ls-events__subtitle">{{ s.subtitle }}</p>
+        {%- endif -%}
+        {%- if s.show_diamond -%}
+          <div class="ls-events__diamond" aria-hidden="true">&#9670;</div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <ls-events-upcoming class="ls-events__upcoming">
+      {%- if s.show_filters -%}
+        <div class="ls-events__toolbar">
+          <div class="ls-events__filters">
+            <div class="ls-events__filter-group" role="group" aria-label="Event category">
+              <button type="button" class="ls-events__filter is-active" data-category-filter="all" aria-pressed="true">All</button>
+              <button type="button" class="ls-events__filter" data-category-filter="live_music" aria-pressed="false">Live music</button>
+              <button type="button" class="ls-events__filter" data-category-filter="game_watch" aria-pressed="false">Game watch</button>
+              <button type="button" class="ls-events__filter" data-category-filter="themed_night" aria-pressed="false">Themed night</button>
+            </div>
+
+            <div class="ls-events__filter-group" role="group" aria-label="Ticket status">
+              <button type="button" class="ls-events__filter is-active" data-tag-filter="all" aria-pressed="true">All</button>
+              <button type="button" class="ls-events__filter" data-tag-filter="available" aria-pressed="false">Available</button>
+              <button type="button" class="ls-events__filter" data-tag-filter="pre_sale" aria-pressed="false">Pre-sale</button>
+              <button type="button" class="ls-events__filter" data-tag-filter="cover" aria-pressed="false">Cover</button>
+              <button type="button" class="ls-events__filter" data-tag-filter="sold_out" aria-pressed="false">Sold out</button>
+            </div>
+          </div>
+
+          <p class="ls-events__count" data-upcoming-count>{{ upcoming_count }} UPCOMING</p>
+        </div>
+      {%- endif -%}
+
+      <div class="ls-events__grid">
+        {%- for event in all_events -%}
+          {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
+          {%- if event_date >= today -%}
+            {%- assign is_featured = false -%}
+            {%- for tag in event.tags.value -%}
+              {%- assign tag_key = tag | handleize | replace: '-', '_' -%}
+              {%- if tag_key == 'featured' -%}
+                {%- assign is_featured = true -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- unless is_featured -%}
+              {% render 'ls-event-card', event: event, layout: 'grid', filterable: s.show_filters %}
+            {%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <p class="ls-events__empty" data-upcoming-empty{% unless s.show_filters %} hidden{% endunless %}>No events match these filters.</p>
+
+      {%- if upcoming_count == 0 -%}
+        <p class="ls-events__empty">No upcoming events scheduled.</p>
+      {%- endif -%}
+    </ls-events-upcoming>
+  </div>
+</div>
+
+{% render 'ls-events-styles' %}
+
+{% schema %}
+{
+  "name": "LS Events — Upcoming",
+  "tag": "section",
+  "class": "ls-events-upcoming-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows all active events that are not past (any future date). Featured events appear in the Featured section only."
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading line 1",
+      "default": "This week"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading line 2",
+      "default": "& Next"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Live music, game watches, themed nights."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_diamond",
+      "label": "Show diamond accent",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show category and tag filters",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#0e1018"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "heading_accent_color",
+      "label": "Heading accent",
+      "default": "#7e9de4"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle / genre",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#141824"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#2a3348"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg",
+      "label": "CTA background",
+      "default": "#0b4bba"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "filter_border",
+      "label": "Filter border",
+      "default": "#3d4a66"
+    },
+    {
+      "type": "color",
+      "id": "filter_active_bg",
+      "label": "Filter active background",
+      "default": "#1a2540"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Events — Upcoming",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}
