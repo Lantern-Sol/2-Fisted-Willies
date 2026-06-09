@@ -1,25 +1,31 @@
 {% liquid
   assign s = section.settings
   assign today = 'now' | date: '%Y-%m-%d'
-  assign all_events = shop.metaobjects.event.values | sort: 'event_date'
+  assign all_events = '' | split: ''
   assign upcoming_count = 0
-
-  for event in all_events
-    assign event_date = event.event_date.value | date: '%Y-%m-%d'
-    if event_date >= today
-      assign is_featured = false
-      for tag in event.tags.value
-        assign tag_key = tag | handleize | replace: '-', '_'
-        if tag_key == 'featured'
-          assign is_featured = true
-        endif
-      endfor
-      unless is_featured
-        assign upcoming_count = upcoming_count | plus: 1
-      endunless
-    endif
-  endfor
 %}
+
+{% paginate shop.metaobjects.event.values by 50 %}
+  {% assign all_events = shop.metaobjects.event.values %}
+{% endpaginate %}
+{% if all_events.size == 0 %}
+  {% paginate metaobjects.event.values by 50 %}
+    {% assign all_events = metaobjects.event.values %}
+  {% endpaginate %}
+{% endif %}
+
+{% render 'ls-events-load', settings: s %}
+
+{%- for event in all_events -%}
+  {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
+  {%- assign event_date = event_date | strip -%}
+  {%- if event_date != blank and event_date >= today -%}
+    {%- capture featured_flag -%}{%- render 'ls-event-is-featured', event: event -%}{%- endcapture -%}
+    {%- unless featured_flag contains 'true' -%}
+      {%- assign upcoming_count = upcoming_count | plus: 1 -%}
+    {%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
 
 <div class="section-background ls-events__bg"></div>
 <div
@@ -68,16 +74,11 @@
 
       <div class="ls-events__grid">
         {%- for event in all_events -%}
-          {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
-          {%- if event_date >= today -%}
-            {%- assign is_featured = false -%}
-            {%- for tag in event.tags.value -%}
-              {%- assign tag_key = tag | handleize | replace: '-', '_' -%}
-              {%- if tag_key == 'featured' -%}
-                {%- assign is_featured = true -%}
-              {%- endif -%}
-            {%- endfor -%}
-            {%- unless is_featured -%}
+          {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
+          {%- assign event_date = event_date | strip -%}
+          {%- if event_date != blank and event_date >= today -%}
+            {%- capture featured_flag -%}{%- render 'ls-event-is-featured', event: event -%}{%- endcapture -%}
+            {%- unless featured_flag contains 'true' -%}
               {% render 'ls-event-card', event: event, layout: 'grid', filterable: s.show_filters %}
             {%- endunless -%}
           {%- endif -%}
@@ -137,6 +138,12 @@
       "id": "show_filters",
       "label": "Show category and tag filters",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_debug",
+      "label": "Show debug panel",
+      "default": false
     },
     {
       "type": "header",

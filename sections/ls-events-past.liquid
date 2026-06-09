@@ -1,17 +1,29 @@
 {% liquid
   assign s = section.settings
   assign today = 'now' | date: '%Y-%m-%d'
-  assign all_events = shop.metaobjects.event.values | sort: 'event_date'
+  assign all_events = '' | split: ''
   assign past_count = 0
   assign max_past = s.max_events | default: 3
-
-  for event in all_events reversed
-    assign event_date = event.event_date.value | date: '%Y-%m-%d'
-    if event_date < today
-      assign past_count = past_count | plus: 1
-    endif
-  endfor
 %}
+
+{% paginate shop.metaobjects.event.values by 50 %}
+  {% assign all_events = shop.metaobjects.event.values %}
+{% endpaginate %}
+{% if all_events.size == 0 %}
+  {% paginate metaobjects.event.values by 50 %}
+    {% assign all_events = metaobjects.event.values %}
+  {% endpaginate %}
+{% endif %}
+
+{% render 'ls-events-load', settings: s %}
+
+{%- for event in all_events reversed -%}
+  {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
+  {%- assign event_date = event_date | strip -%}
+  {%- if event_date != blank and event_date < today -%}
+    {%- assign past_count = past_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
 
 {%- if past_count > 0 or s.hide_when_empty == false -%}
 <div class="section-background ls-events__bg"></div>
@@ -37,8 +49,9 @@
           {%- if shown_past >= max_past -%}
             {%- break -%}
           {%- endif -%}
-          {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
-          {%- if event_date < today -%}
+          {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
+          {%- assign event_date = event_date | strip -%}
+          {%- if event_date != blank and event_date < today -%}
             {% render 'ls-event-card', event: event, layout: 'past' %}
             {%- assign shown_past = shown_past | plus: 1 -%}
           {%- endif -%}
@@ -94,6 +107,12 @@
       "id": "hide_when_empty",
       "label": "Hide section when no past events",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_debug",
+      "label": "Show debug panel",
+      "default": false
     },
     {
       "type": "header",

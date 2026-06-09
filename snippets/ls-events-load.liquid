@@ -1,0 +1,33 @@
+{% doc %}
+Shared event loading — outputs debug HTML when enabled.
+Must be included via {% render %} at top of section; sets nothing in parent scope.
+
+Sections duplicate the paginate load inline instead.
+This snippet is only used for the debug panel.
+@param {object} settings - section.settings
+{% enddoc %}
+
+{%- if settings.enable_debug -%}
+  {%- assign _shop_events = shop.metaobjects.event.values -%}
+  {%- assign _meta_events = metaobjects.event.values -%}
+  <div class="ls-events__debug" style="margin:16px 0;padding:16px;border:1px solid #e85d5d;background:#1a1215;color:#eae8f0;font-family:monospace;font-size:12px;line-height:1.5;">
+    <p><strong>Events debug</strong></p>
+    <p>Today: {{ 'now' | date: '%Y-%m-%d' }}</p>
+    <p>shop.metaobjects.event.values count: {{ _shop_events.size | default: 0 }}</p>
+    <p>metaobjects.event.values count: {{ _meta_events.size | default: 0 }}</p>
+    {%- if _shop_events.first -%}
+      <p>First (shop): {{ _shop_events.first.event_name.value | default: _shop_events.first.system.handle }}</p>
+      <p>First date: {% render 'ls-event-date-string', event: _shop_events.first %}</p>
+      <p>First tags: {% render 'ls-event-tags-list', event: _shop_events.first %}</p>
+    {%- elsif _meta_events.first -%}
+      <p>First (metaobjects): {{ _meta_events.first.event_name.value | default: _meta_events.first.system.handle }}</p>
+    {%- else -%}
+      <p>No events returned. Check:</p>
+      <ul>
+        <li>Entries are <strong>Active</strong> (not Draft) in Content → Metaobjects → Event</li>
+        <li>Definition has Storefront access: Public read</li>
+        <li>Type handle is exactly <code>event</code></li>
+      </ul>
+    {%- endif -%}
+  </div>
+{%- endif -%}

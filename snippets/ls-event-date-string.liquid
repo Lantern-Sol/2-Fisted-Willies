@@ -1,0 +1,15 @@
+{% doc %}
+Outputs YYYY-MM-DD for an event metaobject date field.
+@param {metaobject} event
+{% enddoc %}
+
+{%- liquid
+  assign raw = event.event_date.value
+  if raw == blank
+    assign raw = event.event_date
+  endif
+  if raw.value != blank
+    assign raw = raw.value
+  endif
+-%}
+{{- raw | date: '%Y-%m-%d' -}}

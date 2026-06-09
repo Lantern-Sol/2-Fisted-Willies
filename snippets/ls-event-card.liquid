@@ -7,21 +7,81 @@ Renders an event card.
 
 {%- liquid
   assign layout = layout | default: 'grid'
-  assign event_name = event.event_name.value | default: event.name.value
-  assign event_date = event.event_date.value
+
+  assign event_name = event.event_name.value
+  if event_name == blank
+    assign event_name = event.event_name
+  endif
+  if event_name.value != blank
+    assign event_name = event_name.value
+  endif
+
   assign show_time = event.show_time.value
+  if show_time == blank
+    assign show_time = event.show_time
+  endif
+  if show_time.value != blank
+    assign show_time = show_time.value
+  endif
+
   assign genre = event.genre.value
+  if genre == blank
+    assign genre = event.genre
+  endif
+  if genre.value != blank
+    assign genre = genre.value
+  endif
+
   assign ticket_url = event.ticket_url.value
-  assign category = event.category.value | default: ''
-  assign tags = event.tags.value
+  if ticket_url == blank
+    assign ticket_url = event.ticket_url
+  endif
+  if ticket_url.value != blank
+    assign ticket_url = ticket_url.value
+  endif
+
+  assign category = event.category.value
+  if category == blank
+    assign category = event.category
+  endif
+  if category.value != blank
+    assign category = category.value
+  endif
+
   assign image = event.image.value
+  if image == blank
+    assign image = event.image
+  endif
+  if image.value != blank
+    assign image = image.value
+  endif
 
   assign is_featured = false
   assign is_sold_out = false
   assign status_tag = ''
 
-  for tag in tags
-    assign tag_handle = tag | handleize | replace: '-', '_'
+  assign tags_raw = event.tags.value
+  if tags_raw == blank
+    assign tags_raw = event.tags
+  endif
+  if tags_raw.value != blank
+    assign tags_raw = tags_raw.value
+  endif
+
+  if tags_raw.first
+    assign tags_list = tags_raw
+  elsif tags_raw != blank
+    if tags_raw contains '["'
+      assign tags_list = tags_raw | parse_json
+    else
+      assign tags_list = tags_raw | split: ','
+    endif
+  else
+    assign tags_list = '' | split: ''
+  endif
+
+  for tag in tags_list
+    assign tag_handle = tag | strip | handleize | replace: '-', '_'
     if tag_handle == 'featured'
       assign is_featured = true
     endif
@@ -37,12 +97,19 @@ Renders an event card.
     endif
   endfor
 
-  assign tags_joined = tags | join: ','
+  assign tags_joined = tags_list | join: ','
+-%}
 
+{%- capture event_date_iso -%}
+  {%- render 'ls-event-date-string', event: event -%}
+{%- endcapture -%}
+{%- assign event_date_iso = event_date_iso | strip -%}
+
+{%- liquid
   if layout == 'featured'
-    assign date_label = event_date | date: '%a %b %d' | upcase
+    assign date_label = event_date_iso | date: '%a %b %d' | upcase
   else
-    assign date_label = event_date | date: '%a, %b %d' | upcase
+    assign date_label = event_date_iso | date: '%a, %b %d' | upcase
   endif
 
   assign show_info = 'SHOW'
@@ -69,7 +136,7 @@ Renders an event card.
         {%- if is_featured -%}
           {% render 'ls-event-tag', tag: 'featured' %}
         {%- endif -%}
-        <time class="ls-event-card__date" datetime="{{ event_date | date: '%Y-%m-%d' }}">{{ date_label }}</time>
+        <time class="ls-event-card__date" datetime="{{ event_date_iso }}">{{ date_label }}</time>
       </div>
 
       {%- if event_name != blank -%}
@@ -120,7 +187,7 @@ Renders an event card.
 
     <div class="ls-event-card__content">
       <div class="ls-event-card__info-row">
-        <time class="ls-event-card__date" datetime="{{ event_date | date: '%Y-%m-%d' }}">{{ date_label }}</time>
+        <time class="ls-event-card__date" datetime="{{ event_date_iso }}">{{ date_label }}</time>
         <span class="ls-event-card__show">{{ show_info }}</span>
         <span class="ls-event-card__age">21+</span>
       </div>

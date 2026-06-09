@@ -1,0 +1,31 @@
+{% doc %}
+Outputs "true" when the event has the featured tag.
+@param {metaobject} event
+{% enddoc %}
+
+{%- liquid
+  assign tags_raw = event.tags.value
+  if tags_raw == blank
+    assign tags_raw = event.tags
+  endif
+  if tags_raw.value != blank
+    assign tags_raw = tags_raw.value
+  endif
+
+  assign is_featured = false
+
+  if tags_raw.first
+    for tag in tags_raw
+      assign tag_key = tag | handleize | replace: '-', '_'
+      if tag_key == 'featured'
+        assign is_featured = true
+        break
+      endif
+    endfor
+  elsif tags_raw != blank
+    if tags_raw contains 'featured'
+      assign is_featured = true
+    endif
+  endif
+-%}
+{%- if is_featured -%}true{%- endif -%}
