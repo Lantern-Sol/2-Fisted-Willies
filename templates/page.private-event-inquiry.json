@@ -142,7 +142,7 @@
           "type": "ls-text",
           "name": "LS Text",
           "settings": {
-            "text": "<p>Willie's</p>",
+            "text": "<p>WILLIE'S</p>",
             "font_family": "var(--font-cormorant-garamond-italic--family)",
             "font_size": 128,
             "font_size_mobile": 64,
@@ -268,7 +268,7 @@
       ],
       "custom_css": [
         ".hero__media-grid .overlay {background: linear-gradient( 180deg, rgba(17, 19, 24, 0) 33.55%, rgba(17, 19, 24, 0.8) 82.52% ), linear-gradient(0deg, rgba(30, 30, 46, 0.8) 0%, rgba(30, 30, 46, 0.8) 100%);}",
-        ".ls-text{max-width: 680px; margin: auto !important;}"
+        ".ls-text {max-width: 680px; margin: auto !important;}"
       ],
       "name": "t:names.hero",
       "settings": {
@@ -513,6 +513,7 @@
       "custom_css": [
         "@media screen and (max-width: 749px) {.background-image-container::before {display: none !important; }}"
       ],
+      "name": "Form Section",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,

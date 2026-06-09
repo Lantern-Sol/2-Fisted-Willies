@@ -262,6 +262,46 @@
     "ls_faq_page_C9FXpd": {
       "type": "ls-faq-page",
       "blocks": {
+        "ls_faq_category_xQ9qXJ": {
+          "type": "ls-faq-category",
+          "settings": {
+            "heading": "TICKETS & EVENTS"
+          },
+          "blocks": {
+            "ls_faq_item_nbtUNf": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "How do I buy tickets for a show?",
+                "answer": "<p>Head to our Events page, find the show you want, and grab tickets right there. Bigger touring acts are ticketed in advance; smaller shows may just have a cover at the door.</p>",
+                "open_by_default": true
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_rn8TaT": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "Do you have live music every weekend?",
+                "answer": "<p>Every Friday and Saturday night, year-round. Local college bands, DJs, and nationally touring artists — the guitar never stops at Willie's.</p>",
+                "open_by_default": true
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_eWCLWA": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "Can I get a refund on tickets?",
+                "answer": "<p>Refund policies depend on the event and the ticketing platform. Reach out before the show and we'll point you in the right direction.</p>",
+                "open_by_default": true
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "ls_faq_item_nbtUNf",
+            "ls_faq_item_rn8TaT",
+            "ls_faq_item_eWCLWA"
+          ]
+        },
         "ls_faq_category_TzLXMm": {
           "type": "ls-faq-category",
           "settings": {
@@ -322,44 +362,64 @@
             "ls_faq_item_JiTwVD"
           ]
         },
-        "ls_faq_category_xQ9qXJ": {
+        "ls_faq_category_FJRL4T": {
           "type": "ls-faq-category",
           "settings": {
-            "heading": "TICKETS & EVENTS"
+            "heading": "Example"
           },
           "blocks": {
-            "ls_faq_item_nbtUNf": {
+            "ls_faq_item_KTtriz": {
               "type": "ls-faq-item",
               "settings": {
-                "question": "How do I buy tickets for a show?",
-                "answer": "<p>Head to our Events page, find the show you want, and grab tickets right there. Bigger touring acts are ticketed in advance; smaller shows may just have a cover at the door.</p>",
-                "open_by_default": true
+                "question": "How long has 2 Fisted Willie's been around?",
+                "answer": "<p>90 years and counting. We're not a themed bar trying to look old — we're the real thing, and we've been a Chevy Chase staple longer than most folks have been alive.</p>",
+                "open_by_default": false
               },
               "blocks": {}
             },
-            "ls_faq_item_rn8TaT": {
+            "ls_faq_item_QEkzxX": {
               "type": "ls-faq-item",
               "settings": {
-                "question": "Do you have live music every weekend?",
-                "answer": "<p>Every Friday and Saturday night, year-round. Local college bands, DJs, and nationally touring artists — the guitar never stops at Willie's.</p>",
-                "open_by_default": true
+                "question": "Where are you located?",
+                "answer": "<p>Right in the heart of Lexington's neighborhood, steps from the University of Kentucky campus and Kroger Field, over the corner of Woodland and Euclid.</p>",
+                "open_by_default": false
               },
               "blocks": {}
             },
-            "ls_faq_item_eWCLWA": {
+            "ls_faq_item_AFFWeF": {
               "type": "ls-faq-item",
               "settings": {
-                "question": "Can I get a refund on tickets?",
-                "answer": "<p>Refund policies depend on the event and the ticketing platform. Reach out before the show and we'll point you in the right direction.</p>",
-                "open_by_default": true
+                "question": "What are your hours?",
+                "answer": "<p>We're open daily, except Sundays, with live music every Friday and Saturday night. Hours are Thu–Sat: 4PM – 2AM, and Mon – Tue 4PM – 12AM.</p>",
+                "open_by_default": false
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_YRAz6K": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "Can I bring outside food?",
+                "answer": "<p>Absolutely. There's a Great Bagel, Wing Stop, and Subway right in the same center, so grab what you want and bring it on in. We're a bar first — the food's on you, the drinks are on us.</p>",
+                "open_by_default": false
+              },
+              "blocks": {}
+            },
+            "ls_faq_item_CegDaP": {
+              "type": "ls-faq-item",
+              "settings": {
+                "question": "is there a dress code?",
+                "answer": "<p>Nope. Come as you are. Game day jersey, work clothes, boots — whatever gets you here.</p>",
+                "open_by_default": false
               },
               "blocks": {}
             }
           },
           "block_order": [
-            "ls_faq_item_nbtUNf",
-            "ls_faq_item_rn8TaT",
-            "ls_faq_item_eWCLWA"
+            "ls_faq_item_KTtriz",
+            "ls_faq_item_QEkzxX",
+            "ls_faq_item_AFFWeF",
+            "ls_faq_item_YRAz6K",
+            "ls_faq_item_CegDaP"
           ]
         },
         "group_ACptBU": {
@@ -704,8 +764,9 @@
         }
       },
       "block_order": [
-        "ls_faq_category_TzLXMm",
         "ls_faq_category_xQ9qXJ",
+        "ls_faq_category_TzLXMm",
+        "ls_faq_category_FJRL4T",
         "group_ACptBU"
       ],
       "custom_css": [
