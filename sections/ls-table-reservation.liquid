@@ -34,12 +34,16 @@
           {%- assign k_y = base | append: '_y' -%}
           {%- assign k_xm = base | append: '_x_mobile' -%}
           {%- assign k_ym = base | append: '_y_mobile' -%}
+          {%- assign k_sz = base | append: '_size' -%}
+          {%- assign k_szm = base | append: '_size_mobile' -%}
           {%- assign rot = s[k_rot] -%}
           {%- assign px = s[k_x] -%}
           {%- assign py = s[k_y] -%}
           {%- assign pxm = s[k_xm] -%}
           {%- assign pym = s[k_ym] -%}
-          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px;">
+          {%- assign psz = s[k_sz] -%}
+          {%- assign pszm = s[k_szm] -%}
+          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px; --ls-size: {{ psz }}%; --ls-size-m: {{ pszm }}%;">
             <div class="ls-tr__photo">
               {{ img | image_url: width: 1000 | image_tag: alt: img.alt, widths: '300,450,600,800,1000', sizes: '(max-width: 989px) 60vw, 30vw', loading: 'lazy' }}
             </div>
@@ -62,12 +66,16 @@
           {%- assign k_y = base | append: '_y' -%}
           {%- assign k_xm = base | append: '_x_mobile' -%}
           {%- assign k_ym = base | append: '_y_mobile' -%}
+          {%- assign k_sz = base | append: '_size' -%}
+          {%- assign k_szm = base | append: '_size_mobile' -%}
           {%- assign rot = s[k_rot] -%}
           {%- assign px = s[k_x] -%}
           {%- assign py = s[k_y] -%}
           {%- assign pxm = s[k_xm] -%}
           {%- assign pym = s[k_ym] -%}
-          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px;">
+          {%- assign psz = s[k_sz] -%}
+          {%- assign pszm = s[k_szm] -%}
+          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px; --ls-size: {{ psz }}%; --ls-size-m: {{ pszm }}%;">
             <div class="ls-tr__photo">
               {{ img | image_url: width: 1000 | image_tag: alt: img.alt, widths: '300,450,600,800,1000', sizes: '(max-width: 989px) 60vw, 30vw', loading: 'lazy' }}
             </div>
@@ -124,7 +132,7 @@
   .ls-tr__polaroid {
     position: relative;
     box-sizing: border-box;
-    width: 90%;
+    width: var(--ls-size, 90%);
     padding: 12px;
     border-radius: 2px;
     background-color: var(--ls-frame-paper, #ece9e2);
@@ -160,7 +168,7 @@
     .ls-tr__text { order: 1; max-width: 360px; }
     .ls-tr__cluster--b { order: 2; }
     .ls-tr__polaroid {
-      width: min(58%, 220px);
+      width: var(--ls-size-m, 58%);
       padding: 8px;
       transform: translate(var(--ls-x-m, 0px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, 0deg));
     }
@@ -219,6 +227,26 @@
       "type": "image_picker",
       "id": "polaroid_1",
       "label": "Image 1"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_size_mobile",
+      "label": "Size (mobile, width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 58
     },
     {
       "type": "range",
@@ -281,6 +309,26 @@
     },
     {
       "type": "range",
+      "id": "polaroid_2_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_size_mobile",
+      "label": "Size (mobile, width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 58
+    },
+    {
+      "type": "range",
       "id": "polaroid_2_rotation",
       "label": "Rotation",
       "min": -20,
@@ -337,6 +385,26 @@
       "type": "image_picker",
       "id": "polaroid_3",
       "label": "Image 3"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_3_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_3_size_mobile",
+      "label": "Size (mobile, width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 58
     },
     {
       "type": "range",
@@ -399,6 +467,26 @@
     },
     {
       "type": "range",
+      "id": "polaroid_4_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_4_size_mobile",
+      "label": "Size (mobile, width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 58
+    },
+    {
+      "type": "range",
       "id": "polaroid_4_rotation",
       "label": "Rotation",
       "min": -20,
@@ -458,6 +546,26 @@
     },
     {
       "type": "range",
+      "id": "polaroid_5_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_5_size_mobile",
+      "label": "Size (mobile, width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 58
+    },
+    {
+      "type": "range",
       "id": "polaroid_5_rotation",
       "label": "Rotation",
       "min": -20,
@@ -514,6 +622,26 @@
       "type": "image_picker",
       "id": "polaroid_6",
       "label": "Image 6"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_6_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_6_size_mobile",
+      "label": "Size (mobile, width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 58
     },
     {
       "type": "range",
