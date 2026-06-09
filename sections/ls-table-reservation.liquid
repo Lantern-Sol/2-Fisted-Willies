@@ -35,15 +35,13 @@
           {%- assign k_xm = base | append: '_x_mobile' -%}
           {%- assign k_ym = base | append: '_y_mobile' -%}
           {%- assign k_sz = base | append: '_size' -%}
-          {%- assign k_szm = base | append: '_size_mobile' -%}
           {%- assign rot = s[k_rot] -%}
           {%- assign px = s[k_x] -%}
           {%- assign py = s[k_y] -%}
           {%- assign pxm = s[k_xm] -%}
           {%- assign pym = s[k_ym] -%}
           {%- assign psz = s[k_sz] -%}
-          {%- assign pszm = s[k_szm] -%}
-          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px; --ls-size: {{ psz }}%; --ls-size-m: {{ pszm }}%;">
+          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px; --ls-size: {{ psz }};">
             <div class="ls-tr__photo">
               {{ img | image_url: width: 1000 | image_tag: alt: img.alt, widths: '300,450,600,800,1000', sizes: '(max-width: 989px) 60vw, 30vw', loading: 'lazy' }}
             </div>
@@ -67,15 +65,13 @@
           {%- assign k_xm = base | append: '_x_mobile' -%}
           {%- assign k_ym = base | append: '_y_mobile' -%}
           {%- assign k_sz = base | append: '_size' -%}
-          {%- assign k_szm = base | append: '_size_mobile' -%}
           {%- assign rot = s[k_rot] -%}
           {%- assign px = s[k_x] -%}
           {%- assign py = s[k_y] -%}
           {%- assign pxm = s[k_xm] -%}
           {%- assign pym = s[k_ym] -%}
           {%- assign psz = s[k_sz] -%}
-          {%- assign pszm = s[k_szm] -%}
-          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px; --ls-size: {{ psz }}%; --ls-size-m: {{ pszm }}%;">
+          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px; --ls-size: {{ psz }};">
             <div class="ls-tr__photo">
               {{ img | image_url: width: 1000 | image_tag: alt: img.alt, widths: '300,450,600,800,1000', sizes: '(max-width: 989px) 60vw, 30vw', loading: 'lazy' }}
             </div>
@@ -100,6 +96,11 @@
     opacity: 0.12;
     pointer-events: none;
   }
+
+  /* Reference width the Size % is measured against, so a given Size value
+     renders the same pixel width on desktop AND mobile (a raw % would be
+     relative to each breakpoint's differently-sized parent). */
+  .ls-tr { --ls-tr-photo-base: 480px; }
 
   .ls-tr__inner {
     display: flex;
@@ -132,7 +133,7 @@
   .ls-tr__polaroid {
     position: relative;
     box-sizing: border-box;
-    width: var(--ls-size, 90%);
+    width: calc(var(--ls-size, 90) * var(--ls-tr-photo-base, 480px) / 100);
     padding: 12px;
     border-radius: 2px;
     background-color: var(--ls-frame-paper, #ece9e2);
@@ -150,11 +151,15 @@
   .ls-tr__photo { position: relative; overflow: hidden; border-radius: 1px; }
   .ls-tr__photo img { display: block; width: 100%; height: auto; }
 
-  /* ---- Mobile: clusters become rows, A on top / B on bottom around the text ---- */
+  /* ---- Mobile: clusters become rows, A on top / B on bottom around the text.
+     Polaroids keep their desktop Size (--ls-size). ---- */
   @media screen and (max-width: 989px) {
     .ls-tr__inner {
       flex-direction: column;
       gap: 24px;
+      /* Desktop-sized photos are wider than a phone; clip the bleed instead
+         of forcing a horizontal scrollbar. */
+      overflow-x: clip;
     }
     .ls-tr__cluster {
       flex: 0 0 auto;
@@ -168,7 +173,10 @@
     .ls-tr__text { order: 1; max-width: 360px; }
     .ls-tr__cluster--b { order: 2; }
     .ls-tr__polaroid {
-      width: var(--ls-size-m, 58%);
+      /* Same calc as desktop → identical rendered pixel width. flex-shrink:0
+         stops the 3-in-a-row from squeezing the photos down. */
+      width: calc(var(--ls-size, 90) * var(--ls-tr-photo-base, 480px) / 100);
+      flex-shrink: 0;
       padding: 8px;
       transform: translate(var(--ls-x-m, 0px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, 0deg));
     }
@@ -237,16 +245,6 @@
       "step": 1,
       "unit": "%",
       "default": 90
-    },
-    {
-      "type": "range",
-      "id": "polaroid_1_size_mobile",
-      "label": "Size (mobile, width %)",
-      "min": 20,
-      "max": 120,
-      "step": 1,
-      "unit": "%",
-      "default": 58
     },
     {
       "type": "range",
@@ -319,16 +317,6 @@
     },
     {
       "type": "range",
-      "id": "polaroid_2_size_mobile",
-      "label": "Size (mobile, width %)",
-      "min": 20,
-      "max": 120,
-      "step": 1,
-      "unit": "%",
-      "default": 58
-    },
-    {
-      "type": "range",
       "id": "polaroid_2_rotation",
       "label": "Rotation",
       "min": -20,
@@ -395,16 +383,6 @@
       "step": 1,
       "unit": "%",
       "default": 90
-    },
-    {
-      "type": "range",
-      "id": "polaroid_3_size_mobile",
-      "label": "Size (mobile, width %)",
-      "min": 20,
-      "max": 120,
-      "step": 1,
-      "unit": "%",
-      "default": 58
     },
     {
       "type": "range",
@@ -477,16 +455,6 @@
     },
     {
       "type": "range",
-      "id": "polaroid_4_size_mobile",
-      "label": "Size (mobile, width %)",
-      "min": 20,
-      "max": 120,
-      "step": 1,
-      "unit": "%",
-      "default": 58
-    },
-    {
-      "type": "range",
       "id": "polaroid_4_rotation",
       "label": "Rotation",
       "min": -20,
@@ -556,16 +524,6 @@
     },
     {
       "type": "range",
-      "id": "polaroid_5_size_mobile",
-      "label": "Size (mobile, width %)",
-      "min": 20,
-      "max": 120,
-      "step": 1,
-      "unit": "%",
-      "default": 58
-    },
-    {
-      "type": "range",
       "id": "polaroid_5_rotation",
       "label": "Rotation",
       "min": -20,
@@ -632,16 +590,6 @@
       "step": 1,
       "unit": "%",
       "default": 90
-    },
-    {
-      "type": "range",
-      "id": "polaroid_6_size_mobile",
-      "label": "Size (mobile, width %)",
-      "min": 20,
-      "max": 120,
-      "step": 1,
-      "unit": "%",
-      "default": 58
     },
     {
       "type": "range",
