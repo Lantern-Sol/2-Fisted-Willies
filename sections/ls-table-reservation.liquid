@@ -1,0 +1,720 @@
+{%- liquid
+  assign s = section.settings
+  assign cluster_a = '1,2,3' | split: ','
+  assign cluster_b = '4,5,6' | split: ','
+  assign has_frame_texture = false
+  if s.frame_texture != blank
+    assign has_frame_texture = true
+  endif
+-%}
+
+{%- capture bg_style -%}
+  --ls-tr-bg-color: {{ s.bg_color }};
+  {%- if s.bg_image != blank %} --ls-tr-bg-image: url({{ s.bg_image | image_url: width: 2400 }});{% endif -%}
+{%- endcapture -%}
+
+{%- capture frame_style -%}
+  --ls-frame-paper: {{ s.frame_color }};
+  --ls-tr-mobile-scale: {{ s.mobile_scale }};
+  {%- if has_frame_texture %} --ls-frame-texture: url({{ s.frame_texture | image_url: width: 1000 }});{% endif -%}
+{%- endcapture -%}
+
+<div class="section-background ls-tr__bg" style="{{ bg_style }}"></div>
+<div
+  class="section ls-tr spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ frame_style }}"
+>
+  <div class="ls-tr__inner">
+    <div class="ls-tr__cluster ls-tr__cluster--a">
+      {%- for n in cluster_a -%}
+        {%- assign base = 'polaroid_' | append: n -%}
+        {%- assign img = s[base] -%}
+        {%- if img != blank -%}
+          {%- assign k_rot = base | append: '_rotation' -%}
+          {%- assign k_x = base | append: '_x' -%}
+          {%- assign k_y = base | append: '_y' -%}
+          {%- assign k_xm = base | append: '_x_mobile' -%}
+          {%- assign k_ym = base | append: '_y_mobile' -%}
+          {%- assign k_sz = base | append: '_size' -%}
+          {%- assign rot = s[k_rot] -%}
+          {%- assign px = s[k_x] -%}
+          {%- assign py = s[k_y] -%}
+          {%- assign pxm = s[k_xm] -%}
+          {%- assign pym = s[k_ym] -%}
+          {%- assign psz = s[k_sz] -%}
+          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px; --ls-size: {{ psz }};">
+            <div class="ls-tr__photo">
+              {{ img | image_url: width: 1000 | image_tag: alt: img.alt, widths: '300,450,600,800,1000', sizes: '(max-width: 989px) 60vw, 30vw', loading: 'lazy' }}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="ls-tr__text">
+      {% content_for 'blocks' %}
+    </div>
+
+    <div class="ls-tr__cluster ls-tr__cluster--b">
+      {%- for n in cluster_b -%}
+        {%- assign base = 'polaroid_' | append: n -%}
+        {%- assign img = s[base] -%}
+        {%- if img != blank -%}
+          {%- assign k_rot = base | append: '_rotation' -%}
+          {%- assign k_x = base | append: '_x' -%}
+          {%- assign k_y = base | append: '_y' -%}
+          {%- assign k_xm = base | append: '_x_mobile' -%}
+          {%- assign k_ym = base | append: '_y_mobile' -%}
+          {%- assign k_sz = base | append: '_size' -%}
+          {%- assign rot = s[k_rot] -%}
+          {%- assign px = s[k_x] -%}
+          {%- assign py = s[k_y] -%}
+          {%- assign pxm = s[k_xm] -%}
+          {%- assign pym = s[k_ym] -%}
+          {%- assign psz = s[k_sz] -%}
+          <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px; --ls-size: {{ psz }};">
+            <div class="ls-tr__photo">
+              {{ img | image_url: width: 1000 | image_tag: alt: img.alt, widths: '300,450,600,800,1000', sizes: '(max-width: 989px) 60vw, 30vw', loading: 'lazy' }}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-tr__bg {
+    background-color: var(--ls-tr-bg-color, #13131b);
+  }
+  .ls-tr__bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--ls-tr-bg-image, none);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  /* Reference width the Size % is measured against, so a given Size value
+     renders the same pixel width on desktop AND mobile (a raw % would be
+     relative to each breakpoint's differently-sized parent). */
+  .ls-tr { --ls-tr-photo-base: 480px; }
+
+  .ls-tr__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+
+  .ls-tr__cluster {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ls-tr__cluster--a { margin-right: -48px; }
+  .ls-tr__cluster--b { margin-left: -48px; }
+
+  .ls-tr__text {
+    position: relative;
+    z-index: 5;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 460px;
+  }
+
+  .ls-tr__polaroid {
+    position: relative;
+    box-sizing: border-box;
+    width: calc(var(--ls-size, 90) * var(--ls-tr-photo-base, 480px) / 100);
+    padding: 12px;
+    border-radius: 2px;
+    background-color: var(--ls-frame-paper, #ece9e2);
+    background-image: var(--ls-frame-texture, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"));
+    background-size: cover, 240px 240px;
+    background-repeat: no-repeat, repeat;
+    box-shadow: 0 -3px 4px 0 rgba(0, 0, 0, 0.45), 0 6px 14px rgba(0, 0, 0, 0.35);
+    transform: translate(var(--ls-x, 0px), var(--ls-y, 0px)) rotate(var(--ls-rot, 0deg));
+  }
+  .ls-tr__cluster .ls-tr__polaroid + .ls-tr__polaroid { margin-top: -56px; }
+  .ls-tr__polaroid--1, .ls-tr__polaroid--4 { z-index: 1; }
+  .ls-tr__polaroid--2, .ls-tr__polaroid--5 { z-index: 2; }
+  .ls-tr__polaroid--3, .ls-tr__polaroid--6 { z-index: 3; }
+
+  .ls-tr__photo { position: relative; overflow: hidden; border-radius: 1px; }
+  .ls-tr__photo img { display: block; width: 100%; height: auto; }
+
+  /* ---- Mobile: clusters become rows, A on top / B on bottom around the text.
+     Polaroids keep their desktop Size (--ls-size). ---- */
+  @media screen and (max-width: 989px) {
+    .ls-tr__inner {
+      flex-direction: column;
+      gap: 24px;
+      /* Desktop-sized photos are wider than a phone; clip the bleed instead
+         of forcing a horizontal scrollbar. */
+      overflow-x: clip;
+    }
+    .ls-tr__cluster {
+      flex: 0 0 auto;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      margin: 0;
+    }
+    .ls-tr__cluster--a { order: 0; }
+    .ls-tr__text { order: 1; max-width: 360px; }
+    .ls-tr__cluster--b { order: 2; }
+    .ls-tr__polaroid {
+      /* Desktop pixel width × the mobile scale, so mobile tracks whatever each
+         polaroid's desktop Size is (e.g. 70 → 70% of the desktop size).
+         flex-shrink:0 stops the 3-in-a-row from squeezing the photos down. */
+      width: calc(var(--ls-size, 90) * var(--ls-tr-photo-base, 480px) / 100 * var(--ls-tr-mobile-scale, 70) / 100);
+      flex-shrink: 0;
+      padding: 8px;
+      transform: translate(var(--ls-x-m, 0px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, 0deg));
+    }
+    .ls-tr__cluster .ls-tr__polaroid + .ls-tr__polaroid { margin-top: 0; margin-left: -48px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Table Reservation",
+  "tag": "section",
+  "class": "ls-table-reservation-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    { "type": "group" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#13131b"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Faint background photo"
+    },
+    {
+      "type": "header",
+      "content": "Polaroid frame"
+    },
+    {
+      "type": "color",
+      "id": "frame_color",
+      "label": "Frame color",
+      "default": "#ece9e2"
+    },
+    {
+      "type": "image_picker",
+      "id": "frame_texture",
+      "label": "Frame texture",
+      "info": "Optional. Falls back to the baked-in paper grain + color."
+    },
+    {
+      "type": "range",
+      "id": "mobile_scale",
+      "label": "Mobile size scale",
+      "info": "Scales all polaroids on mobile relative to their desktop size. 100 = same as desktop.",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "header",
+      "content": "Polaroid 1 (left / top)"
+    },
+    {
+      "type": "image_picker",
+      "id": "polaroid_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "°",
+      "default": -5
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_x",
+      "label": "X offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_y",
+      "label": "Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_x_mobile",
+      "label": "X offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_1_y_mobile",
+      "label": "Y offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Polaroid 2 (left / top)"
+    },
+    {
+      "type": "image_picker",
+      "id": "polaroid_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "°",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_x",
+      "label": "X offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_y",
+      "label": "Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_x_mobile",
+      "label": "X offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_2_y_mobile",
+      "label": "Y offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Polaroid 3 (left / top)"
+    },
+    {
+      "type": "image_picker",
+      "id": "polaroid_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_3_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_3_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "°",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "polaroid_3_x",
+      "label": "X offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_3_y",
+      "label": "Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_3_x_mobile",
+      "label": "X offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_3_y_mobile",
+      "label": "Y offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Polaroid 4 (right / bottom)"
+    },
+    {
+      "type": "image_picker",
+      "id": "polaroid_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_4_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_4_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "°",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "polaroid_4_x",
+      "label": "X offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_4_y",
+      "label": "Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_4_x_mobile",
+      "label": "X offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_4_y_mobile",
+      "label": "Y offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Polaroid 5 (right / bottom)"
+    },
+    {
+      "type": "image_picker",
+      "id": "polaroid_5",
+      "label": "Image 5"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_5_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_5_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "°",
+      "default": -16
+    },
+    {
+      "type": "range",
+      "id": "polaroid_5_x",
+      "label": "X offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_5_y",
+      "label": "Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_5_x_mobile",
+      "label": "X offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_5_y_mobile",
+      "label": "Y offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Polaroid 6 (right / bottom)"
+    },
+    {
+      "type": "image_picker",
+      "id": "polaroid_6",
+      "label": "Image 6"
+    },
+    {
+      "type": "range",
+      "id": "polaroid_6_size",
+      "label": "Size (width %)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "polaroid_6_rotation",
+      "label": "Rotation",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "°",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "polaroid_6_x",
+      "label": "X offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_6_y",
+      "label": "Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_6_x_mobile",
+      "label": "X offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "polaroid_6_y_mobile",
+      "label": "Y offset (mobile)",
+      "min": -400,
+      "max": 400,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 128
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 128
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_padding",
+      "label": "Use mobile padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start-mobile",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end-mobile",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Table Reservation",
+      "category": "t:categories.other_sections",
+      "blocks": [
+        { "type": "group" }
+      ]
+    }
+  ]
+}
+{% endschema %}
