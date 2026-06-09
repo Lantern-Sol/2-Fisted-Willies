@@ -13,6 +13,9 @@
     {% assign all_events = metaobjects.event.values %}
   {% endpaginate %}
 {% endif %}
+{% if all_events.size > 1 %}
+  {% assign all_events = all_events | sort: 'event_date' %}
+{% endif %}
 
 {% render 'ls-events-load', settings: s %}
 

@@ -121,6 +121,7 @@ Renders an event card.
 {%- if layout == 'featured' -%}
   <article
     class="ls-event-card ls-event-card--featured"
+    data-event-date="{{ event_date_iso }}"
     {% if filterable %}data-event-card data-category="{{ category }}" data-tags="{{ tags_joined }}"{% endif %}
   >
     <div class="ls-event-card__media">
@@ -165,6 +166,7 @@ Renders an event card.
 {%- else -%}
   <article
     class="ls-event-card ls-event-card--{{ layout }}"
+    data-event-date="{{ event_date_iso }}"
     {% if filterable %}data-event-card data-category="{{ category }}" data-tags="{{ tags_joined }}"{% endif %}
   >
     <div class="ls-event-card__media">
