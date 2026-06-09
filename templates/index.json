@@ -430,7 +430,7 @@
         "cta_text_color": "#eae8f0",
         "filter_border": "#3d4a66",
         "filter_active_bg": "#1a2540",
-        "padding-block-start": 32,
+        "padding-block-start": 80,
         "padding-block-end": 64
       }
     },
