@@ -29,6 +29,12 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
  }
 
+ @media screen and (max-width: 768px) {
+ div._horizontalLayout_1hja3_14{
+  grid-template-columns: 1fr 1fr;
+ }
+
+}
  div label._formInputFieldLabel_1mxsl_38{
     color: #9CA0B8;
     text-transform: uppercase;
