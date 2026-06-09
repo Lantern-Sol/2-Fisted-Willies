@@ -738,8 +738,8 @@
         "polaroid_2_rotation": 3,
         "polaroid_2_x": 8,
         "polaroid_2_y": 120,
-        "polaroid_2_x_mobile": 120,
-        "polaroid_2_y_mobile": 20,
+        "polaroid_2_x_mobile": 100,
+        "polaroid_2_y_mobile": 96,
         "frame_color": "#f4f1e9",
         "frame_texture": "shopify://shop_images/cardstock-bg.jpg",
         "logo": "shopify://shop_images/blue-logo_ca44ff9c-0a40-4eb2-a353-09c4779b4e58.svg",
@@ -747,9 +747,9 @@
         "border_width": 8,
         "padding-block-start": 120,
         "padding-block-end": 40,
-        "use_mobile_padding": false,
-        "padding-block-start-mobile": 40,
-        "padding-block-end-mobile": 64
+        "use_mobile_padding": true,
+        "padding-block-start-mobile": 52,
+        "padding-block-end-mobile": 120
       }
     },
     "section_jqiGWt": {
