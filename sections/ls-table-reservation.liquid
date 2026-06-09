@@ -26,13 +26,19 @@
   <div class="ls-tr__inner">
     <div class="ls-tr__cluster ls-tr__cluster--a">
       {%- for n in cluster_a -%}
-        {%- assign img = s['polaroid_' | append: n] -%}
+        {%- assign base = 'polaroid_' | append: n -%}
+        {%- assign img = s[base] -%}
         {%- if img != blank -%}
-          {%- assign rot = s['polaroid_' | append: n | append: '_rotation'] -%}
-          {%- assign px = s['polaroid_' | append: n | append: '_x'] -%}
-          {%- assign py = s['polaroid_' | append: n | append: '_y'] -%}
-          {%- assign pxm = s['polaroid_' | append: n | append: '_x_mobile'] -%}
-          {%- assign pym = s['polaroid_' | append: n | append: '_y_mobile'] -%}
+          {%- assign k_rot = base | append: '_rotation' -%}
+          {%- assign k_x = base | append: '_x' -%}
+          {%- assign k_y = base | append: '_y' -%}
+          {%- assign k_xm = base | append: '_x_mobile' -%}
+          {%- assign k_ym = base | append: '_y_mobile' -%}
+          {%- assign rot = s[k_rot] -%}
+          {%- assign px = s[k_x] -%}
+          {%- assign py = s[k_y] -%}
+          {%- assign pxm = s[k_xm] -%}
+          {%- assign pym = s[k_ym] -%}
           <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px;">
             <div class="ls-tr__photo">
               {{ img | image_url: width: 1000 | image_tag: alt: img.alt, widths: '300,450,600,800,1000', sizes: '(max-width: 989px) 60vw, 30vw', loading: 'lazy' }}
@@ -48,13 +54,19 @@
 
     <div class="ls-tr__cluster ls-tr__cluster--b">
       {%- for n in cluster_b -%}
-        {%- assign img = s['polaroid_' | append: n] -%}
+        {%- assign base = 'polaroid_' | append: n -%}
+        {%- assign img = s[base] -%}
         {%- if img != blank -%}
-          {%- assign rot = s['polaroid_' | append: n | append: '_rotation'] -%}
-          {%- assign px = s['polaroid_' | append: n | append: '_x'] -%}
-          {%- assign py = s['polaroid_' | append: n | append: '_y'] -%}
-          {%- assign pxm = s['polaroid_' | append: n | append: '_x_mobile'] -%}
-          {%- assign pym = s['polaroid_' | append: n | append: '_y_mobile'] -%}
+          {%- assign k_rot = base | append: '_rotation' -%}
+          {%- assign k_x = base | append: '_x' -%}
+          {%- assign k_y = base | append: '_y' -%}
+          {%- assign k_xm = base | append: '_x_mobile' -%}
+          {%- assign k_ym = base | append: '_y_mobile' -%}
+          {%- assign rot = s[k_rot] -%}
+          {%- assign px = s[k_x] -%}
+          {%- assign py = s[k_y] -%}
+          {%- assign pxm = s[k_xm] -%}
+          {%- assign pym = s[k_ym] -%}
           <div class="ls-tr__polaroid ls-tr__polaroid--{{ n }}" style="--ls-rot: {{ rot }}deg; --ls-x: {{ px }}px; --ls-y: {{ py }}px; --ls-x-m: {{ pxm }}px; --ls-y-m: {{ pym }}px;">
             <div class="ls-tr__photo">
               {{ img | image_url: width: 1000 | image_tag: alt: img.alt, widths: '300,450,600,800,1000', sizes: '(max-width: 989px) 60vw, 30vw', loading: 'lazy' }}
