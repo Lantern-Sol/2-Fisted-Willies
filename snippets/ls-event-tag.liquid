@@ -1,0 +1,60 @@
+{% doc %}
+Renders an event status badge.
+@param {string} tag - featured | available | pre_sale | cover | sold_out | past
+{% enddoc %}
+
+{%- liquid
+  assign tag_key = tag | handleize | replace: '-', '_'
+  case tag_key
+    when 'featured'
+      assign tag_label = 'Featured'
+    when 'available'
+      assign tag_label = 'Available'
+    when 'pre_sale'
+      assign tag_label = 'Pre-sale'
+    when 'cover'
+      assign tag_label = 'Cover'
+    when 'sold_out'
+      assign tag_label = 'Sold out'
+    when 'past'
+      assign tag_label = 'Past'
+    else
+      assign tag_label = tag
+  endcase
+-%}
+
+<span class="ls-event-tag ls-event-tag--{{ tag_key }}">
+  <span class="ls-event-tag__icon" aria-hidden="true">
+    {%- case tag_key -%}
+      {%- when 'featured' -%}
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 1.5l1.55 3.14 3.47.5-2.51 2.45.59 3.46L8 9.77 4.9 11.15l.59-3.46L3 5.14l3.47-.5L8 1.5z"/>
+        </svg>
+      {%- when 'available' -%}
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="12" height="12" rx="1"/>
+          <path d="M5 8l2 2 4-4"/>
+        </svg>
+      {%- when 'pre_sale' -%}
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+          <path d="M3 5h4l1-2h4v2h1v2h-1v2H8l-1 2H3V5zm2 2v4h2.5l.75-1.5H11V7H5.75L5.5 7.5H5z"/>
+        </svg>
+      {%- when 'cover' -%}
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 6.5h10v7H3v-7z"/>
+          <path d="M5.5 6.5V5a2.5 2.5 0 015 0v1.5"/>
+        </svg>
+      {%- when 'sold_out' -%}
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="6"/>
+          <path d="M5.5 5.5l5 5M10.5 5.5l-5 5"/>
+        </svg>
+      {%- when 'past' -%}
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="6"/>
+          <path d="M8 5v3.5l2.5 1.5"/>
+        </svg>
+    {%- endcase -%}
+  </span>
+  <span class="ls-event-tag__label">{{ tag_label | upcase }}</span>
+</span>

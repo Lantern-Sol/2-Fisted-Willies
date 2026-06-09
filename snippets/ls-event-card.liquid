@@ -1,0 +1,148 @@
+{% doc %}
+Renders an event card.
+@param {metaobject} event
+@param {string} layout - featured | grid | past
+@param {boolean} [filterable] - outputs data attributes for JS filtering
+{% enddoc %}
+
+{%- liquid
+  assign layout = layout | default: 'grid'
+  assign event_name = event.event_name.value | default: event.name.value
+  assign event_date = event.event_date.value
+  assign show_time = event.show_time.value
+  assign genre = event.genre.value
+  assign ticket_url = event.ticket_url.value
+  assign category = event.category.value | default: ''
+  assign tags = event.tags.value
+  assign image = event.image.value
+
+  assign is_featured = false
+  assign is_sold_out = false
+  assign status_tag = ''
+
+  for tag in tags
+    assign tag_handle = tag | handleize | replace: '-', '_'
+    if tag_handle == 'featured'
+      assign is_featured = true
+    endif
+    if tag_handle == 'sold_out'
+      assign is_sold_out = true
+      assign status_tag = 'sold_out'
+    elsif tag_handle == 'pre_sale' and status_tag == blank
+      assign status_tag = 'pre_sale'
+    elsif tag_handle == 'cover' and status_tag == blank
+      assign status_tag = 'cover'
+    elsif tag_handle == 'available' and status_tag == blank
+      assign status_tag = 'available'
+    endif
+  endfor
+
+  assign tags_joined = tags | join: ','
+
+  if layout == 'featured'
+    assign date_label = event_date | date: '%a %b %d' | upcase
+  else
+    assign date_label = event_date | date: '%a, %b %d' | upcase
+  endif
+
+  assign show_info = 'SHOW'
+  if show_time != blank
+    assign show_info = show_info | append: ' · ' | append: show_time
+  endif
+-%}
+
+{%- if layout == 'featured' -%}
+  <article
+    class="ls-event-card ls-event-card--featured"
+    {% if filterable %}data-event-card data-category="{{ category }}" data-tags="{{ tags_joined }}"{% endif %}
+  >
+    <div class="ls-event-card__media">
+      {%- if image != blank -%}
+        {{ image | image_url: width: 600 | image_tag: class: 'ls-event-card__image', loading: 'lazy', widths: '300,400,600', sizes: '(min-width: 750px) 220px, 120px' }}
+      {%- else -%}
+        <div class="ls-event-card__image ls-event-card__image--placeholder" aria-hidden="true"></div>
+      {%- endif -%}
+    </div>
+
+    <div class="ls-event-card__body">
+      <div class="ls-event-card__meta-top">
+        {%- if is_featured -%}
+          {% render 'ls-event-tag', tag: 'featured' %}
+        {%- endif -%}
+        <time class="ls-event-card__date" datetime="{{ event_date | date: '%Y-%m-%d' }}">{{ date_label }}</time>
+      </div>
+
+      {%- if event_name != blank -%}
+        <h3 class="ls-event-card__name">{{ event_name }}</h3>
+      {%- endif -%}
+
+      {%- if genre != blank -%}
+        <p class="ls-event-card__genre">{{ genre }}</p>
+      {%- endif -%}
+
+      <p class="ls-event-card__quick">{{ show_info }} <span class="ls-event-card__age">21+</span></p>
+    </div>
+
+  {%- unless is_sold_out -%}
+    <div class="ls-event-card__actions">
+      {%- if ticket_url != blank -%}
+        <a class="ls-event-card__cta" href="{{ ticket_url }}" target="_blank" rel="noopener noreferrer">
+          Get tickets
+          <span class="ls-event-card__cta-arrow" aria-hidden="true">→</span>
+        </a>
+      {%- endif -%}
+    </div>
+  {%- endunless -%}
+  </article>
+
+{%- else -%}
+  <article
+    class="ls-event-card ls-event-card--{{ layout }}"
+    {% if filterable %}data-event-card data-category="{{ category }}" data-tags="{{ tags_joined }}"{% endif %}
+  >
+    <div class="ls-event-card__media">
+      {%- if image != blank -%}
+        {{ image | image_url: width: 800 | image_tag: class: 'ls-event-card__image', loading: 'lazy', widths: '400,600,800', sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw' }}
+      {%- else -%}
+        <div class="ls-event-card__image ls-event-card__image--placeholder" aria-hidden="true"></div>
+      {%- endif -%}
+
+      <div class="ls-event-card__badges">
+        {%- if layout == 'past' -%}
+          {% render 'ls-event-tag', tag: 'past' %}
+        {%- elsif is_featured -%}
+          {% render 'ls-event-tag', tag: 'featured' %}
+        {%- elsif status_tag != blank -%}
+          {% render 'ls-event-tag', tag: status_tag %}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="ls-event-card__content">
+      <div class="ls-event-card__info-row">
+        <time class="ls-event-card__date" datetime="{{ event_date | date: '%Y-%m-%d' }}">{{ date_label }}</time>
+        <span class="ls-event-card__show">{{ show_info }}</span>
+        <span class="ls-event-card__age">21+</span>
+      </div>
+
+      {%- if event_name != blank -%}
+        <h3 class="ls-event-card__name">{{ event_name }}</h3>
+      {%- endif -%}
+
+      {%- if genre != blank -%}
+        <p class="ls-event-card__genre">{{ genre }}</p>
+      {%- endif -%}
+
+      {%- if layout == 'past' -%}
+        <span class="ls-event-card__cta ls-event-card__cta--ended" aria-disabled="true">Event ended</span>
+      {%- elsif is_sold_out -%}
+        <span class="ls-event-card__cta ls-event-card__cta--sold-out" aria-disabled="true">Sold out</span>
+      {%- elsif ticket_url != blank -%}
+        <a class="ls-event-card__cta" href="{{ ticket_url }}" target="_blank" rel="noopener noreferrer">
+          Get tickets
+          <span class="ls-event-card__cta-arrow" aria-hidden="true">→</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </article>
+{%- endif -%}

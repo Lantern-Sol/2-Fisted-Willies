@@ -1,0 +1,830 @@
+{% liquid
+  assign s = section.settings
+  assign today = 'now' | date: '%Y-%m-%d'
+  assign all_events = shop.metaobjects.event.values | sort: 'event_date'
+
+  assign featured_count = 0
+  assign upcoming_count = 0
+  assign past_count = 0
+%}
+
+{%- capture section_vars -%}
+  --ls-events-bg: {{ s.bg_color }};
+  --ls-events-heading: {{ s.heading_color }};
+  --ls-events-heading-accent: {{ s.heading_accent_color }};
+  --ls-events-subtitle: {{ s.subtitle_color }};
+  --ls-events-card-bg: {{ s.card_bg }};
+  --ls-events-card-border: {{ s.card_border }};
+  --ls-events-text: {{ s.text_color }};
+  --ls-events-muted: {{ s.muted_color }};
+  --ls-events-cta-bg: {{ s.cta_bg }};
+  --ls-events-cta-text: {{ s.cta_text_color }};
+  --ls-events-filter-border: {{ s.filter_border }};
+  --ls-events-filter-active: {{ s.filter_active_bg }};
+{%- endcapture -%}
+
+<div class="section-background ls-events__bg"></div>
+<div
+  class="section ls-events spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ section_vars }}"
+>
+  <div class="ls-events__inner">
+    {%- if s.heading_1 != blank or s.heading_2 != blank -%}
+      <header class="ls-events__header">
+        <h1 class="ls-events__title">
+          {%- if s.heading_1 != blank -%}<span class="ls-events__title-1">{{ s.heading_1 }}</span>{%- endif -%}
+          {%- if s.heading_2 != blank -%}<span class="ls-events__title-2">{{ s.heading_2 }}</span>{%- endif -%}
+        </h1>
+        {%- if s.subtitle != blank -%}
+          <p class="ls-events__subtitle">{{ s.subtitle }}</p>
+        {%- endif -%}
+        {%- if s.show_diamond -%}
+          <div class="ls-events__diamond" aria-hidden="true">&#9670;</div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- comment -%} Featured upcoming events {%- endcomment -%}
+    {%- for event in all_events -%}
+      {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
+      {%- if event_date >= today -%}
+        {%- assign is_featured = false -%}
+        {%- for tag in event.tags.value -%}
+          {%- assign tag_key = tag | handleize | replace: '-', '_' -%}
+          {%- if tag_key == 'featured' -%}
+            {%- assign is_featured = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if is_featured -%}
+          {%- assign featured_count = featured_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if featured_count > 0 -%}
+      <div class="ls-events__featured">
+        <div class="ls-events__featured-list">
+          {%- for event in all_events -%}
+            {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
+            {%- if event_date >= today -%}
+              {%- assign is_featured = false -%}
+              {%- for tag in event.tags.value -%}
+                {%- assign tag_key = tag | handleize | replace: '-', '_' -%}
+                {%- if tag_key == 'featured' -%}
+                  {%- assign is_featured = true -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if is_featured -%}
+                {% render 'ls-event-card', event: event, layout: 'featured' %}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Upcoming grid with filters {%- endcomment -%}
+  {%- for event in all_events -%}
+    {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
+    {%- if event_date >= today -%}
+      {%- assign is_featured = false -%}
+      {%- for tag in event.tags.value -%}
+        {%- assign tag_key = tag | handleize | replace: '-', '_' -%}
+        {%- if tag_key == 'featured' -%}
+          {%- assign is_featured = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- unless is_featured -%}
+        {%- assign upcoming_count = upcoming_count | plus: 1 -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+    <ls-events-upcoming class="ls-events__upcoming">
+      <div class="ls-events__toolbar">
+        <div class="ls-events__filters">
+          <div class="ls-events__filter-group" role="group" aria-label="Event category">
+            <button type="button" class="ls-events__filter is-active" data-category-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="ls-events__filter" data-category-filter="live_music" aria-pressed="false">Live music</button>
+            <button type="button" class="ls-events__filter" data-category-filter="game_watch" aria-pressed="false">Game watch</button>
+            <button type="button" class="ls-events__filter" data-category-filter="themed_night" aria-pressed="false">Themed night</button>
+          </div>
+
+          <div class="ls-events__filter-group" role="group" aria-label="Ticket status">
+            <button type="button" class="ls-events__filter is-active" data-tag-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="ls-events__filter" data-tag-filter="available" aria-pressed="false">Available</button>
+            <button type="button" class="ls-events__filter" data-tag-filter="pre_sale" aria-pressed="false">Pre-sale</button>
+            <button type="button" class="ls-events__filter" data-tag-filter="cover" aria-pressed="false">Cover</button>
+            <button type="button" class="ls-events__filter" data-tag-filter="sold_out" aria-pressed="false">Sold out</button>
+          </div>
+        </div>
+
+        <p class="ls-events__count" data-upcoming-count>{{ upcoming_count }} UPCOMING</p>
+      </div>
+
+      <div class="ls-events__grid">
+        {%- for event in all_events -%}
+          {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
+          {%- if event_date >= today -%}
+            {%- assign is_featured = false -%}
+            {%- for tag in event.tags.value -%}
+              {%- assign tag_key = tag | handleize | replace: '-', '_' -%}
+              {%- if tag_key == 'featured' -%}
+                {%- assign is_featured = true -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- unless is_featured -%}
+              {% render 'ls-event-card', event: event, layout: 'grid', filterable: true %}
+            {%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <p class="ls-events__empty" data-upcoming-empty hidden>No events match these filters.</p>
+    </ls-events-upcoming>
+
+    {%- comment -%} Past archive — 3 most recent {%- endcomment -%}
+    {%- for event in all_events reversed -%}
+      {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
+      {%- if event_date < today -%}
+        {%- assign past_count = past_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if past_count > 0 -%}
+      <div class="ls-events__archive">
+        <header class="ls-events__archive-header">
+          <h2 class="ls-events__archive-title">
+            {%- if s.archive_heading_1 != blank -%}<span class="ls-events__archive-title-1">{{ s.archive_heading_1 }}</span>{%- endif -%}
+            {%- if s.archive_heading_2 != blank -%}<span class="ls-events__archive-title-2">{{ s.archive_heading_2 }}</span>{%- endif -%}
+          </h2>
+          {%- if s.archive_subtitle != blank -%}
+            <p class="ls-events__archive-subtitle">{{ s.archive_subtitle }}</p>
+          {%- endif -%}
+        </header>
+
+        <div class="ls-events__grid ls-events__grid--archive">
+          {%- assign shown_past = 0 -%}
+          {%- for event in all_events reversed -%}
+            {%- if shown_past >= 3 -%}
+              {%- break -%}
+            {%- endif -%}
+            {%- assign event_date = event.event_date.value | date: '%Y-%m-%d' -%}
+            {%- if event_date < today -%}
+              {% render 'ls-event-card', event: event, layout: 'past' %}
+              {%- assign shown_past = shown_past | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-events__bg {
+    background-color: var(--ls-events-bg, #0e1018);
+  }
+
+  .ls-events__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: 24px;
+    box-sizing: border-box;
+  }
+
+  .ls-events__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .ls-events__title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+  }
+
+  .ls-events__title-1 {
+    font-family: var(--font-gashroad--family);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 10vw, 96px);
+    text-transform: uppercase;
+    color: var(--ls-events-heading, #eae8f0);
+  }
+
+  .ls-events__title-2 {
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2rem, 8vw, 72px);
+    color: var(--ls-events-heading-accent, #7e9de4);
+  }
+
+  .ls-events__subtitle {
+    margin: 0;
+    max-width: 420px;
+    font-family: var(--font-cormorant-garamond--family);
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--ls-events-subtitle, #9ca0b8);
+  }
+
+  .ls-events__diamond {
+    color: var(--ls-events-heading-accent, #7e9de4);
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  .ls-events__featured-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ls-events__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px 24px;
+    margin-bottom: 24px;
+  }
+
+  .ls-events__filters {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ls-events__filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ls-events__filter {
+    box-sizing: border-box;
+    padding: 8px 14px;
+    border: 1px solid var(--ls-events-filter-border, #3d4a66);
+    background: transparent;
+    color: var(--ls-events-text, #eae8f0);
+    font-family: var(--font-body--family);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .ls-events__filter:hover,
+  .ls-events__filter:focus-visible {
+    border-color: var(--ls-events-heading-accent, #7e9de4);
+    outline: none;
+  }
+
+  .ls-events__filter.is-active {
+    background-color: var(--ls-events-filter-active, rgba(126, 157, 228, 0.15));
+    border-color: var(--ls-events-heading-accent, #7e9de4);
+  }
+
+  .ls-events__count {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.65px;
+    text-transform: uppercase;
+    color: var(--ls-events-muted, #9ca0b8);
+    white-space: nowrap;
+  }
+
+  .ls-events__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .ls-events__grid [hidden] {
+    display: none !important;
+  }
+
+  .ls-events__empty {
+    margin: 24px 0 0;
+    text-align: center;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    color: var(--ls-events-muted, #9ca0b8);
+  }
+
+  .ls-events__archive {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-top: 16px;
+  }
+
+  .ls-events__archive-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .ls-events__archive-title {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.25em 0.5em;
+    line-height: 1;
+  }
+
+  .ls-events__archive-title-1 {
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-size: clamp(1.5rem, 5vw, 40px);
+    color: var(--ls-events-heading-accent, #7e9de4);
+  }
+
+  .ls-events__archive-title-2 {
+    font-family: var(--font-gashroad--family);
+    font-size: clamp(2rem, 8vw, 72px);
+    text-transform: uppercase;
+    color: var(--ls-events-heading, #eae8f0);
+  }
+
+  .ls-events__archive-subtitle {
+    margin: 0;
+    max-width: 400px;
+    font-family: var(--font-cormorant-garamond--family);
+    font-size: 16px;
+    color: var(--ls-events-subtitle, #9ca0b8);
+  }
+
+  /* ---- Event card shared ---- */
+  .ls-event-card {
+    box-sizing: border-box;
+    background-color: var(--ls-events-card-bg, #141824);
+    border: 1px solid var(--ls-events-card-border, #2a3348);
+    color: var(--ls-events-text, #eae8f0);
+  }
+
+  .ls-event-card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ls-event-card__image--placeholder {
+    background: linear-gradient(135deg, #1e2436 0%, #0e1018 100%);
+    min-height: 180px;
+  }
+
+  .ls-event-card__name {
+    margin: 0;
+    font-family: var(--font-gashroad--family);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 4vw, 32px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--ls-events-heading, #eae8f0);
+  }
+
+  .ls-event-card__genre {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ls-events-subtitle, #9ca0b8);
+  }
+
+  .ls-event-card__date,
+  .ls-event-card__show,
+  .ls-event-card__quick,
+  .ls-event-card__age {
+    font-family: var(--font-body--family);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ls-events-muted, #9ca0b8);
+  }
+
+  .ls-event-card__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 14px 20px;
+    border: 0;
+    background-color: var(--ls-events-cta-bg, #0b4bba);
+    color: var(--ls-events-cta-text, #eae8f0);
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .ls-event-card__cta:hover {
+    opacity: 0.9;
+  }
+
+  .ls-event-card__cta--ended,
+  .ls-event-card__cta--sold-out {
+    background-color: #1e2436;
+    color: var(--ls-events-muted, #6b7289);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* ---- Tags ---- */
+  .ls-event-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    font-family: var(--font-body--family);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .ls-event-tag__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .ls-event-tag--featured {
+    background-color: #6b4f1d;
+    color: #e8d5a3;
+  }
+
+  .ls-event-tag--available {
+    background-color: #0d1f14;
+    border: 1px solid #3ecf6e;
+    color: #3ecf6e;
+  }
+
+  .ls-event-tag--pre_sale {
+    background-color: #0b4bba;
+    color: #eae8f0;
+  }
+
+  .ls-event-tag--cover {
+    background-color: #141824;
+    border: 1px solid #9ca0b8;
+    color: #9ca0b8;
+  }
+
+  .ls-event-tag--sold_out {
+    background-color: #2a1215;
+    border: 1px solid #e85d5d;
+    color: #e85d5d;
+  }
+
+  .ls-event-tag--past {
+    background-color: #141824;
+    border: 1px solid #6b7289;
+    color: #6b7289;
+  }
+
+  /* ---- Featured horizontal card ---- */
+  .ls-event-card--featured {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    align-items: center;
+    gap: 20px 24px;
+    padding: 16px;
+  }
+
+  .ls-event-card--featured .ls-event-card__media {
+    width: 140px;
+    height: 140px;
+    overflow: hidden;
+  }
+
+  .ls-event-card--featured .ls-event-card__meta-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .ls-event-card--featured .ls-event-card__body {
+    min-width: 0;
+  }
+
+  .ls-event-card--featured .ls-event-card__quick {
+    margin: 12px 0 0;
+  }
+
+  .ls-event-card--featured .ls-event-card__age {
+    margin-left: 8px;
+  }
+
+  .ls-event-card--featured .ls-event-card__actions {
+    flex-shrink: 0;
+  }
+
+  .ls-event-card--featured .ls-event-card__cta {
+    width: auto;
+    min-width: 160px;
+    white-space: nowrap;
+  }
+
+  /* ---- Grid / past card ---- */
+  .ls-event-card--grid,
+  .ls-event-card--past {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .ls-event-card--grid .ls-event-card__media,
+  .ls-event-card--past .ls-event-card__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .ls-event-card--grid .ls-event-card__badges,
+  .ls-event-card--past .ls-event-card__badges {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+  }
+
+  .ls-event-card--grid .ls-event-card__content,
+  .ls-event-card--past .ls-event-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px 16px;
+    flex: 1;
+  }
+
+  .ls-event-card--grid .ls-event-card__info-row,
+  .ls-event-card--past .ls-event-card__info-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ls-event-card--grid .ls-event-card__date,
+  .ls-event-card--past .ls-event-card__date {
+    justify-self: start;
+  }
+
+  .ls-event-card--grid .ls-event-card__show,
+  .ls-event-card--past .ls-event-card__show {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .ls-event-card--grid .ls-event-card__age,
+  .ls-event-card--past .ls-event-card__age {
+    justify-self: end;
+  }
+
+  .ls-event-card--grid .ls-event-card__cta,
+  .ls-event-card--past .ls-event-card__cta {
+    margin-top: auto;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ls-events__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ls-events__inner {
+      gap: 48px;
+      padding-inline: 16px;
+    }
+
+    .ls-events__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ls-event-card--featured {
+      grid-template-columns: 100px 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .ls-event-card--featured .ls-event-card__media {
+      width: 100px;
+      height: 100px;
+      grid-row: span 2;
+    }
+
+    .ls-event-card--featured .ls-event-card__actions {
+      grid-column: 2;
+    }
+
+    .ls-event-card--featured .ls-event-card__cta {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .ls-events__toolbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .ls-events__count {
+      text-align: right;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Events",
+  "tag": "section",
+  "class": "ls-events-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading line 1",
+      "default": "This week"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading line 2",
+      "default": "& Next"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Live music, game watches, themed nights."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_diamond",
+      "label": "Show diamond accent",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Past archive"
+    },
+    {
+      "type": "text",
+      "id": "archive_heading_1",
+      "label": "Archive heading line 1",
+      "default": "Past shows"
+    },
+    {
+      "type": "text",
+      "id": "archive_heading_2",
+      "label": "Archive heading line 2",
+      "default": "Archive"
+    },
+    {
+      "type": "text",
+      "id": "archive_subtitle",
+      "label": "Archive subtitle",
+      "default": "What you missed. Don't miss the next one — sign up below."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#0e1018"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "heading_accent_color",
+      "label": "Heading accent",
+      "default": "#7e9de4"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle / genre",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#141824"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#2a3348"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg",
+      "label": "CTA background",
+      "default": "#0b4bba"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "filter_border",
+      "label": "Filter border",
+      "default": "#3d4a66"
+    },
+    {
+      "type": "color",
+      "id": "filter_active_bg",
+      "label": "Filter active background",
+      "default": "#1a2540"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Events",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}
