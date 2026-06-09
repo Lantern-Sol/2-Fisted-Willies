@@ -410,6 +410,7 @@
     },
     "ls_events_upcoming_md9Pj9": {
       "type": "ls-events-upcoming",
+      "disabled": true,
       "name": "LS Events — Upcoming",
       "settings": {
         "heading_1": "this Month",
