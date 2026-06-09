@@ -14,6 +14,7 @@
     --ls-text-size: {{ s.font_size }}px;
     --ls-text-size-mobile: {{ msize }}px;
     --ls-text-ls: {{ s.letter_spacing }}px;
+    {%- if s.use_mobile_letter_spacing %} --ls-text-ls-mobile: {{ s.letter_spacing_mobile }}px;{% endif -%}
     --ls-text-lh: {{ s.line_height }};
     --ls-text-weight: {{ s.font_weight }};
     --ls-text-transform: {{ s.text_transform }};
@@ -87,6 +88,7 @@
   @media screen and (max-width: 749px) {
     .ls-text {
       font-size: var(--ls-text-size-mobile, var(--ls-text-size, 16px));
+      letter-spacing: var(--ls-text-ls-mobile, var(--ls-text-ls, 0));
       text-align: var(--ls-text-align-mobile, var(--ls-text-align, left));
     }
   }
@@ -151,6 +153,23 @@
       "step": 0.1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_letter_spacing",
+      "label": "Use mobile letter spacing",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing_mobile",
+      "label": "Letter spacing (mobile)",
+      "min": -5,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.use_mobile_letter_spacing }}"
     },
     {
       "type": "range",

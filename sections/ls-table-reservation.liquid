@@ -15,6 +15,7 @@
 
 {%- capture frame_style -%}
   --ls-frame-paper: {{ s.frame_color }};
+  --ls-tr-mobile-scale: {{ s.mobile_scale }};
   {%- if has_frame_texture %} --ls-frame-texture: url({{ s.frame_texture | image_url: width: 1000 }});{% endif -%}
 {%- endcapture -%}
 
@@ -173,9 +174,10 @@
     .ls-tr__text { order: 1; max-width: 360px; }
     .ls-tr__cluster--b { order: 2; }
     .ls-tr__polaroid {
-      /* Same calc as desktop → identical rendered pixel width. flex-shrink:0
-         stops the 3-in-a-row from squeezing the photos down. */
-      width: calc(var(--ls-size, 90) * var(--ls-tr-photo-base, 480px) / 100);
+      /* Desktop pixel width × the mobile scale, so mobile tracks whatever each
+         polaroid's desktop Size is (e.g. 70 → 70% of the desktop size).
+         flex-shrink:0 stops the 3-in-a-row from squeezing the photos down. */
+      width: calc(var(--ls-size, 90) * var(--ls-tr-photo-base, 480px) / 100 * var(--ls-tr-mobile-scale, 70) / 100);
       flex-shrink: 0;
       padding: 8px;
       transform: translate(var(--ls-x-m, 0px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, 0deg));
@@ -226,6 +228,17 @@
       "id": "frame_texture",
       "label": "Frame texture",
       "info": "Optional. Falls back to the baked-in paper grain + color."
+    },
+    {
+      "type": "range",
+      "id": "mobile_scale",
+      "label": "Mobile size scale",
+      "info": "Scales all polaroids on mobile relative to their desktop size. 100 = same as desktop.",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 70
     },
     {
       "type": "header",
@@ -280,9 +293,9 @@
       "type": "range",
       "id": "polaroid_1_x_mobile",
       "label": "X offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -290,9 +303,9 @@
       "type": "range",
       "id": "polaroid_1_y_mobile",
       "label": "Y offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -349,9 +362,9 @@
       "type": "range",
       "id": "polaroid_2_x_mobile",
       "label": "X offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -359,9 +372,9 @@
       "type": "range",
       "id": "polaroid_2_y_mobile",
       "label": "Y offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -418,9 +431,9 @@
       "type": "range",
       "id": "polaroid_3_x_mobile",
       "label": "X offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -428,9 +441,9 @@
       "type": "range",
       "id": "polaroid_3_y_mobile",
       "label": "Y offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -487,9 +500,9 @@
       "type": "range",
       "id": "polaroid_4_x_mobile",
       "label": "X offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -497,9 +510,9 @@
       "type": "range",
       "id": "polaroid_4_y_mobile",
       "label": "Y offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -556,9 +569,9 @@
       "type": "range",
       "id": "polaroid_5_x_mobile",
       "label": "X offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -566,9 +579,9 @@
       "type": "range",
       "id": "polaroid_5_y_mobile",
       "label": "Y offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -625,9 +638,9 @@
       "type": "range",
       "id": "polaroid_6_x_mobile",
       "label": "X offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
@@ -635,9 +648,9 @@
       "type": "range",
       "id": "polaroid_6_y_mobile",
       "label": "Y offset (mobile)",
-      "min": -200,
-      "max": 200,
-      "step": 4,
+      "min": -400,
+      "max": 400,
+      "step": 8,
       "unit": "px",
       "default": 0
     },
