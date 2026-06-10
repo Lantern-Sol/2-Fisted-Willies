@@ -45,7 +45,7 @@
       align-items: center;
       margin-top: 12px;
     }
-    textarea[name="custom#additional_details"]::placeholder {
+    textarea::placeholder {
       color: #9CA0B8;
     }
   `;
@@ -70,20 +70,38 @@
     if (textarea && !textarea.placeholder) {
       textarea.placeholder = 'Tell us about entertainment needs, special requests, or any other details...';
     }
+
+    // Contact form message field: give the lone message textarea the screenshot
+    // placeholder. Skips the event form's additional_details (handled above) and
+    // only fills empties, so it never clobbers a placeholder the app already set.
+    shadow.querySelectorAll('textarea').forEach((ta) => {
+      if (ta.name === 'custom#additional_details') return;
+      if (!ta.placeholder) ta.placeholder = "What's on your mind?";
+    });
   }
 
   /** @param {Element} host */
   function inject(host) {
     const shadow = host.shadowRoot;
-    if (!shadow || shadow.getElementById(STYLE_ID)) return;
+    if (!shadow) return;
+
+    // Style is injected once, but field tweaks (placeholders, date inputs) must
+    // re-run on every scan: the Forms app renders fields asynchronously, so the
+    // message textarea may not exist yet at first injection. These are idempotent.
+    if (shadow.getElementById(STYLE_ID)) {
+      applyDateInputs(shadow);
+      applyPlaceholders(shadow);
+      return;
+    }
 
     loadCss()
       .then((css) => {
-        if (shadow.getElementById(STYLE_ID)) return;
-        const style = document.createElement('style');
-        style.id = STYLE_ID;
-        style.textContent = css + DATE_EXTRA_CSS;
-        shadow.appendChild(style);
+        if (!shadow.getElementById(STYLE_ID)) {
+          const style = document.createElement('style');
+          style.id = STYLE_ID;
+          style.textContent = css + DATE_EXTRA_CSS;
+          shadow.appendChild(style);
+        }
         applyDateInputs(shadow);
         applyPlaceholders(shadow);
       })
