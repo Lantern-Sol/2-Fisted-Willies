@@ -86,7 +86,7 @@
           "settings": {
             "text": "<p>kentucky through and through</p>",
             "font_family": "var(--font-gashroad--family)",
-            "font_size": 82,
+            "font_size": 70,
             "font_size_mobile": 54,
             "letter_spacing": -3.1,
             "use_mobile_letter_spacing": false,
