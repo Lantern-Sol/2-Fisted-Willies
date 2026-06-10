@@ -45,7 +45,7 @@
       align-items: center;
       margin-top: 12px;
     }
-    textarea[name="custom#additional_details"]::placeholder {
+    textarea::placeholder {
       color: #9CA0B8;
     }
   `;
@@ -83,15 +83,25 @@
   /** @param {Element} host */
   function inject(host) {
     const shadow = host.shadowRoot;
-    if (!shadow || shadow.getElementById(STYLE_ID)) return;
+    if (!shadow) return;
+
+    // Style is injected once, but field tweaks (placeholders, date inputs) must
+    // re-run on every scan: the Forms app renders fields asynchronously, so the
+    // message textarea may not exist yet at first injection. These are idempotent.
+    if (shadow.getElementById(STYLE_ID)) {
+      applyDateInputs(shadow);
+      applyPlaceholders(shadow);
+      return;
+    }
 
     loadCss()
       .then((css) => {
-        if (shadow.getElementById(STYLE_ID)) return;
-        const style = document.createElement('style');
-        style.id = STYLE_ID;
-        style.textContent = css + DATE_EXTRA_CSS;
-        shadow.appendChild(style);
+        if (!shadow.getElementById(STYLE_ID)) {
+          const style = document.createElement('style');
+          style.id = STYLE_ID;
+          style.textContent = css + DATE_EXTRA_CSS;
+          shadow.appendChild(style);
+        }
         applyDateInputs(shadow);
         applyPlaceholders(shadow);
       })
