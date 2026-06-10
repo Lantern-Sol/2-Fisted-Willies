@@ -90,7 +90,7 @@
           "foreground": "#9ca0b8",
           "primary": "#000000cf",
           "primary_hover": "#000000",
-          "border": "#0000000f",
+          "border": "#1e1e2e",
           "shadow": "#000000",
           "primary_button_background": "#0033a0",
           "primary_button_text": "#ffffff",
