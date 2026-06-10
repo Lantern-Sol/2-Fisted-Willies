@@ -70,6 +70,14 @@
     if (textarea && !textarea.placeholder) {
       textarea.placeholder = 'Tell us about entertainment needs, special requests, or any other details...';
     }
+
+    // Contact form message field: give the lone message textarea the screenshot
+    // placeholder. Skips the event form's additional_details (handled above) and
+    // only fills empties, so it never clobbers a placeholder the app already set.
+    shadow.querySelectorAll('textarea').forEach((ta) => {
+      if (ta.name === 'custom#additional_details') return;
+      if (!ta.placeholder) ta.placeholder = "What's on your mind?";
+    });
   }
 
   /** @param {Element} host */
