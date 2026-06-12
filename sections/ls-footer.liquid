@@ -1,0 +1,687 @@
+{% liquid
+  assign s = section.settings
+
+  assign socials = ''
+  if s.facebook_link != blank
+    assign socials = socials | append: 'facebook|' | append: s.facebook_link | append: '##'
+  endif
+  if s.instagram_link != blank
+    assign socials = socials | append: 'instagram|' | append: s.instagram_link | append: '##'
+  endif
+  if s.tiktok_link != blank
+    assign socials = socials | append: 'tiktok|' | append: s.tiktok_link | append: '##'
+  endif
+  assign social_items = socials | split: '##'
+%}
+
+{%- capture section_vars -%}
+  --ls-footer-bg: {{ s.bg_color }};
+  --ls-footer-heading: {{ s.heading_color }};
+  --ls-footer-text: {{ s.text_color }};
+  --ls-footer-accent: {{ s.accent_color }};
+  --ls-footer-rule: {{ s.rule_color }};
+  --ls-footer-bottom-rule: {{ s.bottom_rule_color }};
+  --ls-footer-muted: {{ s.muted_color }};
+  --ls-footer-logo-height: {{ s.logo_height | default: 70 }}px;
+{%- endcapture -%}
+
+<div class="section-background ls-footer__bg"></div>
+<div
+  class="section ls-footer spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ section_vars }}"
+>
+  <div class="ls-footer__inner">
+    {%- if s.logo != blank or settings.logo != blank -%}
+      <div class="ls-footer__logo">
+        {%- if s.logo != blank -%}
+          {{ s.logo | image_url: width: 600 | image_tag: alt: shop.name, class: 'ls-footer__logo-img', widths: '200,300,450,600', loading: 'lazy' }}
+        {%- else -%}
+          {{ settings.logo | image_url: width: 600 | image_tag: alt: shop.name, class: 'ls-footer__logo-img', widths: '200,300,450,600', loading: 'lazy' }}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="ls-footer__cols">
+      {%- comment -%} ---- VISIT ---- {%- endcomment -%}
+      <div class="ls-footer__col ls-footer__col--visit">
+        {%- if s.visit_heading != blank -%}
+          <h2 class="ls-footer__heading">{{ s.visit_heading }}</h2>
+        {%- endif -%}
+        {%- if s.address != blank -%}
+          <div class="ls-footer__address">{{ s.address }}</div>
+        {%- endif -%}
+        {%- if s.hours_line != blank or s.accent_line != blank -%}
+          <div class="ls-footer__hours">
+            {%- if s.hours_line != blank -%}
+              <p class="ls-footer__hours-line">{{ s.hours_line }}</p>
+            {%- endif -%}
+            {%- if s.accent_line != blank -%}
+              <p class="ls-footer__accent">{{ s.accent_line }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ---- EXPLORE ---- {%- endcomment -%}
+      <div class="ls-footer__col ls-footer__col--explore">
+        {%- if s.explore_heading != blank -%}
+          <h2 class="ls-footer__heading">{{ s.explore_heading }}</h2>
+        {%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          <nav class="ls-footer__menu" aria-label="{{ s.explore_heading | default: 'Footer' | escape }}">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'link' and block.settings.label != blank -%}
+                <a
+                  class="ls-footer__menu-link"
+                  href="{{ block.settings.url | default: '#' }}"
+                  {{ block.shopify_attributes }}
+                >{{ block.settings.label }}</a>
+              {%- endif -%}
+            {%- endfor -%}
+          </nav>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ---- STAY IN TOUCH ---- {%- endcomment -%}
+      <div class="ls-footer__col ls-footer__col--connect">
+        {%- if s.connect_heading != blank -%}
+          <h2 class="ls-footer__heading">{{ s.connect_heading }}</h2>
+        {%- endif -%}
+
+        {%- if social_items.size > 0 -%}
+          <div class="ls-footer__socials">
+            {%- for item in social_items -%}
+              {%- assign parts = item | split: '|' -%}
+              {%- assign platform = parts[0] -%}
+              {%- assign url = parts[1] -%}
+              <a
+                class="ls-footer__social"
+                href="{{ url }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="{{ platform | capitalize }}"
+              >
+                <svg class="ls-footer__social-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  {%- render 'icon', icon: platform -%}
+                </svg>
+              </a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if s.connect_text != blank -%}
+          <p class="ls-footer__connect-text">{{ s.connect_text }}</p>
+        {%- endif -%}
+
+        {%- comment -%} Sign-up is visual-only — no form action / submission wiring. {%- endcomment -%}
+        {%- if s.show_signup -%}
+          <div class="ls-footer__form">
+            <div class="ls-footer__field">
+              <input
+                type="email"
+                class="ls-footer__input"
+                placeholder="{{ s.input_placeholder | default: 'Email Address' | escape }}"
+                aria-label="{{ s.input_placeholder | default: 'Email Address' | escape }}"
+                autocorrect="off"
+                autocapitalize="off"
+              >
+              <button type="button" class="ls-footer__submit">{{ s.button_label | default: 'Sign up →' }}</button>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} ---- BOTTOM BAR ---- {%- endcomment -%}
+    <div class="ls-footer__bottom">
+      {%- if s.credit != blank -%}
+        <p class="ls-footer__credit">{{ s.credit }}</p>
+      {%- endif -%}
+      {%- if s.privacy_label != blank -%}
+        <a class="ls-footer__legal-link" href="{{ s.privacy_link | default: '#' }}">{{ s.privacy_label }}</a>
+      {%- endif -%}
+      {%- if s.accessibility_label != blank -%}
+        <a class="ls-footer__legal-link" href="{{ s.accessibility_link | default: '#' }}">{{ s.accessibility_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  /* Full-bleed dark band. The theme forces .section backgrounds transparent, so
+     the band color lives on a separate full-width element. */
+  .ls-footer__bg {
+    background-color: var(--ls-footer-bg, #111318);
+  }
+
+  .ls-footer__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-inline: 72px;
+    box-sizing: border-box;
+  }
+
+  .ls-footer__logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ls-footer__logo-img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-height: var(--ls-footer-logo-height, 70px);
+  }
+
+  /* ---- Columns ---- */
+  .ls-footer__cols {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 48px;
+    width: 100%;
+  }
+
+  .ls-footer__col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .ls-footer__col--visit {
+    flex: 0 1 284px;
+  }
+
+  .ls-footer__col--explore {
+    flex: 0 1 284px;
+  }
+
+  .ls-footer__col--connect {
+    flex: 0 1 284px;
+  }
+
+  .ls-footer__heading {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--ls-footer-heading, #e8eefa);
+    opacity: 0.5;
+  }
+
+  /* ---- VISIT ---- */
+  .ls-footer__address {
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 22.5px;
+    letter-spacing: -1.2px;
+    color: var(--ls-footer-text, #9ca0b8);
+  }
+
+  .ls-footer__address p {
+    margin: 0;
+  }
+
+  .ls-footer__hours {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ls-footer-rule, #004fdf);
+  }
+
+  .ls-footer__hours-line {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond--family);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 20px;
+    color: var(--ls-footer-text, #9ca0b8);
+  }
+
+  .ls-footer__accent {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 20px;
+    color: var(--ls-footer-accent, #7e9de4);
+  }
+
+  /* ---- EXPLORE ---- */
+  .ls-footer__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ls-footer__menu-link {
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 22.5px;
+    letter-spacing: -1.2px;
+    color: var(--ls-footer-text, #9ca0b8);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .ls-footer__menu-link:hover {
+    color: var(--ls-footer-accent, #7e9de4);
+  }
+
+  /* ---- STAY IN TOUCH ---- */
+  .ls-footer__socials {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .ls-footer__social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: var(--ls-footer-accent, #7e9de4);
+    transition: opacity 0.15s ease;
+  }
+
+  .ls-footer__social:hover {
+    opacity: 0.7;
+  }
+
+  .ls-footer__social-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+  }
+
+  .ls-footer__connect-text {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond--family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--ls-footer-accent, #b8c8f2);
+  }
+
+  .ls-footer__form {
+    width: 100%;
+    margin: 0;
+  }
+
+  .ls-footer__field {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+
+  /* Selector qualified with the section class to beat base.css's
+     `input:not([type=checkbox],[type=radio])` which otherwise paints the
+     field with --color-input-background. */
+  .ls-footer .ls-footer__input {
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    border-bottom: 1.108px solid var(--ls-footer-rule, #004fdf);
+    border-radius: 0;
+    padding: 0 24px 16px 0;
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 16px;
+    color: #eae8f0;
+  }
+
+  .ls-footer__input::placeholder {
+    color: #eae8f0;
+    opacity: 1;
+  }
+
+  .ls-footer__input:focus {
+    outline: none;
+    border-bottom-color: var(--ls-footer-accent, #7e9de4);
+  }
+
+  .ls-footer__submit {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color: var(--ls-footer-accent, #7e9de4);
+    cursor: pointer;
+  }
+
+  /* ---- BOTTOM BAR ---- */
+  .ls-footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    padding-top: 16px;
+    border-top: 1.108px solid var(--ls-footer-bottom-rule, #1e1e2e);
+  }
+
+  .ls-footer__credit {
+    margin: 0;
+  }
+
+  .ls-footer__credit,
+  .ls-footer__legal-link {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 19.5px;
+    text-transform: uppercase;
+    color: var(--ls-footer-muted, #b8c8f2);
+    text-decoration: none;
+  }
+
+  .ls-footer__legal-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ---- Mobile ---- */
+  @media screen and (max-width: 749px) {
+    .ls-footer__inner {
+      padding-inline: 20px;
+      gap: 40px;
+    }
+
+    .ls-footer__cols {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .ls-footer__col {
+      flex: 1 1 auto;
+      width: 100%;
+    }
+
+    .ls-footer__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Footer",
+  "tag": "section",
+  "class": "ls-footer-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "Falls back to the theme logo if left empty."
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo height",
+      "min": 40,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "header",
+      "content": "Visit"
+    },
+    {
+      "type": "text",
+      "id": "visit_heading",
+      "label": "Heading",
+      "default": "Visit"
+    },
+    {
+      "type": "richtext",
+      "id": "address",
+      "label": "Address",
+      "default": "<p>388 Woodland Avenue</p><p>Lexington, KY</p><p>(859)456 - 9800</p>"
+    },
+    {
+      "type": "text",
+      "id": "hours_line",
+      "label": "Hours line",
+      "default": "Tue, Thu–Sat: 4PM – 2AM"
+    },
+    {
+      "type": "text",
+      "id": "accent_line",
+      "label": "Accent line",
+      "default": "Live music nights"
+    },
+    {
+      "type": "header",
+      "content": "Explore",
+      "info": "Add link blocks below to build the menu."
+    },
+    {
+      "type": "text",
+      "id": "explore_heading",
+      "label": "Heading",
+      "default": "Explore"
+    },
+    {
+      "type": "header",
+      "content": "Stay in touch"
+    },
+    {
+      "type": "text",
+      "id": "connect_heading",
+      "label": "Heading",
+      "default": "Stay in touch"
+    },
+    {
+      "type": "url",
+      "id": "facebook_link",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_link",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "textarea",
+      "id": "connect_text",
+      "label": "Description",
+      "default": "Weekly show announcements, game day specials, and the occasional excuse to drop by."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_signup",
+      "label": "Show email signup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Input placeholder",
+      "default": "Email Address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Sign up →"
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "text",
+      "id": "credit",
+      "label": "Credit text",
+      "default": "Designed and Developed by Lantern Sol"
+    },
+    {
+      "type": "text",
+      "id": "privacy_label",
+      "label": "Privacy link label",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "url",
+      "id": "privacy_link",
+      "label": "Privacy link"
+    },
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility link label",
+      "default": "Accessibility"
+    },
+    {
+      "type": "url",
+      "id": "accessibility_link",
+      "label": "Accessibility link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#111318"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Column headings",
+      "default": "#e8eefa"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text (address, links, hours)",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent (live music, socials, links hover, signup)",
+      "default": "#7e9de4"
+    },
+    {
+      "type": "color",
+      "id": "rule_color",
+      "label": "Divider / input rule",
+      "default": "#004fdf"
+    },
+    {
+      "type": "color",
+      "id": "bottom_rule_color",
+      "label": "Bottom bar rule",
+      "default": "#1e1e2e"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Bottom bar text",
+      "default": "#b8c8f2"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 128
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 128
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Footer",
+      "category": "t:categories.other_sections",
+      "blocks": [
+        { "type": "link", "settings": { "label": "Events" } },
+        { "type": "link", "settings": { "label": "Tickets" } },
+        { "type": "link", "settings": { "label": "Reservations" } },
+        { "type": "link", "settings": { "label": "Menu" } },
+        { "type": "link", "settings": { "label": "Private Events" } },
+        { "type": "link", "settings": { "label": "About" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

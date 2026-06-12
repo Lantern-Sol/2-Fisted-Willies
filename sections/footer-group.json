@@ -10,6 +10,95 @@
 {
   "type": "footer",
   "name": "Footer",
-  "sections": {},
-  "order": []
+  "sections": {
+    "ls_footer_XY96UP": {
+      "type": "ls-footer",
+      "blocks": {
+        "link_NhifXR": {
+          "type": "link",
+          "settings": {
+            "label": "Events",
+            "url": ""
+          }
+        },
+        "link_Wneyht": {
+          "type": "link",
+          "settings": {
+            "label": "Tickets",
+            "url": ""
+          }
+        },
+        "link_NAg9hz": {
+          "type": "link",
+          "settings": {
+            "label": "Reservations",
+            "url": ""
+          }
+        },
+        "link_rEqNaj": {
+          "type": "link",
+          "settings": {
+            "label": "Menu",
+            "url": ""
+          }
+        },
+        "link_7T6ygE": {
+          "type": "link",
+          "settings": {
+            "label": "Private Events",
+            "url": "shopify://pages/private-event"
+          }
+        },
+        "link_q3Mw7A": {
+          "type": "link",
+          "settings": {
+            "label": "About",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "link_NhifXR",
+        "link_Wneyht",
+        "link_NAg9hz",
+        "link_rEqNaj",
+        "link_7T6ygE",
+        "link_q3Mw7A"
+      ],
+      "name": "LS Footer",
+      "settings": {
+        "logo_height": 70,
+        "visit_heading": "Visit",
+        "address": "<p>388 Woodland Avenue</p><p>Lexington, KY</p><p>(859)456 - 9800</p>",
+        "hours_line": "Tue, Thu–Sat: 4PM – 2AM",
+        "accent_line": "Live music nights",
+        "explore_heading": "Explore",
+        "connect_heading": "Stay in touch",
+        "facebook_link": "https://www.facebook.com/profile.php?id=61564850474410",
+        "instagram_link": "https://www.instagram.com/2fistedwillies",
+        "tiktok_link": "https://www.tiktok.com/@2fistedwillieslex",
+        "connect_text": "Weekly show announcements, game day specials, and the occasional excuse to drop by.",
+        "show_signup": true,
+        "input_placeholder": "Email Address",
+        "button_label": "Sign up →",
+        "credit": "Designed and Developed by Lantern Sol",
+        "privacy_label": "Privacy Policy",
+        "privacy_link": "",
+        "accessibility_label": "Accessibility",
+        "accessibility_link": "",
+        "bg_color": "#111318",
+        "heading_color": "#e8eefa",
+        "text_color": "#9ca0b8",
+        "accent_color": "#7e9de4",
+        "rule_color": "#004fdf",
+        "bottom_rule_color": "#1e1e2e",
+        "muted_color": "#b8c8f2",
+        "padding-block-start": 128,
+        "padding-block-end": 128
+      }
+    }
+  },
+  "order": [
+    "ls_footer_XY96UP"
+  ]
 }
