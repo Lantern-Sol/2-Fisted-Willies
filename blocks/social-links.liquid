@@ -1,5 +1,10 @@
 <div
   class="social-icons__wrapper"
+  style="
+    --social-icon-size: {{ block.settings.icon_size | default: 20 }}px;
+    --social-gap: {{ block.settings.gap | default: 12 }}px;
+    --social-icon-padding: {{ block.settings.icon_padding | default: 0 }}px;
+  "
   {{ block.shopify_attributes }}
 >
   {% liquid
@@ -108,7 +113,7 @@
 {% stylesheet %}
   .social-icons__wrapper {
     display: flex;
-    gap: var(--gap-sm);
+    gap: var(--social-gap, var(--gap-sm));
     flex-wrap: wrap;
     justify-content: center;
 
@@ -122,14 +127,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: var(--icon-size-lg);
+    box-sizing: content-box;
+    height: var(--social-icon-size, var(--icon-size-lg));
+    padding: var(--social-icon-padding, 0);
   }
 
   .social-icons__icon {
     display: flex;
     flex-shrink: 0;
-    width: var(--icon-size-lg);
-    height: var(--icon-size-lg);
+    width: var(--social-icon-size, var(--icon-size-lg));
+    height: var(--social-icon-size, var(--icon-size-lg));
   }
 
   .social-icons__icon {
@@ -137,7 +144,7 @@
   }
 
   .social-icons__icon-wrapper:has(.social-icons__icon path) {
-    width: var(--icon-size-lg);
+    width: var(--social-icon-size, var(--icon-size-lg));
 
     .social-icons__icon {
       display: block;
@@ -164,6 +171,36 @@
   "name": "t:names.social_media_links",
   "tag": null,
   "settings": [
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between icons",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "icon_padding",
+      "label": "Icon padding",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
     {
       "type": "url",
       "id": "facebook_url",
