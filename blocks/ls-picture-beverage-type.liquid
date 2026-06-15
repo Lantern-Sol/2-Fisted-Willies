@@ -8,7 +8,11 @@
   assign b = block.settings
 -%}
 
-<div class="ls-pic-type" {{ block.shopify_attributes }}>
+<div
+  class="ls-pic-type"
+  style="--ls-pic-img-height: {{ b.logo_height }}px; --ls-pic-type-gap: {{ b.heading_gap }}px;{% if b.use_mobile_heading_gap %} --ls-pic-type-gap-mobile: {{ b.heading_gap_mobile }}px;{% endif %} --ls-pic-type-heading-size: {{ b.heading_size }}px; --ls-pic-type-heading-size-mobile: {{ b.heading_size_mobile }}px;"
+  {{ block.shopify_attributes }}
+>
   {%- if b.heading != blank -%}
     <p class="ls-pic-type__heading">{{ b.heading }}</p>
   {%- endif -%}
@@ -21,7 +25,7 @@
   .ls-pic-type {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: var(--ls-pic-type-gap, 32px);
     width: 100%;
   }
 
@@ -30,7 +34,7 @@
     font-family: var(--font-cormorant-garamond-italic--family, 'Cormorant Garamond', serif);
     font-style: italic;
     font-weight: var(--font-cormorant-garamond-italic--weight, 400);
-    font-size: clamp(36px, 6vw, 56px);
+    font-size: var(--ls-pic-type-heading-size, 56px);
     line-height: 0.8;
     letter-spacing: -0.05em;
     color: var(--ls-menu-subtitle, #b8c8f2);
@@ -42,15 +46,24 @@
     grid-auto-flow: column;
     grid-template-rows: repeat(var(--ls-pic-rows, 6), auto);
     grid-auto-columns: minmax(0, 392px);
-    gap: 12px 32px;
+    gap: var(--ls-pic-row-gap, 12px) 32px;
     width: 100%;
   }
 
   @media screen and (max-width: 749px) {
+    .ls-pic-type {
+      gap: var(--ls-pic-type-gap-mobile, var(--ls-pic-type-gap, 32px));
+    }
+
+    .ls-pic-type__heading {
+      font-size: var(--ls-pic-type-heading-size-mobile, 36px);
+    }
+
     .ls-pic-type__grid {
       grid-auto-flow: row;
       grid-template-rows: none;
       grid-template-columns: 1fr;
+      row-gap: var(--ls-pic-item-gap-mobile, 12px);
     }
   }
 {% endstylesheet %}
@@ -72,6 +85,54 @@
     },
     {
       "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size (desktop)",
+      "min": 16,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading font size (mobile)",
+      "min": 16,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_gap",
+      "label": "Gap below heading",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 32,
+      "info": "Space between the heading and the items."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_heading_gap",
+      "label": "Use mobile gap below heading",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "heading_gap_mobile",
+      "label": "Gap below heading (mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 32,
+      "visible_if": "{{ block.settings.use_mobile_heading_gap }}"
+    },
+    {
+      "type": "range",
       "id": "max_rows",
       "label": "Max rows per column",
       "min": 1,
@@ -79,6 +140,17 @@
       "step": 1,
       "default": 6,
       "info": "Items fill a column top-to-bottom up to this many rows, then start a new column."
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo / picture height",
+      "min": 12,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 30,
+      "info": "Applies to all items in this type. Each item can still override it. Width follows the image's natural ratio."
     }
   ],
   "presets": [

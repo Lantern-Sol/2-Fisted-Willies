@@ -296,12 +296,32 @@
                 "target": "happy hour"
               },
               "blocks": {}
+            },
+            "ls_menu_nav_link_tpg76B": {
+              "type": "ls-menu-nav-link",
+              "name": "LS Menu Nav Link",
+              "settings": {
+                "label": "Beer",
+                "target": "beer"
+              },
+              "blocks": {}
+            },
+            "ls_menu_nav_link_raLjBd": {
+              "type": "ls-menu-nav-link",
+              "name": "LS Menu Nav Link",
+              "settings": {
+                "label": "Seltzers",
+                "target": "seltzer"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "ls_menu_nav_link_NtnppW",
             "ls_menu_nav_link_FX6TFC",
-            "ls_menu_nav_link_dd7Q9X"
+            "ls_menu_nav_link_dd7Q9X",
+            "ls_menu_nav_link_tpg76B",
+            "ls_menu_nav_link_raLjBd"
           ]
         },
         "ls_beverage_9WF9i7": {
@@ -1591,6 +1611,8 @@
             "title": "Beer List",
             "subtitle": "",
             "max_rows": 6,
+            "row_gap": 12,
+            "item_gap_mobile": 12,
             "anchor": "beer"
           },
           "blocks": {
@@ -1599,63 +1621,82 @@
               "name": "LS Picture Beverage Type",
               "settings": {
                 "heading": "Draft",
-                "max_rows": 3
+                "heading_size": 56,
+                "heading_size_mobile": 56,
+                "heading_gap": 64,
+                "use_mobile_heading_gap": true,
+                "heading_gap_mobile": 32,
+                "max_rows": 3,
+                "logo_height": 20
               },
               "blocks": {
                 "ls_picture_beverage_item_dcMnND": {
                   "type": "ls-picture-beverage-item",
                   "settings": {
-                    "image": "shopify://shop_images/budweiser-logo.png",
+                    "image": "shopify://shop_images/budweiser-logo.svg",
                     "name": "Budweiser",
-                    "highlight": false
+                    "highlight": false,
+                    "logo_height": 0
                   },
                   "blocks": {}
                 },
                 "ls_picture_beverage_item_YA8UrH": {
                   "type": "ls-picture-beverage-item",
                   "settings": {
+                    "image": "shopify://shop_images/coors-logo.svg",
                     "name": "Coors Light",
-                    "highlight": false
+                    "highlight": false,
+                    "logo_height": 0
                   },
                   "blocks": {}
                 },
                 "ls_picture_beverage_item_NpRYGt": {
                   "type": "ls-picture-beverage-item",
                   "settings": {
+                    "image": "shopify://shop_images/cougar-logo.svg",
                     "name": "Cougar Bait",
-                    "highlight": false
+                    "highlight": false,
+                    "logo_height": 0
                   },
                   "blocks": {}
                 },
                 "ls_picture_beverage_item_LJFVpN": {
                   "type": "ls-picture-beverage-item",
                   "settings": {
+                    "image": "shopify://shop_images/guiness-logo.svg",
                     "name": "Guinness",
-                    "highlight": false
+                    "highlight": false,
+                    "logo_height": 24
                   },
                   "blocks": {}
                 },
                 "ls_picture_beverage_item_hWJbKz": {
                   "type": "ls-picture-beverage-item",
                   "settings": {
+                    "image": "shopify://shop_images/michelob-logo.svg",
                     "name": "Michelob Ultra",
-                    "highlight": false
+                    "highlight": false,
+                    "logo_height": 12
                   },
                   "blocks": {}
                 },
                 "ls_picture_beverage_item_GMfdRQ": {
                   "type": "ls-picture-beverage-item",
                   "settings": {
+                    "image": "shopify://shop_images/miller-logo.svg",
                     "name": "Miller Lite",
-                    "highlight": false
+                    "highlight": false,
+                    "logo_height": 0
                   },
                   "blocks": {}
                 },
                 "ls_picture_beverage_item_pdP8UR": {
                   "type": "ls-picture-beverage-item",
                   "settings": {
+                    "image": "shopify://shop_images/modelo-logo.svg",
                     "name": "Modelo Especial",
-                    "highlight": false
+                    "highlight": false,
+                    "logo_height": 0
                   },
                   "blocks": {}
                 },
@@ -1663,7 +1704,8 @@
                   "type": "ls-picture-beverage-item",
                   "settings": {
                     "name": "Craft Standard Margarita · on tap",
-                    "highlight": true
+                    "highlight": true,
+                    "logo_height": 0
                   },
                   "blocks": {}
                 }
@@ -1678,10 +1720,238 @@
                 "ls_picture_beverage_item_pdP8UR",
                 "ls_picture_beverage_item_PzFx4E"
               ]
+            },
+            "ls_picture_beverage_type_canned": {
+              "type": "ls-picture-beverage-type",
+              "name": "LS Picture Beverage Type",
+              "settings": {
+                "heading": "Canned",
+                "heading_size": 56,
+                "heading_size_mobile": 56,
+                "heading_gap": 32,
+                "use_mobile_heading_gap": false,
+                "heading_gap_mobile": 32,
+                "max_rows": 7,
+                "logo_height": 38
+              },
+              "blocks": {
+                "ls_pbi_cn01": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/angry-orchard.png",
+                    "name": "Angry Orchard",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn02": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/blue-moon.png",
+                    "name": "Blue Moon",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn03": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/busch-light.png",
+                    "name": "Busch Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn04": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/bud.png",
+                    "name": "Budweiser",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn05": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/bud_light.png",
+                    "name": "Bud Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn06": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/coors-banquet.png",
+                    "name": "Coors Banquet",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn07": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/coors-light.png",
+                    "name": "Coors Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn08": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/coors-light.png",
+                    "name": "Coors Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn09": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/corona.png",
+                    "name": "Corona Extra",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn10": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/country-boy.png",
+                    "name": "Country Boy Apple Pie Cider",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn11": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/garage.png",
+                    "name": "Garage Beer",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn12": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/garage-lime.png",
+                    "name": "Garage Beer Lime",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn13": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/michelob.png",
+                    "name": "Michelob Ultra",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn14": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/michelob-zero.png",
+                    "name": "Michelob Ultra Zero",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn15": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/natural-light.png",
+                    "name": "Natural Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn16": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/pabst.png",
+                    "name": "Pabst Blue Ribbon",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn17": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/sierra_nevada.png",
+                    "name": "Sierra Nevada Pale Ale",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn18": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/voodoo.png",
+                    "name": "Voodoo Ranger IPA",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn19": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/yuengling.png",
+                    "name": "Yuengling",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "ls_pbi_cn01",
+                "ls_pbi_cn02",
+                "ls_pbi_cn03",
+                "ls_pbi_cn04",
+                "ls_pbi_cn05",
+                "ls_pbi_cn06",
+                "ls_pbi_cn07",
+                "ls_pbi_cn08",
+                "ls_pbi_cn09",
+                "ls_pbi_cn10",
+                "ls_pbi_cn11",
+                "ls_pbi_cn12",
+                "ls_pbi_cn13",
+                "ls_pbi_cn14",
+                "ls_pbi_cn15",
+                "ls_pbi_cn16",
+                "ls_pbi_cn17",
+                "ls_pbi_cn18",
+                "ls_pbi_cn19"
+              ]
             }
           },
           "block_order": [
-            "ls_picture_beverage_type_BAXRYa"
+            "ls_picture_beverage_type_BAXRYa",
+            "ls_picture_beverage_type_canned"
           ]
         }
       },

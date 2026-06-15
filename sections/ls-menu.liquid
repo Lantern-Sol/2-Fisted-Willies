@@ -145,6 +145,98 @@
       if (cat.id) observer.observe(cat);
     });
   })();
+
+  // Align beverage names per column: each logo slot gets the width of the
+  // widest logo in its own column, so a narrow column stays narrow.
+  (function () {
+    var root = document.getElementById('ls-menu-{{ section.id }}');
+    if (!root) return;
+    function gridList() {
+      return root.querySelectorAll('.ls-pic-beverage__grid, .ls-pic-type__grid');
+    }
+
+    function alignGrid(grid) {
+      var items = grid.querySelectorAll(':scope > .ls-pic-item');
+      if (!items.length) return;
+
+      // Group items by their actual visual column (left edge) rather than by a
+      // computed row count. Columns are fixed-width (grid-auto-columns), so an
+      // item's left edge is stable no matter what logo width we set, which makes
+      // this exact: desktop yields one bucket per column, mobile yields one
+      // bucket for the single column.
+      var columns = [];
+      items.forEach(function (item) {
+        var left = Math.round(item.getBoundingClientRect().left);
+        var bucket = null;
+        for (var c = 0; c < columns.length; c++) {
+          if (Math.abs(columns[c].left - left) <= 2) {
+            bucket = columns[c];
+            break;
+          }
+        }
+        if (!bucket) {
+          bucket = { left: left, items: [] };
+          columns.push(bucket);
+        }
+        bucket.items.push(item);
+      });
+
+      columns.forEach(function (bucket) {
+        var max = 0;
+        bucket.items.forEach(function (item) {
+          var img = item.querySelector('.ls-pic-item__media, .ls-pic-item__img img, .ls-pic-item__img svg');
+          if (!img) return;
+          var w = img.getBoundingClientRect().width;
+          if (w > max) max = w;
+        });
+        bucket.items.forEach(function (item) {
+          if (max > 0) {
+            item.style.setProperty('--ls-pic-logo-w', Math.ceil(max) + 'px');
+          } else {
+            item.style.removeProperty('--ls-pic-logo-w');
+          }
+        });
+      });
+    }
+
+    function alignAll() {
+      gridList().forEach(alignGrid);
+    }
+
+    // Coalesce bursts of triggers (resize, mutations, image loads) into one pass.
+    var raf = null;
+    function schedule() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(alignAll);
+    }
+
+    schedule();
+    window.addEventListener('load', schedule);
+    // Responsive: recompute on resize so crossing the mobile/desktop breakpoint
+    // (which changes the column layout) re-measures each column.
+    window.addEventListener('resize', schedule);
+
+    // Recompute when logo sizes change (image finishes loading, height settings).
+    var ro = 'ResizeObserver' in window ? new ResizeObserver(schedule) : null;
+    function observeImages() {
+      if (!ro) return;
+      root
+        .querySelectorAll('.ls-pic-item__media, .ls-pic-item__img img, .ls-pic-item__img svg')
+        .forEach(function (img) {
+          ro.observe(img);
+        });
+    }
+    observeImages();
+
+    // Dynamic: recompute and pick up new logos when items/types are added,
+    // removed, or re-rendered (e.g. while editing in the theme editor).
+    if ('MutationObserver' in window) {
+      new MutationObserver(function () {
+        observeImages();
+        schedule();
+      }).observe(root, { childList: true, subtree: true });
+    }
+  })();
 </script>
 
 {% stylesheet %}

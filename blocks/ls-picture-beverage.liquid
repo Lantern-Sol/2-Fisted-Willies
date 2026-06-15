@@ -10,6 +10,7 @@
   class="ls-menu-cat ls-pic-beverage"
   id="{{ anchor }}"
   data-ls-menu-cat
+  style="--ls-pic-item-gap-mobile: {{ b.item_gap_mobile }}px; --ls-pic-row-gap: {{ b.row_gap }}px;"
   {{ block.shopify_attributes }}
 >
   {%- if b.index_label != blank or b.title != blank -%}
@@ -50,7 +51,7 @@
     grid-auto-flow: column;
     grid-template-rows: repeat(var(--ls-pic-rows, 6), auto);
     grid-auto-columns: minmax(0, 392px);
-    gap: 12px 32px;
+    gap: var(--ls-pic-row-gap, 12px) 32px;
     width: 100%;
   }
 
@@ -68,6 +69,7 @@
       grid-auto-flow: row;
       grid-template-rows: none;
       grid-template-columns: 1fr;
+      row-gap: var(--ls-pic-item-gap-mobile, 12px);
     }
   }
 {% endstylesheet %}
@@ -110,6 +112,28 @@
       "step": 1,
       "default": 6,
       "info": "Items fill a column top-to-bottom up to this many rows, then start a new column."
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Row gap (desktop)",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12,
+      "info": "Vertical space between items within a column on desktop."
+    },
+    {
+      "type": "range",
+      "id": "item_gap_mobile",
+      "label": "Item gap (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12,
+      "info": "Vertical space between items when stacked in a single column on mobile."
     },
     {
       "type": "text",
