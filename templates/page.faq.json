@@ -520,7 +520,7 @@
               "type": "ls-faq-item",
               "settings": {
                 "question": "What's the minimum age to get in?",
-                "answer": "<p>Shows and times are 21+, we serve college students and retirees alike.</p>",
+                "answer": "<p>Shows, unless otherwise stated, are 21+.  We offer Line Dancing during the week, hosted by Bluegrass Ballroom, and that is an 18+ event.  All who enter must have a valid ID.</p>",
                 "open_by_default": false
               },
               "blocks": {}
