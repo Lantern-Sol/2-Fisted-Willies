@@ -349,7 +349,7 @@
               "type": "ls-faq-item",
               "settings": {
                 "question": "Do you have live music every weekend?",
-                "answer": "<p>Every Friday and Saturday night, year-round. Local college bands, DJs, and nationally touring artists — the guitar never stops at Willie's.</p>",
+                "answer": "<p>Every Friday and Saturday night, year-round. Local college bands, DJs, and nationally touring artists — the guitars never stop at Willie's.</p>",
                 "open_by_default": false
               },
               "blocks": {}
