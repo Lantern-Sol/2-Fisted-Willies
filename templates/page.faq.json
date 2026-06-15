@@ -457,7 +457,7 @@
               "type": "ls-faq-item",
               "settings": {
                 "question": "Can I reserve rooftop seating?",
-                "answer": "<p>Rooftop's first-come on most nights, but for groups and events we can often set it aside.</p>",
+                "answer": "<p>Rooftop's first-come on most nights, but for groups and events we can often set it aside. Please check the reservations tab to see what's available!</p>",
                 "open_by_default": false
               },
               "blocks": {}
