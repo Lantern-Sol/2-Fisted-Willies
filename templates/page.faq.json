@@ -480,7 +480,7 @@
               "type": "ls-faq-item",
               "settings": {
                 "question": "Where do I park?",
-                "answer": "<p>There's parking in and around the center, plus street parking in the neighborhood. On game days and big show nights it fills up, so leave a little extra time.</p>",
+                "answer": "<p>There's parking in and around the center, plus street parking in the neighborhood. On game days and big show nights it fills up, so leave a little extra time and plan to come early and stay late.</p>",
                 "open_by_default": false
               },
               "blocks": {}
