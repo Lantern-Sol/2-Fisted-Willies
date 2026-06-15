@@ -452,7 +452,7 @@
       "type": "custom-liquid",
       "name": "t:names.custom_liquid",
       "settings": {
-        "custom_liquid": "<button id=\"example-widget-trigger\" type=\"button\">Buy Tickets</button>\n\n<script src=\"https://www.eventbrite.com/static/widgets/eb_widgets.js\"></script>\n\n<script type=\"text/javascript\">\n    var exampleCallback = function () {\n        console.log('Order complete!');\n    };\n\n    window.EBWidgets.createWidget({\n        widgetType: 'checkout',\n        eventId: '1991398223694',\n        modal: true,\n        modalTriggerElementId: 'example-widget-trigger',\n        onOrderComplete: exampleCallback,\n    });\n</script>",
+        "custom_liquid": "<button id=\"example-widget-trigger\" type=\"button\">Buy Tickets</button>\n\n<script src=\"https://www.eventbrite.com/static/widgets/eb_widgets.js\"></script>\n\n<script type=\"text/javascript\">\n    var exampleCallback = function () {\n        console.log('Order complete!');\n    };\n\n    window.EBWidgets.createWidget({\n        widgetType: 'checkout',\n        eventId: '1991903674511',\n        modal: true,\n        modalTriggerElementId: 'example-widget-trigger',\n        onOrderComplete: exampleCallback,\n    });\n</script>",
         "color_scheme": "",
         "section_width": "page-width",
         "padding-block-start": 0,
