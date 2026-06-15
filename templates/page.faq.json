@@ -380,7 +380,7 @@
               "type": "ls-faq-item",
               "settings": {
                 "question": "Can I rent the venue for a private party?",
-                "answer": "<p>You bet. Birthdays, corporate buyouts, game day groups, you name it — we've got the space and the setup to do it right. Fill out the form on our Private Events page and we'll get back to you.</p>",
+                "answer": "<p>You bet! Birthdays, corporate buyouts, game day groups, you name it — we've got the space and the setup to do it right. Fill out the form on our Private Events page and we'll get back to you to schedule your fun.</p>",
                 "open_by_default": false
               },
               "blocks": {}
