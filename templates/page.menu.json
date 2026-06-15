@@ -1,0 +1,2428 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 40,
+        "padding-block-end": 80
+      }
+    },
+    "hero_hLXCJb": {
+      "type": "hero",
+      "blocks": {
+        "ls_text_6ADWT8": {
+          "type": "ls-text",
+          "name": "LS Text",
+          "settings": {
+            "text": "<p>THE BAR</p>",
+            "font_family": "var(--font-cormorant-garamond-italic--family)",
+            "font_size": 128,
+            "font_size_mobile": 64,
+            "letter_spacing": -5,
+            "use_mobile_letter_spacing": false,
+            "letter_spacing_mobile": 0,
+            "line_height": 0.8,
+            "font_weight": "400",
+            "text_transform": "none",
+            "text_align": "left",
+            "text_align_mobile": "",
+            "max_width": "none",
+            "text_color": "",
+            "emphasis_color": "",
+            "emphasis_font": "",
+            "emphasis_weight": "",
+            "opacity": 100,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "use_mobile_padding": false,
+            "padding-block-start-mobile": 0,
+            "padding-block-end-mobile": 0,
+            "padding-inline-start-mobile": 0,
+            "padding-inline-end-mobile": 0
+          },
+          "blocks": {}
+        },
+        "ls_text_7FJmh8": {
+          "type": "ls-text",
+          "name": "LS Text",
+          "settings": {
+            "text": "<p>& DRINK</p>",
+            "font_family": "var(--font-cormorant-garamond-italic--family)",
+            "font_size": 128,
+            "font_size_mobile": 64,
+            "letter_spacing": -5,
+            "use_mobile_letter_spacing": false,
+            "letter_spacing_mobile": 0,
+            "line_height": 0.7,
+            "font_weight": "400",
+            "text_transform": "none",
+            "text_align": "left",
+            "text_align_mobile": "",
+            "max_width": "none",
+            "text_color": "",
+            "emphasis_color": "",
+            "emphasis_font": "",
+            "emphasis_weight": "",
+            "opacity": 100,
+            "padding-block-start": 0,
+            "padding-block-end": 32,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "use_mobile_padding": false,
+            "padding-block-start-mobile": 0,
+            "padding-block-end-mobile": 0,
+            "padding-inline-start-mobile": 0,
+            "padding-inline-end-mobile": 0
+          },
+          "blocks": {}
+        },
+        "ls_text_EfnYy4": {
+          "type": "ls-text",
+          "name": "LS Text",
+          "settings": {
+            "text": "<p>MENU</p>",
+            "font_family": "var(--font-gashroad--family)",
+            "font_size": 128,
+            "font_size_mobile": 64,
+            "letter_spacing": -5,
+            "use_mobile_letter_spacing": false,
+            "letter_spacing_mobile": 0,
+            "line_height": 0.7,
+            "font_weight": "400",
+            "text_transform": "none",
+            "text_align": "left",
+            "text_align_mobile": "",
+            "max_width": "none",
+            "text_color": "#eae8f0",
+            "emphasis_color": "",
+            "emphasis_font": "",
+            "emphasis_weight": "",
+            "opacity": 100,
+            "padding-block-start": 0,
+            "padding-block-end": 16,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "use_mobile_padding": false,
+            "padding-block-start-mobile": 0,
+            "padding-block-end-mobile": 0,
+            "padding-inline-start-mobile": 0,
+            "padding-inline-end-mobile": 0
+          },
+          "blocks": {}
+        },
+        "group_cKLDkb": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "use_mobile_alignment": false,
+            "mobile_horizontal_alignment": "flex-start",
+            "mobile_vertical_alignment": "center",
+            "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+            "mobile_vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "use_mobile_gap": false,
+            "mobile_gap": 12,
+            "width": "custom",
+            "custom_width": 60,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "use_mobile_padding": false,
+            "padding-block-start-mobile": 0,
+            "padding-block-end-mobile": 0,
+            "padding-inline-start-mobile": 0,
+            "padding-inline-end-mobile": 0
+          },
+          "blocks": {
+            "ls_text_wfADt8": {
+              "type": "ls-text",
+              "name": "LS Text",
+              "settings": {
+                "text": "<p>Bourbon born and Kentucky proud. Whatever you're drinking, it pours the same way it has for ninety years.</p>",
+                "font_family": "var(--font-cormorant-garamond--family)",
+                "font_size": 26,
+                "font_size_mobile": 20,
+                "letter_spacing": 0,
+                "use_mobile_letter_spacing": false,
+                "letter_spacing_mobile": 0,
+                "line_height": 1.4,
+                "font_weight": "400",
+                "text_transform": "none",
+                "text_align": "center",
+                "text_align_mobile": "",
+                "max_width": "none",
+                "text_color": "",
+                "emphasis_color": "",
+                "emphasis_font": "",
+                "emphasis_weight": "",
+                "opacity": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "use_mobile_padding": false,
+                "padding-block-start-mobile": 0,
+                "padding-block-end-mobile": 0,
+                "padding-inline-start-mobile": 0,
+                "padding-inline-end-mobile": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "ls_text_wfADt8"
+          ]
+        }
+      },
+      "block_order": [
+        "ls_text_6ADWT8",
+        "ls_text_7FJmh8",
+        "ls_text_EfnYy4",
+        "group_cKLDkb"
+      ],
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/menu-hero.jpg",
+        "parallax_effect": false,
+        "hide_media_on_mobile": false,
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "use_mobile_gap": false,
+        "mobile_gap": 12,
+        "section_width": "page-width",
+        "section_width-mobile": "page-width",
+        "section_height": "auto",
+        "section_height_custom": 50,
+        "enable_max_height": false,
+        "max_height": 1500,
+        "color_scheme": "scheme-5",
+        "toggle_overlay": true,
+        "overlay_color": "#1e1e2e",
+        "overlay_style": "multiply",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 64,
+        "padding-block-end": 64,
+        "use_mobile_padding": false,
+        "padding-block-start-mobile": 16,
+        "padding-block-end-mobile": 16
+      }
+    },
+    "ls_menu_wpGDLr": {
+      "type": "ls-menu",
+      "blocks": {
+        "ls_menu_nav_NaTE8B": {
+          "type": "ls-menu-nav",
+          "settings": {},
+          "blocks": {
+            "ls_menu_nav_link_NtnppW": {
+              "type": "ls-menu-nav-link",
+              "settings": {
+                "label": "Cocktails",
+                "target": "cocktails"
+              },
+              "blocks": {}
+            },
+            "ls_menu_nav_link_FX6TFC": {
+              "type": "ls-menu-nav-link",
+              "settings": {
+                "label": "Shots",
+                "target": "shots"
+              },
+              "blocks": {}
+            },
+            "ls_menu_nav_link_dd7Q9X": {
+              "type": "ls-menu-nav-link",
+              "settings": {
+                "label": "Happy Hour",
+                "target": "happy hour"
+              },
+              "blocks": {}
+            },
+            "ls_menu_nav_link_tpg76B": {
+              "type": "ls-menu-nav-link",
+              "name": "LS Menu Nav Link",
+              "settings": {
+                "label": "Beer",
+                "target": "beer"
+              },
+              "blocks": {}
+            },
+            "ls_menu_nav_link_raLjBd": {
+              "type": "ls-menu-nav-link",
+              "name": "LS Menu Nav Link",
+              "settings": {
+                "label": "Seltzers",
+                "target": "seltzer"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "ls_menu_nav_link_NtnppW",
+            "ls_menu_nav_link_FX6TFC",
+            "ls_menu_nav_link_dd7Q9X",
+            "ls_menu_nav_link_tpg76B",
+            "ls_menu_nav_link_raLjBd"
+          ]
+        },
+        "ls_beverage_9WF9i7": {
+          "type": "ls-beverage",
+          "settings": {
+            "index_label": "★ 01",
+            "title": "Cocktails",
+            "anchor": "cocktails"
+          },
+          "blocks": {
+            "ls_beverage_item_HneNty": {
+              "type": "ls-beverage-item",
+              "settings": {
+                "name": "Outlaw Sunset",
+                "description": "<p>Vodka, cranberry, pineapple, lime juice.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_jwiDjf": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Big Blue Margarita",
+                "description": "<p>Tequila, blue curaçao, triple sec, Craft Standard margarita on tap.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_Y8bbqJ": {
+              "type": "ls-beverage-item",
+              "settings": {
+                "name": "Kentucky Mule",
+                "description": "<p>Buffalo Trace bourbon, lime juice, ginger beer.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_kiKBkC": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Giddy Up Gimlet",
+                "description": "<p>Vodka, cranberry, pineapple, lime juice.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_86EDyD": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Bourbon Smash",
+                "description": "<p>Four Roses bourbon, lemon juice, simple syrup, soda.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_ifKQQE": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Old Fashioned Willie",
+                "description": "<p>Buffalo Trace bourbon, simple syrup, bitters, orange twist.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_ByFieH": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Paloma",
+                "description": "<p>El Toro tequila, lime juice, grapefruit juice.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_fRakip": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Aperol Spritz",
+                "description": "<p>Aperol, champagne, club soda, orange slice.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_t66yjN": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Espresso Martini",
+                "description": "<p>Vanilla vodka, coffee liqueur, espresso, coffee beans.</p>"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "ls_beverage_item_HneNty",
+            "ls_beverage_item_jwiDjf",
+            "ls_beverage_item_Y8bbqJ",
+            "ls_beverage_item_kiKBkC",
+            "ls_beverage_item_86EDyD",
+            "ls_beverage_item_ifKQQE",
+            "ls_beverage_item_ByFieH",
+            "ls_beverage_item_fRakip",
+            "ls_beverage_item_t66yjN"
+          ]
+        },
+        "ls_beverage_zmTq9i": {
+          "type": "ls-beverage",
+          "settings": {
+            "index_label": "★ 02",
+            "title": "Shots",
+            "anchor": "shots"
+          },
+          "blocks": {
+            "ls_beverage_item_icMWna": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Green Tea",
+                "description": "<p>Paddy's Irish whiskey, peach liqueur, sweet & sour.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_FjDYxM": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Pink Starburst",
+                "description": "<p>Svedka vanilla vodka, watermelon schnapps, sweet & sour.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_hU3ECb": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "John Wall",
+                "description": "<p>Blue raspberry vodka, sweet & sour, blue curaçao.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_qCDUCR": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Lemon Drop",
+                "description": "<p>Absolut Citron, simple syrup, lemon juice.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_4jAHWz": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "White Tea",
+                "description": "<p>Barton vodka, peach schnapps, sweet & sour.</p>"
+              },
+              "blocks": {}
+            },
+            "ls_beverage_item_4acccK": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Jäger Bomb",
+                "description": "<p>Jägermeister, Red Bull.</p>"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "ls_beverage_item_icMWna",
+            "ls_beverage_item_FjDYxM",
+            "ls_beverage_item_hU3ECb",
+            "ls_beverage_item_qCDUCR",
+            "ls_beverage_item_4jAHWz",
+            "ls_beverage_item_4acccK"
+          ]
+        },
+        "ls_menu_group_fbqAq6": {
+          "type": "ls-menu-group",
+          "name": "LS Menu Group",
+          "settings": {
+            "anchor": "happy hour",
+            "gap": 0,
+            "alignment": "center"
+          },
+          "blocks": {
+            "group_8jNKq6": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "center",
+                "use_mobile_alignment": false,
+                "mobile_horizontal_alignment": "flex-start",
+                "mobile_vertical_alignment": "center",
+                "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                "mobile_vertical_alignment_flex_direction_column": "center",
+                "gap": 0,
+                "use_mobile_gap": false,
+                "mobile_gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": false,
+                "color_scheme": "scheme-961d7fa8-5f38-464c-9a9e-583c850fd4ba",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 64,
+                "padding-block-end": 64,
+                "padding-inline-start": 64,
+                "padding-inline-end": 64,
+                "use_mobile_padding": true,
+                "padding-block-start-mobile": 32,
+                "padding-block-end-mobile": 32,
+                "padding-inline-start-mobile": 32,
+                "padding-inline-end-mobile": 32
+              },
+              "blocks": {
+                "ls_text_DCLDUR": {
+                  "type": "ls-text",
+                  "name": "LS Text",
+                  "settings": {
+                    "text": "<p>Tue–Fri · 4–7PM</p>",
+                    "font_family": "var(--font-body--family)",
+                    "font_size": 16,
+                    "font_size_mobile": 0,
+                    "letter_spacing": 1.7,
+                    "use_mobile_letter_spacing": false,
+                    "letter_spacing_mobile": 0,
+                    "line_height": 1,
+                    "font_weight": "400",
+                    "text_transform": "uppercase",
+                    "text_align": "left",
+                    "text_align_mobile": "",
+                    "max_width": "none",
+                    "text_color": "#fac775",
+                    "emphasis_color": "",
+                    "emphasis_font": "",
+                    "emphasis_weight": "",
+                    "opacity": 100,
+                    "padding-block-start": 0,
+                    "padding-block-end": 64,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 0,
+                    "padding-block-end-mobile": 0,
+                    "padding-inline-start-mobile": 0,
+                    "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_text_ARz7Cp": {
+                  "type": "ls-text",
+                  "name": "LS Text",
+                  "settings": {
+                    "text": "<p>happy</p>",
+                    "font_family": "var(--font-gashroad--family)",
+                    "font_size": 116,
+                    "font_size_mobile": 64,
+                    "letter_spacing": -5,
+                    "use_mobile_letter_spacing": false,
+                    "letter_spacing_mobile": 0,
+                    "line_height": 0.8,
+                    "font_weight": "400",
+                    "text_transform": "uppercase",
+                    "text_align": "left",
+                    "text_align_mobile": "",
+                    "max_width": "none",
+                    "text_color": "#eae8f0",
+                    "emphasis_color": "",
+                    "emphasis_font": "",
+                    "emphasis_weight": "",
+                    "opacity": 100,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 0,
+                    "padding-block-end-mobile": 0,
+                    "padding-inline-start-mobile": 0,
+                    "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_text_GreayU": {
+                  "type": "ls-text",
+                  "name": "LS Text",
+                  "settings": {
+                    "text": "<p>Hour</p>",
+                    "font_family": "var(--font-cormorant-garamond-italic--family)",
+                    "font_size": 116,
+                    "font_size_mobile": 64,
+                    "letter_spacing": -5,
+                    "use_mobile_letter_spacing": false,
+                    "letter_spacing_mobile": 0,
+                    "line_height": 0.2,
+                    "font_weight": "400",
+                    "text_transform": "none",
+                    "text_align": "left",
+                    "text_align_mobile": "",
+                    "max_width": "none",
+                    "text_color": "#b8c8f2",
+                    "emphasis_color": "",
+                    "emphasis_font": "",
+                    "emphasis_weight": "",
+                    "opacity": 100,
+                    "padding-block-start": 0,
+                    "padding-block-end": 96,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 0,
+                    "padding-block-end-mobile": 0,
+                    "padding-inline-start-mobile": 0,
+                    "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {}
+                },
+                "group_jaeHr7": {
+                  "type": "group",
+                  "name": "Columns",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "space-between",
+                    "vertical_alignment": "center",
+                    "align_baseline": false,
+                    "horizontal_alignment_flex_direction_column": "flex-start",
+                    "vertical_alignment_flex_direction_column": "center",
+                    "use_mobile_alignment": false,
+                    "mobile_horizontal_alignment": "flex-start",
+                    "mobile_vertical_alignment": "center",
+                    "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                    "mobile_vertical_alignment_flex_direction_column": "center",
+                    "gap": 0,
+                    "use_mobile_gap": true,
+                    "mobile_gap": 32,
+                    "width": "custom",
+                    "custom_width": 90,
+                    "width_mobile": "fill",
+                    "custom_width_mobile": 100,
+                    "height": "fit",
+                    "custom_height": 100,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "background_media": "none",
+                    "video_position": "cover",
+                    "background_image_position": "cover",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 0,
+                    "toggle_overlay": false,
+                    "overlay_color": "#00000026",
+                    "overlay_style": "solid",
+                    "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "placeholder": "",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 0,
+                    "padding-block-end-mobile": 0,
+                    "padding-inline-start-mobile": 0,
+                    "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {
+                    "group_6wmiJc": {
+                      "type": "group",
+                      "name": "Margarita",
+                      "settings": {
+                        "content_direction": "column",
+                        "vertical_on_mobile": true,
+                        "horizontal_alignment": "flex-start",
+                        "vertical_alignment": "center",
+                        "align_baseline": false,
+                        "horizontal_alignment_flex_direction_column": "flex-start",
+                        "vertical_alignment_flex_direction_column": "center",
+                        "use_mobile_alignment": false,
+                        "mobile_horizontal_alignment": "flex-start",
+                        "mobile_vertical_alignment": "center",
+                        "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                        "mobile_vertical_alignment_flex_direction_column": "center",
+                        "gap": 24,
+                        "use_mobile_gap": false,
+                        "mobile_gap": 12,
+                        "width": "fit-content",
+                        "custom_width": 100,
+                        "width_mobile": "fill",
+                        "custom_width_mobile": 100,
+                        "height": "fit",
+                        "custom_height": 100,
+                        "inherit_color_scheme": true,
+                        "color_scheme": "",
+                        "background_media": "none",
+                        "video_position": "cover",
+                        "background_image_position": "cover",
+                        "border": "none",
+                        "border_width": 1,
+                        "border_opacity": 100,
+                        "border_radius": 0,
+                        "toggle_overlay": false,
+                        "overlay_color": "#00000026",
+                        "overlay_style": "solid",
+                        "gradient_direction": "to top",
+                        "link": "",
+                        "open_in_new_tab": false,
+                        "placeholder": "",
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "use_mobile_padding": false,
+                        "padding-block-start-mobile": 0,
+                        "padding-block-end-mobile": 0,
+                        "padding-inline-start-mobile": 0,
+                        "padding-inline-end-mobile": 0
+                      },
+                      "blocks": {
+                        "ls_text_NXjwAB": {
+                          "type": "ls-text",
+                          "name": "LS Text",
+                          "settings": {
+                            "text": "<p>2-for-1 Margaritas</p>",
+                            "font_family": "var(--font-cormorant-garamond-italic--family)",
+                            "font_size": 56,
+                            "font_size_mobile": 36,
+                            "letter_spacing": 0,
+                            "use_mobile_letter_spacing": false,
+                            "letter_spacing_mobile": 0,
+                            "line_height": 1.4,
+                            "font_weight": "400",
+                            "text_transform": "none",
+                            "text_align": "left",
+                            "text_align_mobile": "",
+                            "max_width": "none",
+                            "text_color": "#b8c8f2",
+                            "emphasis_color": "",
+                            "emphasis_font": "",
+                            "emphasis_weight": "",
+                            "opacity": 100,
+                            "padding-block-start": 0,
+                            "padding-block-end": 0,
+                            "padding-inline-start": 0,
+                            "padding-inline-end": 0,
+                            "use_mobile_padding": false,
+                            "padding-block-start-mobile": 0,
+                            "padding-block-end-mobile": 0,
+                            "padding-inline-start-mobile": 0,
+                            "padding-inline-end-mobile": 0
+                          },
+                          "blocks": {}
+                        },
+                        "group_T9Pgh7": {
+                          "type": "group",
+                          "name": "Row",
+                          "settings": {
+                            "content_direction": "row",
+                            "vertical_on_mobile": false,
+                            "horizontal_alignment": "flex-start",
+                            "vertical_alignment": "center",
+                            "align_baseline": false,
+                            "horizontal_alignment_flex_direction_column": "flex-start",
+                            "vertical_alignment_flex_direction_column": "center",
+                            "use_mobile_alignment": false,
+                            "mobile_horizontal_alignment": "flex-start",
+                            "mobile_vertical_alignment": "center",
+                            "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                            "mobile_vertical_alignment_flex_direction_column": "center",
+                            "gap": 16,
+                            "use_mobile_gap": false,
+                            "mobile_gap": 12,
+                            "width": "fill",
+                            "custom_width": 100,
+                            "width_mobile": "fill",
+                            "custom_width_mobile": 100,
+                            "height": "fit",
+                            "custom_height": 100,
+                            "inherit_color_scheme": true,
+                            "color_scheme": "",
+                            "background_media": "none",
+                            "video_position": "cover",
+                            "background_image_position": "cover",
+                            "border": "none",
+                            "border_width": 1,
+                            "border_opacity": 100,
+                            "border_radius": 0,
+                            "toggle_overlay": false,
+                            "overlay_color": "#00000026",
+                            "overlay_style": "solid",
+                            "gradient_direction": "to top",
+                            "link": "",
+                            "open_in_new_tab": false,
+                            "placeholder": "",
+                            "padding-block-start": 0,
+                            "padding-block-end": 0,
+                            "padding-inline-start": 0,
+                            "padding-inline-end": 0,
+                            "use_mobile_padding": false,
+                            "padding-block-start-mobile": 0,
+                            "padding-block-end-mobile": 0,
+                            "padding-inline-start-mobile": 0,
+                            "padding-inline-end-mobile": 0
+                          },
+                          "blocks": {
+                            "group_JxFNNd": {
+                              "type": "group",
+                              "name": "Column",
+                              "settings": {
+                                "content_direction": "column",
+                                "vertical_on_mobile": true,
+                                "horizontal_alignment": "flex-start",
+                                "vertical_alignment": "center",
+                                "align_baseline": false,
+                                "horizontal_alignment_flex_direction_column": "flex-start",
+                                "vertical_alignment_flex_direction_column": "center",
+                                "use_mobile_alignment": false,
+                                "mobile_horizontal_alignment": "flex-start",
+                                "mobile_vertical_alignment": "center",
+                                "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                                "mobile_vertical_alignment_flex_direction_column": "center",
+                                "gap": 16,
+                                "use_mobile_gap": false,
+                                "mobile_gap": 12,
+                                "width": "fit-content",
+                                "custom_width": 100,
+                                "width_mobile": "fit-content",
+                                "custom_width_mobile": 100,
+                                "height": "fit",
+                                "custom_height": 100,
+                                "inherit_color_scheme": true,
+                                "color_scheme": "",
+                                "background_media": "none",
+                                "video_position": "cover",
+                                "background_image_position": "cover",
+                                "border": "none",
+                                "border_width": 1,
+                                "border_opacity": 100,
+                                "border_radius": 0,
+                                "toggle_overlay": false,
+                                "overlay_color": "#00000026",
+                                "overlay_style": "solid",
+                                "gradient_direction": "to top",
+                                "link": "",
+                                "open_in_new_tab": false,
+                                "placeholder": "",
+                                "padding-block-start": 0,
+                                "padding-block-end": 0,
+                                "padding-inline-start": 0,
+                                "padding-inline-end": 0,
+                                "use_mobile_padding": false,
+                                "padding-block-start-mobile": 0,
+                                "padding-block-end-mobile": 0,
+                                "padding-inline-start-mobile": 0,
+                                "padding-inline-end-mobile": 0
+                              },
+                              "blocks": {
+                                "ls_text_bMUeGN": {
+                                  "type": "ls-text",
+                                  "name": "LS Text",
+                                  "settings": {
+                                    "text": "<p>Lime</p>",
+                                    "font_family": "var(--font-body--family)",
+                                    "font_size": 16,
+                                    "font_size_mobile": 0,
+                                    "letter_spacing": 1.7,
+                                    "use_mobile_letter_spacing": false,
+                                    "letter_spacing_mobile": 0,
+                                    "line_height": 1,
+                                    "font_weight": "400",
+                                    "text_transform": "uppercase",
+                                    "text_align": "left",
+                                    "text_align_mobile": "",
+                                    "max_width": "none",
+                                    "text_color": "",
+                                    "emphasis_color": "",
+                                    "emphasis_font": "",
+                                    "emphasis_weight": "",
+                                    "opacity": 100,
+                                    "padding-block-start": 0,
+                                    "padding-block-end": 0,
+                                    "padding-inline-start": 0,
+                                    "padding-inline-end": 0,
+                                    "use_mobile_padding": false,
+                                    "padding-block-start-mobile": 0,
+                                    "padding-block-end-mobile": 0,
+                                    "padding-inline-start-mobile": 0,
+                                    "padding-inline-end-mobile": 0
+                                  },
+                                  "blocks": {}
+                                },
+                                "ls_text_KghRrV": {
+                                  "type": "ls-text",
+                                  "name": "LS Text",
+                                  "settings": {
+                                    "text": "<p>Blueberry</p>",
+                                    "font_family": "var(--font-body--family)",
+                                    "font_size": 16,
+                                    "font_size_mobile": 0,
+                                    "letter_spacing": 1.7,
+                                    "use_mobile_letter_spacing": false,
+                                    "letter_spacing_mobile": 0,
+                                    "line_height": 1,
+                                    "font_weight": "400",
+                                    "text_transform": "uppercase",
+                                    "text_align": "left",
+                                    "text_align_mobile": "",
+                                    "max_width": "none",
+                                    "text_color": "",
+                                    "emphasis_color": "",
+                                    "emphasis_font": "",
+                                    "emphasis_weight": "",
+                                    "opacity": 100,
+                                    "padding-block-start": 0,
+                                    "padding-block-end": 0,
+                                    "padding-inline-start": 0,
+                                    "padding-inline-end": 0,
+                                    "use_mobile_padding": false,
+                                    "padding-block-start-mobile": 0,
+                                    "padding-block-end-mobile": 0,
+                                    "padding-inline-start-mobile": 0,
+                                    "padding-inline-end-mobile": 0
+                                  },
+                                  "blocks": {}
+                                }
+                              },
+                              "block_order": [
+                                "ls_text_bMUeGN",
+                                "ls_text_KghRrV"
+                              ]
+                            },
+                            "group_iKVU6j": {
+                              "type": "group",
+                              "name": "Column",
+                              "settings": {
+                                "content_direction": "column",
+                                "vertical_on_mobile": true,
+                                "horizontal_alignment": "flex-start",
+                                "vertical_alignment": "center",
+                                "align_baseline": false,
+                                "horizontal_alignment_flex_direction_column": "flex-start",
+                                "vertical_alignment_flex_direction_column": "center",
+                                "use_mobile_alignment": false,
+                                "mobile_horizontal_alignment": "flex-start",
+                                "mobile_vertical_alignment": "center",
+                                "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                                "mobile_vertical_alignment_flex_direction_column": "center",
+                                "gap": 16,
+                                "use_mobile_gap": false,
+                                "mobile_gap": 12,
+                                "width": "fit-content",
+                                "custom_width": 100,
+                                "width_mobile": "fit-content",
+                                "custom_width_mobile": 100,
+                                "height": "fit",
+                                "custom_height": 100,
+                                "inherit_color_scheme": true,
+                                "color_scheme": "",
+                                "background_media": "none",
+                                "video_position": "cover",
+                                "background_image_position": "cover",
+                                "border": "none",
+                                "border_width": 1,
+                                "border_opacity": 100,
+                                "border_radius": 0,
+                                "toggle_overlay": false,
+                                "overlay_color": "#00000026",
+                                "overlay_style": "solid",
+                                "gradient_direction": "to top",
+                                "link": "",
+                                "open_in_new_tab": false,
+                                "placeholder": "",
+                                "padding-block-start": 0,
+                                "padding-block-end": 0,
+                                "padding-inline-start": 0,
+                                "padding-inline-end": 0,
+                                "use_mobile_padding": false,
+                                "padding-block-start-mobile": 0,
+                                "padding-block-end-mobile": 0,
+                                "padding-inline-start-mobile": 0,
+                                "padding-inline-end-mobile": 0
+                              },
+                              "blocks": {
+                                "ls_text_RqrVzT": {
+                                  "type": "ls-text",
+                                  "name": "LS Text",
+                                  "settings": {
+                                    "text": "<p>Strawberry</p>",
+                                    "font_family": "var(--font-body--family)",
+                                    "font_size": 16,
+                                    "font_size_mobile": 0,
+                                    "letter_spacing": 1.7,
+                                    "use_mobile_letter_spacing": false,
+                                    "letter_spacing_mobile": 0,
+                                    "line_height": 1,
+                                    "font_weight": "400",
+                                    "text_transform": "uppercase",
+                                    "text_align": "left",
+                                    "text_align_mobile": "",
+                                    "max_width": "none",
+                                    "text_color": "",
+                                    "emphasis_color": "",
+                                    "emphasis_font": "",
+                                    "emphasis_weight": "",
+                                    "opacity": 100,
+                                    "padding-block-start": 0,
+                                    "padding-block-end": 0,
+                                    "padding-inline-start": 0,
+                                    "padding-inline-end": 0,
+                                    "use_mobile_padding": false,
+                                    "padding-block-start-mobile": 0,
+                                    "padding-block-end-mobile": 0,
+                                    "padding-inline-start-mobile": 0,
+                                    "padding-inline-end-mobile": 0
+                                  },
+                                  "blocks": {}
+                                },
+                                "ls_text_LQWNmk": {
+                                  "type": "ls-text",
+                                  "name": "LS Text",
+                                  "settings": {
+                                    "text": "<p>Blackberry</p>",
+                                    "font_family": "var(--font-body--family)",
+                                    "font_size": 16,
+                                    "font_size_mobile": 0,
+                                    "letter_spacing": 1.7,
+                                    "use_mobile_letter_spacing": false,
+                                    "letter_spacing_mobile": 0,
+                                    "line_height": 1,
+                                    "font_weight": "400",
+                                    "text_transform": "uppercase",
+                                    "text_align": "left",
+                                    "text_align_mobile": "",
+                                    "max_width": "none",
+                                    "text_color": "",
+                                    "emphasis_color": "",
+                                    "emphasis_font": "",
+                                    "emphasis_weight": "",
+                                    "opacity": 100,
+                                    "padding-block-start": 0,
+                                    "padding-block-end": 0,
+                                    "padding-inline-start": 0,
+                                    "padding-inline-end": 0,
+                                    "use_mobile_padding": false,
+                                    "padding-block-start-mobile": 0,
+                                    "padding-block-end-mobile": 0,
+                                    "padding-inline-start-mobile": 0,
+                                    "padding-inline-end-mobile": 0
+                                  },
+                                  "blocks": {}
+                                }
+                              },
+                              "block_order": [
+                                "ls_text_RqrVzT",
+                                "ls_text_LQWNmk"
+                              ]
+                            }
+                          },
+                          "block_order": [
+                            "group_JxFNNd",
+                            "group_iKVU6j"
+                          ]
+                        },
+                        "ls_text_CjH9eL": {
+                          "type": "ls-text",
+                          "name": "LS Text",
+                          "settings": {
+                            "text": "<p>Willie's Lemonade</p>",
+                            "font_family": "var(--font-body--family)",
+                            "font_size": 16,
+                            "font_size_mobile": 0,
+                            "letter_spacing": 0,
+                            "use_mobile_letter_spacing": false,
+                            "letter_spacing_mobile": 0,
+                            "line_height": 1.4,
+                            "font_weight": "400",
+                            "text_transform": "uppercase",
+                            "text_align": "left",
+                            "text_align_mobile": "",
+                            "max_width": "none",
+                            "text_color": "#fac775",
+                            "emphasis_color": "",
+                            "emphasis_font": "",
+                            "emphasis_weight": "",
+                            "opacity": 100,
+                            "padding-block-start": 0,
+                            "padding-block-end": 0,
+                            "padding-inline-start": 0,
+                            "padding-inline-end": 0,
+                            "use_mobile_padding": false,
+                            "padding-block-start-mobile": 0,
+                            "padding-block-end-mobile": 0,
+                            "padding-inline-start-mobile": 0,
+                            "padding-inline-end-mobile": 0
+                          },
+                          "blocks": {}
+                        }
+                      },
+                      "block_order": [
+                        "ls_text_NXjwAB",
+                        "group_T9Pgh7",
+                        "ls_text_CjH9eL"
+                      ]
+                    },
+                    "group_4kwXmK": {
+                      "type": "group",
+                      "name": "Bourbon",
+                      "settings": {
+                        "content_direction": "column",
+                        "vertical_on_mobile": true,
+                        "horizontal_alignment": "flex-start",
+                        "vertical_alignment": "center",
+                        "align_baseline": false,
+                        "horizontal_alignment_flex_direction_column": "flex-start",
+                        "vertical_alignment_flex_direction_column": "center",
+                        "use_mobile_alignment": false,
+                        "mobile_horizontal_alignment": "flex-start",
+                        "mobile_vertical_alignment": "center",
+                        "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                        "mobile_vertical_alignment_flex_direction_column": "center",
+                        "gap": 24,
+                        "use_mobile_gap": false,
+                        "mobile_gap": 12,
+                        "width": "fit-content",
+                        "custom_width": 100,
+                        "width_mobile": "fill",
+                        "custom_width_mobile": 100,
+                        "height": "fit",
+                        "custom_height": 100,
+                        "inherit_color_scheme": true,
+                        "color_scheme": "",
+                        "background_media": "none",
+                        "video_position": "cover",
+                        "background_image_position": "cover",
+                        "border": "none",
+                        "border_width": 1,
+                        "border_opacity": 100,
+                        "border_radius": 0,
+                        "toggle_overlay": false,
+                        "overlay_color": "#00000026",
+                        "overlay_style": "solid",
+                        "gradient_direction": "to top",
+                        "link": "",
+                        "open_in_new_tab": false,
+                        "placeholder": "",
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "use_mobile_padding": false,
+                        "padding-block-start-mobile": 0,
+                        "padding-block-end-mobile": 0,
+                        "padding-inline-start-mobile": 0,
+                        "padding-inline-end-mobile": 0
+                      },
+                      "blocks": {
+                        "ls_text_EHkTqF": {
+                          "type": "ls-text",
+                          "name": "LS Text",
+                          "settings": {
+                            "text": "<p>Bourbon Flight</p>",
+                            "font_family": "var(--font-cormorant-garamond-italic--family)",
+                            "font_size": 56,
+                            "font_size_mobile": 36,
+                            "letter_spacing": 0,
+                            "use_mobile_letter_spacing": false,
+                            "letter_spacing_mobile": 0,
+                            "line_height": 1.4,
+                            "font_weight": "400",
+                            "text_transform": "none",
+                            "text_align": "left",
+                            "text_align_mobile": "",
+                            "max_width": "none",
+                            "text_color": "#b8c8f2",
+                            "emphasis_color": "",
+                            "emphasis_font": "",
+                            "emphasis_weight": "",
+                            "opacity": 100,
+                            "padding-block-start": 0,
+                            "padding-block-end": 0,
+                            "padding-inline-start": 0,
+                            "padding-inline-end": 0,
+                            "use_mobile_padding": false,
+                            "padding-block-start-mobile": 0,
+                            "padding-block-end-mobile": 0,
+                            "padding-inline-start-mobile": 0,
+                            "padding-inline-end-mobile": 0
+                          },
+                          "blocks": {}
+                        },
+                        "group_3h4dnw": {
+                          "type": "group",
+                          "name": "Row",
+                          "settings": {
+                            "content_direction": "row",
+                            "vertical_on_mobile": true,
+                            "horizontal_alignment": "flex-start",
+                            "vertical_alignment": "center",
+                            "align_baseline": false,
+                            "horizontal_alignment_flex_direction_column": "flex-start",
+                            "vertical_alignment_flex_direction_column": "center",
+                            "use_mobile_alignment": false,
+                            "mobile_horizontal_alignment": "flex-start",
+                            "mobile_vertical_alignment": "center",
+                            "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                            "mobile_vertical_alignment_flex_direction_column": "center",
+                            "gap": 16,
+                            "use_mobile_gap": false,
+                            "mobile_gap": 12,
+                            "width": "fill",
+                            "custom_width": 100,
+                            "width_mobile": "fill",
+                            "custom_width_mobile": 100,
+                            "height": "fit",
+                            "custom_height": 100,
+                            "inherit_color_scheme": true,
+                            "color_scheme": "",
+                            "background_media": "none",
+                            "video_position": "cover",
+                            "background_image_position": "cover",
+                            "border": "none",
+                            "border_width": 1,
+                            "border_opacity": 100,
+                            "border_radius": 0,
+                            "toggle_overlay": false,
+                            "overlay_color": "#00000026",
+                            "overlay_style": "solid",
+                            "gradient_direction": "to top",
+                            "link": "",
+                            "open_in_new_tab": false,
+                            "placeholder": "",
+                            "padding-block-start": 0,
+                            "padding-block-end": 0,
+                            "padding-inline-start": 0,
+                            "padding-inline-end": 0,
+                            "use_mobile_padding": false,
+                            "padding-block-start-mobile": 0,
+                            "padding-block-end-mobile": 0,
+                            "padding-inline-start-mobile": 0,
+                            "padding-inline-end-mobile": 0
+                          },
+                          "blocks": {
+                            "group_TQk4qP": {
+                              "type": "group",
+                              "name": "Column",
+                              "settings": {
+                                "content_direction": "column",
+                                "vertical_on_mobile": true,
+                                "horizontal_alignment": "flex-start",
+                                "vertical_alignment": "center",
+                                "align_baseline": false,
+                                "horizontal_alignment_flex_direction_column": "flex-start",
+                                "vertical_alignment_flex_direction_column": "center",
+                                "use_mobile_alignment": false,
+                                "mobile_horizontal_alignment": "flex-start",
+                                "mobile_vertical_alignment": "center",
+                                "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                                "mobile_vertical_alignment_flex_direction_column": "center",
+                                "gap": 16,
+                                "use_mobile_gap": false,
+                                "mobile_gap": 12,
+                                "width": "fit-content",
+                                "custom_width": 100,
+                                "width_mobile": "fill",
+                                "custom_width_mobile": 100,
+                                "height": "fit",
+                                "custom_height": 100,
+                                "inherit_color_scheme": true,
+                                "color_scheme": "",
+                                "background_media": "none",
+                                "video_position": "cover",
+                                "background_image_position": "cover",
+                                "border": "none",
+                                "border_width": 1,
+                                "border_opacity": 100,
+                                "border_radius": 0,
+                                "toggle_overlay": false,
+                                "overlay_color": "#00000026",
+                                "overlay_style": "solid",
+                                "gradient_direction": "to top",
+                                "link": "",
+                                "open_in_new_tab": false,
+                                "placeholder": "",
+                                "padding-block-start": 0,
+                                "padding-block-end": 0,
+                                "padding-inline-start": 0,
+                                "padding-inline-end": 0,
+                                "use_mobile_padding": false,
+                                "padding-block-start-mobile": 0,
+                                "padding-block-end-mobile": 0,
+                                "padding-inline-start-mobile": 0,
+                                "padding-inline-end-mobile": 0
+                              },
+                              "blocks": {
+                                "ls_text_B9HjDe": {
+                                  "type": "ls-text",
+                                  "name": "LS Text",
+                                  "settings": {
+                                    "text": "<p>Weller Reserve</p>",
+                                    "font_family": "var(--font-body--family)",
+                                    "font_size": 16,
+                                    "font_size_mobile": 0,
+                                    "letter_spacing": 1.7,
+                                    "use_mobile_letter_spacing": false,
+                                    "letter_spacing_mobile": 0,
+                                    "line_height": 1,
+                                    "font_weight": "400",
+                                    "text_transform": "uppercase",
+                                    "text_align": "left",
+                                    "text_align_mobile": "",
+                                    "max_width": "none",
+                                    "text_color": "",
+                                    "emphasis_color": "",
+                                    "emphasis_font": "",
+                                    "emphasis_weight": "",
+                                    "opacity": 100,
+                                    "padding-block-start": 0,
+                                    "padding-block-end": 0,
+                                    "padding-inline-start": 0,
+                                    "padding-inline-end": 0,
+                                    "use_mobile_padding": false,
+                                    "padding-block-start-mobile": 0,
+                                    "padding-block-end-mobile": 0,
+                                    "padding-inline-start-mobile": 0,
+                                    "padding-inline-end-mobile": 0
+                                  },
+                                  "blocks": {}
+                                },
+                                "ls_text_qwDCFz": {
+                                  "type": "ls-text",
+                                  "name": "LS Text",
+                                  "settings": {
+                                    "text": "<p>E.H. Taylor Small Batch</p>",
+                                    "font_family": "var(--font-body--family)",
+                                    "font_size": 16,
+                                    "font_size_mobile": 0,
+                                    "letter_spacing": 1.7,
+                                    "use_mobile_letter_spacing": false,
+                                    "letter_spacing_mobile": 0,
+                                    "line_height": 1,
+                                    "font_weight": "400",
+                                    "text_transform": "uppercase",
+                                    "text_align": "left",
+                                    "text_align_mobile": "",
+                                    "max_width": "none",
+                                    "text_color": "",
+                                    "emphasis_color": "",
+                                    "emphasis_font": "",
+                                    "emphasis_weight": "",
+                                    "opacity": 100,
+                                    "padding-block-start": 0,
+                                    "padding-block-end": 0,
+                                    "padding-inline-start": 0,
+                                    "padding-inline-end": 0,
+                                    "use_mobile_padding": false,
+                                    "padding-block-start-mobile": 0,
+                                    "padding-block-end-mobile": 0,
+                                    "padding-inline-start-mobile": 0,
+                                    "padding-inline-end-mobile": 0
+                                  },
+                                  "blocks": {}
+                                }
+                              },
+                              "block_order": [
+                                "ls_text_B9HjDe",
+                                "ls_text_qwDCFz"
+                              ]
+                            },
+                            "group_LXyyHt": {
+                              "type": "group",
+                              "name": "Column",
+                              "settings": {
+                                "content_direction": "column",
+                                "vertical_on_mobile": true,
+                                "horizontal_alignment": "flex-start",
+                                "vertical_alignment": "center",
+                                "align_baseline": false,
+                                "horizontal_alignment_flex_direction_column": "flex-start",
+                                "vertical_alignment_flex_direction_column": "center",
+                                "use_mobile_alignment": false,
+                                "mobile_horizontal_alignment": "flex-start",
+                                "mobile_vertical_alignment": "center",
+                                "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                                "mobile_vertical_alignment_flex_direction_column": "center",
+                                "gap": 16,
+                                "use_mobile_gap": false,
+                                "mobile_gap": 12,
+                                "width": "fill",
+                                "custom_width": 100,
+                                "width_mobile": "fill",
+                                "custom_width_mobile": 100,
+                                "height": "fit",
+                                "custom_height": 100,
+                                "inherit_color_scheme": true,
+                                "color_scheme": "",
+                                "background_media": "none",
+                                "video_position": "cover",
+                                "background_image_position": "cover",
+                                "border": "none",
+                                "border_width": 1,
+                                "border_opacity": 100,
+                                "border_radius": 0,
+                                "toggle_overlay": false,
+                                "overlay_color": "#00000026",
+                                "overlay_style": "solid",
+                                "gradient_direction": "to top",
+                                "link": "",
+                                "open_in_new_tab": false,
+                                "placeholder": "",
+                                "padding-block-start": 0,
+                                "padding-block-end": 0,
+                                "padding-inline-start": 0,
+                                "padding-inline-end": 0,
+                                "use_mobile_padding": false,
+                                "padding-block-start-mobile": 0,
+                                "padding-block-end-mobile": 0,
+                                "padding-inline-start-mobile": 0,
+                                "padding-inline-end-mobile": 0
+                              },
+                              "blocks": {
+                                "ls_text_hf4BEN": {
+                                  "type": "ls-text",
+                                  "name": "LS Text",
+                                  "settings": {
+                                    "text": "<p>Woodford Reserve</p>",
+                                    "font_family": "var(--font-body--family)",
+                                    "font_size": 16,
+                                    "font_size_mobile": 0,
+                                    "letter_spacing": 1.7,
+                                    "use_mobile_letter_spacing": false,
+                                    "letter_spacing_mobile": 0,
+                                    "line_height": 1,
+                                    "font_weight": "400",
+                                    "text_transform": "uppercase",
+                                    "text_align": "left",
+                                    "text_align_mobile": "",
+                                    "max_width": "none",
+                                    "text_color": "",
+                                    "emphasis_color": "",
+                                    "emphasis_font": "",
+                                    "emphasis_weight": "",
+                                    "opacity": 100,
+                                    "padding-block-start": 0,
+                                    "padding-block-end": 0,
+                                    "padding-inline-start": 0,
+                                    "padding-inline-end": 0,
+                                    "use_mobile_padding": false,
+                                    "padding-block-start-mobile": 0,
+                                    "padding-block-end-mobile": 0,
+                                    "padding-inline-start-mobile": 0,
+                                    "padding-inline-end-mobile": 0
+                                  },
+                                  "blocks": {}
+                                },
+                                "ls_text_CAJ4rH": {
+                                  "type": "ls-text",
+                                  "name": "LS Text",
+                                  "settings": {
+                                    "text": "<p>Eagle Rare 10 Year</p>",
+                                    "font_family": "var(--font-body--family)",
+                                    "font_size": 16,
+                                    "font_size_mobile": 0,
+                                    "letter_spacing": 1.7,
+                                    "use_mobile_letter_spacing": false,
+                                    "letter_spacing_mobile": 0,
+                                    "line_height": 1,
+                                    "font_weight": "400",
+                                    "text_transform": "uppercase",
+                                    "text_align": "left",
+                                    "text_align_mobile": "",
+                                    "max_width": "none",
+                                    "text_color": "",
+                                    "emphasis_color": "",
+                                    "emphasis_font": "",
+                                    "emphasis_weight": "",
+                                    "opacity": 100,
+                                    "padding-block-start": 0,
+                                    "padding-block-end": 0,
+                                    "padding-inline-start": 0,
+                                    "padding-inline-end": 0,
+                                    "use_mobile_padding": false,
+                                    "padding-block-start-mobile": 0,
+                                    "padding-block-end-mobile": 0,
+                                    "padding-inline-start-mobile": 0,
+                                    "padding-inline-end-mobile": 0
+                                  },
+                                  "blocks": {}
+                                }
+                              },
+                              "block_order": [
+                                "ls_text_hf4BEN",
+                                "ls_text_CAJ4rH"
+                              ]
+                            }
+                          },
+                          "block_order": [
+                            "group_TQk4qP",
+                            "group_LXyyHt"
+                          ]
+                        },
+                        "ls_text_DRhXGU": {
+                          "type": "ls-text",
+                          "name": "LS Text",
+                          "settings": {
+                            "text": "<p>$2 Off House Wine</p>",
+                            "font_family": "var(--font-body--family)",
+                            "font_size": 16,
+                            "font_size_mobile": 0,
+                            "letter_spacing": 0,
+                            "use_mobile_letter_spacing": false,
+                            "letter_spacing_mobile": 0,
+                            "line_height": 1.4,
+                            "font_weight": "400",
+                            "text_transform": "uppercase",
+                            "text_align": "left",
+                            "text_align_mobile": "",
+                            "max_width": "none",
+                            "text_color": "#fac775",
+                            "emphasis_color": "",
+                            "emphasis_font": "",
+                            "emphasis_weight": "",
+                            "opacity": 100,
+                            "padding-block-start": 0,
+                            "padding-block-end": 0,
+                            "padding-inline-start": 0,
+                            "padding-inline-end": 0,
+                            "use_mobile_padding": false,
+                            "padding-block-start-mobile": 0,
+                            "padding-block-end-mobile": 0,
+                            "padding-inline-start-mobile": 0,
+                            "padding-inline-end-mobile": 0
+                          },
+                          "blocks": {}
+                        }
+                      },
+                      "block_order": [
+                        "ls_text_EHkTqF",
+                        "group_3h4dnw",
+                        "ls_text_DRhXGU"
+                      ]
+                    }
+                  },
+                  "block_order": [
+                    "group_6wmiJc",
+                    "group_4kwXmK"
+                  ]
+                }
+              },
+              "block_order": [
+                "ls_text_DCLDUR",
+                "ls_text_ARz7Cp",
+                "ls_text_GreayU",
+                "group_jaeHr7"
+              ]
+            }
+          },
+          "block_order": [
+            "group_8jNKq6"
+          ]
+        },
+        "ls_picture_beverage_tn9aBQ": {
+          "type": "ls-picture-beverage",
+          "settings": {
+            "index_label": "★ 03",
+            "title": "Beer List",
+            "subtitle": "",
+            "logo_height": 30,
+            "max_rows": 6,
+            "row_gap": 12,
+            "item_gap_mobile": 16,
+            "anchor": "beer"
+          },
+          "blocks": {
+            "ls_picture_beverage_type_BAXRYa": {
+              "type": "ls-picture-beverage-type",
+              "name": "LS Picture Beverage Type",
+              "settings": {
+                "heading": "Draft",
+                "heading_size": 56,
+                "heading_size_mobile": 56,
+                "heading_gap": 64,
+                "use_mobile_heading_gap": true,
+                "heading_gap_mobile": 32,
+                "max_rows": 3,
+                "logo_height": 20
+              },
+              "blocks": {
+                "ls_picture_beverage_item_dcMnND": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/budweiser-logo.svg",
+                    "name": "Budweiser",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_picture_beverage_item_YA8UrH": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/coors-logo.svg",
+                    "name": "Coors Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_picture_beverage_item_NpRYGt": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/cougar-logo.svg",
+                    "name": "Cougar Bait",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_picture_beverage_item_LJFVpN": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/guiness-logo.svg",
+                    "name": "Guinness",
+                    "highlight": false,
+                    "logo_height": 24
+                  },
+                  "blocks": {}
+                },
+                "ls_picture_beverage_item_hWJbKz": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/michelob-logo.svg",
+                    "name": "Michelob Ultra",
+                    "highlight": false,
+                    "logo_height": 12
+                  },
+                  "blocks": {}
+                },
+                "ls_picture_beverage_item_GMfdRQ": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/miller-logo.svg",
+                    "name": "Miller Lite",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_picture_beverage_item_pdP8UR": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/modelo-logo.svg",
+                    "name": "Modelo Especial",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_picture_beverage_item_PzFx4E": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "name": "Craft Standard Margarita · on tap",
+                    "highlight": true,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "ls_picture_beverage_item_dcMnND",
+                "ls_picture_beverage_item_YA8UrH",
+                "ls_picture_beverage_item_NpRYGt",
+                "ls_picture_beverage_item_LJFVpN",
+                "ls_picture_beverage_item_hWJbKz",
+                "ls_picture_beverage_item_GMfdRQ",
+                "ls_picture_beverage_item_pdP8UR",
+                "ls_picture_beverage_item_PzFx4E"
+              ]
+            },
+            "ls_picture_beverage_type_canned": {
+              "type": "ls-picture-beverage-type",
+              "name": "LS Picture Beverage Type",
+              "settings": {
+                "heading": "Canned",
+                "heading_size": 56,
+                "heading_size_mobile": 56,
+                "heading_gap": 32,
+                "use_mobile_heading_gap": false,
+                "heading_gap_mobile": 32,
+                "max_rows": 7,
+                "logo_height": 38
+              },
+              "blocks": {
+                "ls_pbi_cn01": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/angry-orchard.png",
+                    "name": "Angry Orchard",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn02": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/blue-moon.png",
+                    "name": "Blue Moon",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn03": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/busch-light.png",
+                    "name": "Busch Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn04": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/bud.png",
+                    "name": "Budweiser",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn05": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/bud_light.png",
+                    "name": "Bud Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn06": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/coors-banquet.png",
+                    "name": "Coors Banquet",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn07": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/coors-light.png",
+                    "name": "Coors Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn08": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/coors-light.png",
+                    "name": "Coors Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn09": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/corona.png",
+                    "name": "Corona Extra",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn10": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/country-boy.png",
+                    "name": "Country Boy Apple Pie Cider",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn11": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/garage.png",
+                    "name": "Garage Beer",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn12": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/garage-lime.png",
+                    "name": "Garage Beer Lime",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn13": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/michelob.png",
+                    "name": "Michelob Ultra",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn14": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/michelob-zero.png",
+                    "name": "Michelob Ultra Zero",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn15": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/natural-light.png",
+                    "name": "Natural Light",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn16": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/pabst.png",
+                    "name": "Pabst Blue Ribbon",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn17": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/sierra_nevada.png",
+                    "name": "Sierra Nevada Pale Ale",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn18": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/voodoo.png",
+                    "name": "Voodoo Ranger IPA",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_pbi_cn19": {
+                  "type": "ls-picture-beverage-item",
+                  "settings": {
+                    "image": "shopify://shop_images/yuengling.png",
+                    "name": "Yuengling",
+                    "highlight": false,
+                    "logo_height": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "ls_pbi_cn01",
+                "ls_pbi_cn02",
+                "ls_pbi_cn03",
+                "ls_pbi_cn04",
+                "ls_pbi_cn05",
+                "ls_pbi_cn06",
+                "ls_pbi_cn07",
+                "ls_pbi_cn08",
+                "ls_pbi_cn09",
+                "ls_pbi_cn10",
+                "ls_pbi_cn11",
+                "ls_pbi_cn12",
+                "ls_pbi_cn13",
+                "ls_pbi_cn14",
+                "ls_pbi_cn15",
+                "ls_pbi_cn16",
+                "ls_pbi_cn17",
+                "ls_pbi_cn18",
+                "ls_pbi_cn19"
+              ]
+            }
+          },
+          "block_order": [
+            "ls_picture_beverage_type_BAXRYa",
+            "ls_picture_beverage_type_canned"
+          ]
+        },
+        "ls_picture_beverage_i6d79U": {
+          "type": "ls-picture-beverage",
+          "name": "LS Picture Beverage",
+          "settings": {
+            "index_label": "★ 04",
+            "title": "Seltzer List",
+            "subtitle": "",
+            "logo_height": 30,
+            "max_rows": 4,
+            "row_gap": 12,
+            "item_gap_mobile": 12,
+            "anchor": "seltzer"
+          },
+          "blocks": {
+            "ls_picture_beverage_item_Pa3T7j": {
+              "type": "ls-picture-beverage-item",
+              "settings": {
+                "image": "shopify://shop_images/carbliss.png",
+                "name": "Carbliss",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_MpKqwt": {
+              "type": "ls-picture-beverage-item",
+              "settings": {
+                "image": "shopify://shop_images/good-boy.png",
+                "name": "Good Boy Tea & Lemonade",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_VrDd3x": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/high-noon.png",
+                "name": "High Noon",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_3Xd36d": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/mom-water.png",
+                "name": "Mom Water",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_JnFJ9k": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/nutrl.png",
+                "name": "NÜTRL",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_f3w8eA": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/rivergreen.png",
+                "name": "Rivergreen",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_tqaAxG": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/sun-cruiser.png",
+                "name": "Sun Cruiser",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_gwUTCR": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/surfside-blueberry.png",
+                "name": "Surfside Blueberry",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_FXxzRQ": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/surfside-strawberry.png",
+                "name": "Surfside Strawberry",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_HAF9zt": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/twisted-tea.png",
+                "name": "Twisted Tea",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_W4bU9g": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/white-claw.png",
+                "name": "White Claw",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            },
+            "ls_picture_beverage_item_rK8eCg": {
+              "type": "ls-picture-beverage-item",
+              "name": "LS Picture Beverage Item",
+              "settings": {
+                "image": "shopify://shop_images/196.png",
+                "name": "196",
+                "highlight": false,
+                "logo_height": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "ls_picture_beverage_item_Pa3T7j",
+            "ls_picture_beverage_item_MpKqwt",
+            "ls_picture_beverage_item_VrDd3x",
+            "ls_picture_beverage_item_3Xd36d",
+            "ls_picture_beverage_item_JnFJ9k",
+            "ls_picture_beverage_item_f3w8eA",
+            "ls_picture_beverage_item_tqaAxG",
+            "ls_picture_beverage_item_gwUTCR",
+            "ls_picture_beverage_item_FXxzRQ",
+            "ls_picture_beverage_item_HAF9zt",
+            "ls_picture_beverage_item_W4bU9g",
+            "ls_picture_beverage_item_rK8eCg"
+          ]
+        },
+        "ls_menu_group_4cjM8Y": {
+          "type": "ls-menu-group",
+          "name": "LS Menu Group",
+          "settings": {
+            "anchor": "",
+            "gap": 0,
+            "alignment": "center"
+          },
+          "blocks": {
+            "group_mqU3JW": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "center",
+                "use_mobile_alignment": false,
+                "mobile_horizontal_alignment": "flex-start",
+                "mobile_vertical_alignment": "center",
+                "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                "mobile_vertical_alignment_flex_direction_column": "center",
+                "gap": 0,
+                "use_mobile_gap": false,
+                "mobile_gap": 12,
+                "width": "custom",
+                "custom_width": 35,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "image",
+                "video_position": "cover",
+                "background_image": "shopify://shop_images/cardstock-large.jpg",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 48,
+                "padding-block-end": 48,
+                "padding-inline-start": 48,
+                "padding-inline-end": 48,
+                "use_mobile_padding": false,
+                "padding-block-start-mobile": 0,
+                "padding-block-end-mobile": 0,
+                "padding-inline-start-mobile": 0,
+                "padding-inline-end-mobile": 0
+              },
+              "blocks": {
+                "ls_text_QN6DrC": {
+                  "type": "ls-text",
+                  "name": "LS Text",
+                  "settings": {
+                    "text": "<p>grab a</p>",
+                    "font_family": "var(--font-gashroad--family)",
+                    "font_size": 56,
+                    "font_size_mobile": 0,
+                    "letter_spacing": 0,
+                    "use_mobile_letter_spacing": false,
+                    "letter_spacing_mobile": 0,
+                    "line_height": 0.6,
+                    "font_weight": "400",
+                    "text_transform": "uppercase",
+                    "text_align": "left",
+                    "text_align_mobile": "",
+                    "max_width": "none",
+                    "text_color": "#143379",
+                    "emphasis_color": "",
+                    "emphasis_font": "",
+                    "emphasis_weight": "",
+                    "opacity": 100,
+                    "padding-block-start": 8,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 0,
+                    "padding-block-end-mobile": 0,
+                    "padding-inline-start-mobile": 0,
+                    "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {}
+                },
+                "ls_text_TwMj3J": {
+                  "type": "ls-text",
+                  "name": "LS Text",
+                  "settings": {
+                    "text": "<p>Table</p>",
+                    "font_family": "var(--font-cormorant-garamond-italic--family)",
+                    "font_size": 84,
+                    "font_size_mobile": 0,
+                    "letter_spacing": -4.2,
+                    "use_mobile_letter_spacing": false,
+                    "letter_spacing_mobile": 0,
+                    "line_height": 0.5,
+                    "font_weight": "400",
+                    "text_transform": "none",
+                    "text_align": "left",
+                    "text_align_mobile": "",
+                    "max_width": "none",
+                    "text_color": "#1E1E2E",
+                    "emphasis_color": "",
+                    "emphasis_font": "",
+                    "emphasis_weight": "",
+                    "opacity": 100,
+                    "padding-block-start": 0,
+                    "padding-block-end": 32,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 0,
+                    "padding-block-end-mobile": 0,
+                    "padding-inline-start-mobile": 0,
+                    "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {}
+                },
+                "group_zTxrWL": {
+                  "type": "group",
+                  "name": "t:names.group",
+                  "settings": {
+                    "content_direction": "column",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "align_baseline": false,
+                    "horizontal_alignment_flex_direction_column": "flex-start",
+                    "vertical_alignment_flex_direction_column": "center",
+                    "use_mobile_alignment": false,
+                    "mobile_horizontal_alignment": "flex-start",
+                    "mobile_vertical_alignment": "center",
+                    "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+                    "mobile_vertical_alignment_flex_direction_column": "center",
+                    "gap": 12,
+                    "use_mobile_gap": false,
+                    "mobile_gap": 12,
+                    "width": "fill",
+                    "custom_width": 100,
+                    "width_mobile": "fill",
+                    "custom_width_mobile": 100,
+                    "height": "fit",
+                    "custom_height": 100,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "background_media": "none",
+                    "video_position": "cover",
+                    "background_image_position": "cover",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 0,
+                    "toggle_overlay": false,
+                    "overlay_color": "#00000026",
+                    "overlay_style": "solid",
+                    "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "placeholder": "",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 0,
+                    "padding-block-end-mobile": 0,
+                    "padding-inline-start-mobile": 0,
+                    "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {
+                    "ls_text_GqpFKp": {
+                      "type": "ls-text",
+                      "name": "LS Text",
+                      "settings": {
+                        "text": "<p>We'll get you sorted before the game, during the game, and after the game.</p>",
+                        "font_family": "var(--font-cormorant-garamond--family)",
+                        "font_size": 20,
+                        "font_size_mobile": 0,
+                        "letter_spacing": 0,
+                        "use_mobile_letter_spacing": false,
+                        "letter_spacing_mobile": 0,
+                        "line_height": 1.3,
+                        "font_weight": "400",
+                        "text_transform": "none",
+                        "text_align": "center",
+                        "text_align_mobile": "",
+                        "max_width": "none",
+                        "text_color": "#1E1E2E",
+                        "emphasis_color": "",
+                        "emphasis_font": "",
+                        "emphasis_weight": "",
+                        "opacity": 100,
+                        "padding-block-start": 0,
+                        "padding-block-end": 32,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "use_mobile_padding": false,
+                        "padding-block-start-mobile": 0,
+                        "padding-block-end-mobile": 0,
+                        "padding-inline-start-mobile": 0,
+                        "padding-inline-end-mobile": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "ls_text_GqpFKp"
+                  ]
+                },
+                "ls_button_F9R9bC": {
+                  "type": "ls-button",
+                  "name": "LS Button",
+                  "settings": {
+                    "label": "Reserve a Table",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "style": "filled",
+                    "alignment": "flex-start",
+                    "alignment_mobile": "",
+                    "full_width": false,
+                    "full_width_mobile": false,
+                    "font_family": "var(--font-body--family)",
+                    "font_size": 16,
+                    "use_mobile_font_size": false,
+                    "font_size_mobile": 16,
+                    "letter_spacing": 2.4,
+                    "text_transform": "uppercase",
+                    "bg_color": "#0b4bba",
+                    "text_color": "#eae8f0",
+                    "border_color": "",
+                    "bg_hover_color": "",
+                    "text_hover_color": "",
+                    "border_hover_color": "",
+                    "padding-block-start": 16,
+                    "padding-block-end": 16,
+                    "padding-inline-start": 24,
+                    "padding-inline-end": 24,
+                    "use_mobile_padding": false,
+                    "padding-block-start-mobile": 16,
+                    "padding-block-end-mobile": 16,
+                    "padding-inline-start-mobile": 24,
+                    "padding-inline-end-mobile": 24
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "ls_text_QN6DrC",
+                "ls_text_TwMj3J",
+                "group_zTxrWL",
+                "ls_button_F9R9bC"
+              ]
+            }
+          },
+          "block_order": [
+            "group_mqU3JW"
+          ]
+        }
+      },
+      "block_order": [
+        "ls_menu_nav_NaTE8B",
+        "ls_beverage_9WF9i7",
+        "ls_beverage_zmTq9i",
+        "ls_menu_group_fbqAq6",
+        "ls_picture_beverage_tn9aBQ",
+        "ls_picture_beverage_i6d79U",
+        "ls_menu_group_4cjM8Y"
+      ],
+      "custom_css": [
+        ".background-image-container::before {display: none;}"
+      ],
+      "name": "LS Menu",
+      "settings": {
+        "sticky_offset": 0,
+        "child_padding_top": 32,
+        "child_padding_bottom": 32,
+        "child_padding_inline": 0,
+        "bg_color": "#0e1018",
+        "title_color": "#eae8f0",
+        "index_color": "#9ca0b8",
+        "subtitle_color": "#b8c8f2",
+        "name_color": "#9ca0b8",
+        "desc_color": "#eae8f0",
+        "nav_color": "#b8c8f2",
+        "nav_border_color": "#474b62",
+        "nav_active_text_color": "#0033a0",
+        "nav_active_bg_color": "#e8eefa",
+        "nav_active_ring_color": "#143379",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    }
+  },
+  "order": [
+    "main",
+    "hero_hLXCJb",
+    "ls_menu_wpGDLr"
+  ]
+}

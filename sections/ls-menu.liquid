@@ -1,0 +1,479 @@
+{% liquid
+  assign s = section.settings
+%}
+
+{%- capture section_vars -%}
+  --ls-menu-bg: {{ s.bg_color }};
+  --ls-menu-title: {{ s.title_color }};
+  --ls-menu-index: {{ s.index_color }};
+  --ls-menu-subtitle: {{ s.subtitle_color }};
+  --ls-menu-name: {{ s.name_color }};
+  --ls-menu-desc: {{ s.desc_color }};
+  --ls-menu-nav: {{ s.nav_color }};
+  --ls-menu-nav-border: {{ s.nav_border_color }};
+  --ls-menu-nav-active-text: {{ s.nav_active_text_color }};
+  --ls-menu-nav-active-bg: {{ s.nav_active_bg_color }};
+  --ls-menu-nav-active-ring: {{ s.nav_active_ring_color }};
+  --ls-menu-nav-top: {{ s.sticky_offset }}px;
+  --ls-menu-child-pt: {{ s.child_padding_top }}px;
+  --ls-menu-child-pb: {{ s.child_padding_bottom }}px;
+  --ls-menu-child-px: {{ s.child_padding_inline }}px;
+{%- endcapture -%}
+
+<div class="section-background ls-menu__bg"></div>
+<div
+  id="ls-menu-{{ section.id }}"
+  class="section ls-menu spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ section_vars }}"
+>
+  <div class="ls-menu__inner">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('ls-menu-{{ section.id }}');
+    if (!root) return;
+
+    var nav = root.querySelector('.ls-menu-nav');
+    var base = {{ s.sticky_offset | default: 0 }};
+
+    // Keep the sticky nav clear of the theme's scroll-up header. The header only
+    // sets data-sticky-state="active" while it's revealed, so we add its height
+    // to the nav's top offset then, and fall back to 0 when it's hidden.
+    // Select by stable id — data-sticky-state is added by header.js after load,
+    // so a [data-sticky-state] selector can miss it on first run.
+    var header = document.getElementById('header-component');
+    var navTop = base;
+    function updateNavTop() {
+      var extra = 0;
+      if (header && header.getAttribute('data-sticky-state') === 'active') {
+        // Use the header's bottom edge (it sits at top:-1px) and overlap by 1px
+        // so no page content shows through the seam between the two navs.
+        extra = Math.max(0, header.getBoundingClientRect().bottom - 1);
+      }
+      navTop = base + extra;
+      root.style.setProperty('--ls-menu-nav-top', navTop + 'px');
+    }
+    updateNavTop();
+    if (header && 'MutationObserver' in window) {
+      new MutationObserver(updateNavTop).observe(header, {
+        attributes: true,
+        attributeFilter: ['data-sticky-state'],
+      });
+    }
+    window.addEventListener('resize', updateNavTop);
+
+    var links = root.querySelectorAll('[data-ls-menu-spy]');
+    var cats = root.querySelectorAll('[data-ls-menu-cat]');
+    if (!links.length || !cats.length) return;
+
+    function setActive(id) {
+      links.forEach(function (link) {
+        var match = link.getAttribute('data-target') === id;
+        link.classList.toggle('is-active', match);
+        if (match) {
+          link.setAttribute('aria-current', 'true');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    // While a click-scroll is in flight, lock the scrollspy so it doesn't fight
+    // the clicked state until the page settles on the target.
+    var spyLock = false;
+    var spyTimer = null;
+    function lockSpy() {
+      spyLock = true;
+      if (spyTimer) clearTimeout(spyTimer);
+      spyTimer = setTimeout(function () {
+        spyLock = false;
+      }, 700);
+    }
+    window.addEventListener('scrollend', function () {
+      spyLock = false;
+    });
+
+    // Click: highlight immediately, then smooth-scroll (offset by the sticky nav).
+    links.forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        var dest = document.getElementById(link.getAttribute('data-target'));
+        if (!dest) return;
+        event.preventDefault();
+        setActive(link.getAttribute('data-target'));
+        lockSpy();
+        var offset = (nav ? nav.offsetHeight : 0) + navTop;
+        var top = dest.getBoundingClientRect().top + window.pageYOffset - offset - 8;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    });
+
+    if (!('IntersectionObserver' in window)) return;
+
+    var visible = new Set();
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            visible.add(entry.target.id);
+          } else {
+            visible.delete(entry.target.id);
+          }
+        });
+        // Keep the visible set current, but let the click-set state stand
+        // until the scroll settles.
+        if (spyLock) return;
+        var bestId = null;
+        var bestTop = Infinity;
+        visible.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          var top = el.getBoundingClientRect().top;
+          if (top < bestTop) {
+            bestTop = top;
+            bestId = id;
+          }
+        });
+        if (bestId) setActive(bestId);
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    );
+
+    cats.forEach(function (cat) {
+      if (cat.id) observer.observe(cat);
+    });
+  })();
+
+  // Align beverage names per column: each logo slot gets the width of the
+  // widest logo in its own column, so a narrow column stays narrow.
+  (function () {
+    var root = document.getElementById('ls-menu-{{ section.id }}');
+    if (!root) return;
+    function gridList() {
+      return root.querySelectorAll('.ls-pic-beverage__grid, .ls-pic-type__grid');
+    }
+
+    function alignGrid(grid) {
+      var items = grid.querySelectorAll(':scope > .ls-pic-item');
+      if (!items.length) return;
+
+      // Group items by their actual visual column (left edge) rather than by a
+      // computed row count. Columns are fixed-width (grid-auto-columns), so an
+      // item's left edge is stable no matter what logo width we set, which makes
+      // this exact: desktop yields one bucket per column, mobile yields one
+      // bucket for the single column.
+      var columns = [];
+      items.forEach(function (item) {
+        var left = Math.round(item.getBoundingClientRect().left);
+        var bucket = null;
+        for (var c = 0; c < columns.length; c++) {
+          if (Math.abs(columns[c].left - left) <= 2) {
+            bucket = columns[c];
+            break;
+          }
+        }
+        if (!bucket) {
+          bucket = { left: left, items: [] };
+          columns.push(bucket);
+        }
+        bucket.items.push(item);
+      });
+
+      columns.forEach(function (bucket) {
+        var max = 0;
+        bucket.items.forEach(function (item) {
+          var img = item.querySelector('.ls-pic-item__media, .ls-pic-item__img img, .ls-pic-item__img svg');
+          if (!img) return;
+          var w = img.getBoundingClientRect().width;
+          if (w > max) max = w;
+        });
+        bucket.items.forEach(function (item) {
+          if (max > 0) {
+            item.style.setProperty('--ls-pic-logo-w', Math.ceil(max) + 'px');
+          } else {
+            item.style.removeProperty('--ls-pic-logo-w');
+          }
+        });
+      });
+    }
+
+    function alignAll() {
+      gridList().forEach(alignGrid);
+    }
+
+    // Coalesce bursts of triggers (resize, mutations, image loads) into one pass.
+    var raf = null;
+    function schedule() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(alignAll);
+    }
+
+    schedule();
+    window.addEventListener('load', schedule);
+    // Responsive: recompute on resize so crossing the mobile/desktop breakpoint
+    // (which changes the column layout) re-measures each column.
+    window.addEventListener('resize', schedule);
+
+    // Recompute when logo sizes change (image finishes loading, height settings).
+    var ro = 'ResizeObserver' in window ? new ResizeObserver(schedule) : null;
+    function observeImages() {
+      if (!ro) return;
+      root
+        .querySelectorAll('.ls-pic-item__media, .ls-pic-item__img img, .ls-pic-item__img svg')
+        .forEach(function (img) {
+          ro.observe(img);
+        });
+    }
+    observeImages();
+
+    // Dynamic: recompute and pick up new logos when items/types are added,
+    // removed, or re-rendered (e.g. while editing in the theme editor).
+    if ('MutationObserver' in window) {
+      new MutationObserver(function () {
+        observeImages();
+        schedule();
+      }).observe(root, { childList: true, subtree: true });
+    }
+  })();
+</script>
+
+{% stylesheet %}
+  .ls-menu__bg {
+    background-color: var(--ls-menu-bg, #0e1018);
+  }
+
+  .ls-menu {
+    position: relative;
+  }
+
+  .ls-menu__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    width: 100%;
+    max-width: 1232px;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 4vw, 48px);
+    box-sizing: border-box;
+  }
+
+  /* Per-child padding controlled from the section settings. */
+  .ls-menu__inner > * {
+    padding-top: var(--ls-menu-child-pt, 0px);
+    padding-bottom: var(--ls-menu-child-pb, 0px);
+    padding-inline: var(--ls-menu-child-px, 0px);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Menu",
+  "tag": "section",
+  "class": "ls-menu-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    { "type": "ls-menu-nav" },
+    { "type": "ls-menu-nav-link" },
+    { "type": "ls-beverage" },
+    { "type": "ls-beverage-item" },
+    { "type": "ls-picture-beverage" },
+    { "type": "ls-picture-beverage-type" },
+    { "type": "ls-picture-beverage-item" },
+    { "type": "ls-menu-group" },
+    { "type": "group" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Sticky nav"
+    },
+    {
+      "type": "range",
+      "id": "sticky_offset",
+      "label": "Sticky top offset",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "info": "Use this to clear a fixed announcement bar or header."
+    },
+    {
+      "type": "header",
+      "content": "Child spacing"
+    },
+    {
+      "type": "range",
+      "id": "child_padding_top",
+      "label": "Child top padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "info": "Top padding added to each block in this section."
+    },
+    {
+      "type": "range",
+      "id": "child_padding_bottom",
+      "label": "Child bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "child_padding_inline",
+      "label": "Child side padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#0e1018"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Category title",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "index_color",
+      "label": "Index label (★ 01)",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle (Draft / Canned)",
+      "default": "#b8c8f2"
+    },
+    {
+      "type": "color",
+      "id": "name_color",
+      "label": "Item name",
+      "default": "#b8c8f2"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Item description",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "nav_color",
+      "label": "Nav tab",
+      "default": "#b8c8f2"
+    },
+    {
+      "type": "color",
+      "id": "nav_border_color",
+      "label": "Nav tab border",
+      "default": "#474b62"
+    },
+    {
+      "type": "color",
+      "id": "nav_active_text_color",
+      "label": "Nav tab text (active)",
+      "default": "#0033a0"
+    },
+    {
+      "type": "color",
+      "id": "nav_active_bg_color",
+      "label": "Nav tab fill (active)",
+      "default": "#e8eefa"
+    },
+    {
+      "type": "color",
+      "id": "nav_active_ring_color",
+      "label": "Nav tab ring (active)",
+      "default": "#143379"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Menu",
+      "category": "t:categories.other_sections",
+      "blocks": [
+        {
+          "type": "ls-menu-nav",
+          "blocks": [
+            { "type": "ls-menu-nav-link", "settings": { "label": "Cocktails", "target": "cocktails" } },
+            { "type": "ls-menu-nav-link", "settings": { "label": "Beer", "target": "beer" } }
+          ]
+        },
+        {
+          "type": "ls-beverage",
+          "settings": { "index_label": "★ 01", "title": "Cocktails", "anchor": "cocktails" },
+          "blocks": [
+            {
+              "type": "ls-beverage-item",
+              "settings": {
+                "name": "Outlaw Sunset",
+                "description": "<p>Vodka, cranberry, pineapple, lime juice.</p>"
+              }
+            },
+            {
+              "type": "ls-beverage-item",
+              "settings": {
+                "name": "Kentucky Mule",
+                "description": "<p>Buffalo Trace bourbon, lime juice, ginger beer.</p>"
+              }
+            }
+          ]
+        },
+        {
+          "type": "ls-picture-beverage",
+          "settings": { "index_label": "★ 03", "title": "Beer List", "subtitle": "Canned", "anchor": "beer" },
+          "blocks": [
+            { "type": "ls-picture-beverage-item", "settings": { "name": "Angry Orchard" } },
+            { "type": "ls-picture-beverage-item", "settings": { "name": "Blue Moon" } }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

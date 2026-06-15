@@ -1,0 +1,133 @@
+{%- liquid
+  assign b = block.settings
+-%}
+
+<div
+  class="ls-pic-item{% if b.highlight %} ls-pic-item--highlight{% endif %}{% if b.image == blank %} ls-pic-item--no-image{% endif %}"
+  {%- if b.logo_height > 0 %} style="--ls-pic-img-height: {{ b.logo_height }}px;"{% endif %}
+  {{ block.shopify_attributes }}
+>
+  {%- if b.image != blank -%}
+    <div class="ls-pic-item__img">
+      {{
+        b.image
+        | image_url: width: 120
+        | image_tag:
+          widths: '40, 80, 120',
+          sizes: '42px',
+          alt: b.name,
+          class: 'ls-pic-item__media',
+          loading: 'lazy'
+      }}
+    </div>
+  {%- endif -%}
+  {%- if b.name != blank -%}
+    <p class="ls-pic-item__name">{{ b.name }}</p>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  /* Two-track grid: logo slot + name. When --ls-pic-logo-w is set (JS measures
+     the widest logo in the grid), every logo slot is that width, so all names
+     line up — including items that have no logo (name is placed in column 2). */
+  .ls-pic-item {
+    display: grid;
+    grid-template-columns: var(--ls-pic-logo-w, max-content) 1fr;
+    column-gap: 8px;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .ls-pic-item__img {
+    grid-column: 1;
+    flex-shrink: 0;
+    height: var(--ls-pic-img-height, 30px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Height-locked; width follows the image's natural aspect ratio.
+     max-width: none overrides base.css img { max-width: 100% }, which would
+     otherwise cap a wide logo and keep it small in a taller box. */
+  .ls-pic-item__media {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    object-fit: contain;
+  }
+
+  .ls-pic-item__name {
+    grid-column: 2;
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.1;
+    letter-spacing: 1.65px;
+    text-transform: uppercase;
+    color: var(--ls-menu-name, #9ca0b8);
+  }
+
+  /* No image: the name spans both the logo slot and name column (full width). */
+  .ls-pic-item--no-image .ls-pic-item__name {
+    grid-column: 1 / -1;
+  }
+
+  /* Optional accent for a featured item (e.g. "Craft Standard Margarita · on tap"). */
+  .ls-pic-item--highlight .ls-pic-item__name {
+    color: var(--ls-menu-highlight, #fac775);
+  }
+
+  /* On mobile the slot is sized to the widest logo in the (single) column;
+     center each logo within that shared slot. */
+  @media screen and (max-width: 749px) {
+    .ls-pic-item__img {
+      justify-content: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Picture Beverage Item",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Logo / can image"
+    },
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Name",
+      "default": "Budweiser"
+    },
+    {
+      "type": "checkbox",
+      "id": "highlight",
+      "label": "Highlight (accent color)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo / picture height",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "info": "0 = inherit from the category. Set a value to size this item's logo individually."
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Picture Beverage Item",
+      "category": "t:categories.custom"
+    }
+  ]
+}
+{% endschema %}

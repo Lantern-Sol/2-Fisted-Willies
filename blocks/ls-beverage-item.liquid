@@ -1,0 +1,68 @@
+{%- liquid
+  assign b = block.settings
+-%}
+
+<div class="ls-bev-item" {{ block.shopify_attributes }}>
+  {%- if b.name != blank -%}
+    <p class="ls-bev-item__name">{{ b.name }}</p>
+  {%- endif -%}
+  {%- if b.description != blank -%}
+    <div class="ls-bev-item__desc">{{ b.description }}</div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .ls-bev-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ls-bev-item__name {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: 1.65px;
+    text-transform: uppercase;
+    color: var(--ls-menu-name, #b8c8f2);
+  }
+
+  .ls-bev-item__desc {
+    font-family: var(--font-body--family);
+    font-size: 16px;
+    line-height: 1.3;
+    color: var(--ls-menu-desc, #9ca0b8);
+  }
+
+  .ls-bev-item__desc > * {
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Beverage Item",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Name",
+      "default": "Outlaw Sunset"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Vodka, cranberry, pineapple, lime juice.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Beverage Item",
+      "category": "t:categories.custom"
+    }
+  ]
+}
+{% endschema %}

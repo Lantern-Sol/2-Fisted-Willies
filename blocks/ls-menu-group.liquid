@@ -1,0 +1,79 @@
+{%- comment -%}
+  A group-style container for use inside the LS Menu section. Behaves like the
+  theme `group` block (holds nested blocks) but adds an Anchor ID so it can be a
+  nav / scrollspy target. The shared `group` block is intentionally left alone.
+{%- endcomment -%}
+
+{%- liquid
+  assign b = block.settings
+  assign anchor = b.anchor | strip | remove: '#'
+  if anchor == blank
+    assign anchor = 'ls-menu-cat-' | append: block.id
+  endif
+-%}
+
+<div
+  class="ls-menu-cat ls-menu-group"
+  id="{{ anchor }}"
+  data-ls-menu-cat
+  style="--ls-menu-group-gap: {{ b.gap }}px; --ls-menu-group-align: {{ b.alignment }};"
+  {{ block.shopify_attributes }}
+>
+  {% content_for 'blocks' %}
+</div>
+
+{% stylesheet %}
+  .ls-menu-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ls-menu-group-gap, 16px);
+    align-items: var(--ls-menu-group-align, flex-start);
+    width: 100%;
+    scroll-margin-top: 96px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Menu Group",
+  "tag": null,
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor ID",
+      "info": "A unique id for this group, e.g. specials (no #). Type the same value in a nav link's \"Scroll to\" field to link to it."
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between blocks",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "flex-start"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Menu Group"
+    }
+  ]
+}
+{% endschema %}
