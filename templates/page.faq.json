@@ -340,7 +340,7 @@
               "type": "ls-faq-item",
               "settings": {
                 "question": "How do I buy tickets for a show?",
-                "answer": "<p>Head to our Events page, find the show you want, and grab tickets right there. Bigger touring acts are ticketed in advance; smaller shows may just have a cover at the door.</p>",
+                "answer": "<p>Head to our Events page, find the show you want, and either pay at the door, through the Line Leap app, or for our larger ticketed events grab tickets under the Events tab. Touring acts and Special Events are ticketed in advance; smaller shows will have a Live Music cover at the door that you may handle through Line Leap or when you arrive. </p>",
                 "open_by_default": false
               },
               "blocks": {}
