@@ -422,6 +422,32 @@
         "padding-block-end-mobile": 50
       }
     },
+    "ls_events_upcoming_Fg6npX": {
+      "type": "ls-events-upcoming",
+      "name": "LS Events — Upcoming",
+      "settings": {
+        "heading_1": "This week",
+        "heading_2": "& Next",
+        "subtitle": "Live music, game watches, themed nights.",
+        "show_diamond": true,
+        "show_filters": false,
+        "enable_debug": false,
+        "bg_color": "#0e1018",
+        "heading_color": "#eae8f0",
+        "heading_accent_color": "#7e9de4",
+        "subtitle_color": "#9ca0b8",
+        "text_color": "#eae8f0",
+        "muted_color": "#9ca0b8",
+        "card_bg": "#141824",
+        "card_border": "#2a3348",
+        "cta_bg": "#0b4bba",
+        "cta_text_color": "#eae8f0",
+        "filter_border": "#3d4a66",
+        "filter_active_bg": "#1a2540",
+        "padding-block-start": 32,
+        "padding-block-end": 64
+      }
+    },
     "ls_about_zd6iXt": {
       "type": "ls-about",
       "blocks": {
@@ -2213,6 +2239,7 @@
   },
   "order": [
     "hero_jVaWmY",
+    "ls_events_upcoming_Fg6npX",
     "ls_about_zd6iXt",
     "section_jqiGWt",
     "section_fagHQV",
