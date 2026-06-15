@@ -498,7 +498,7 @@
               "type": "ls-faq-item",
               "settings": {
                 "question": "Is the venue accessible?",
-                "answer": "<p>We want everyone to enjoy the bar. For specific accessibility questions about the main floor or rooftop, give us a shout and we'll help you plan your visit.</p>",
+                "answer": "<p>Yes! We want everyone to enjoy the bar. For specific accessibility questions about the main floor or rooftop, give us a shout and we'll help you plan your visit.</p>",
                 "open_by_default": false
               },
               "blocks": {}
