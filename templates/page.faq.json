@@ -430,7 +430,7 @@
               "type": "ls-faq-item",
               "settings": {
                 "question": "Do you take reservations on game days?",
-                "answer": "<p>Yes. Game days are our busiest, so we recommend booking a table ahead of time. Reserve your spot through our Toast booking page and you're locked in before kickoff.</p>",
+                "answer": "<p>Yes. Game days are our busiest, so we recommend booking a table ahead of time. Reserve your spot through our booking page and you're locked in before kickoff.</p>",
                 "open_by_default": false
               },
               "blocks": {}
