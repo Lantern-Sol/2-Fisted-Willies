@@ -1270,7 +1270,7 @@
       "id": "overlay_color",
       "label": "t:settings.overlay_color",
       "alpha": true,
-      "default": "#00000026",
+      "default": "#1e1e2e",
       "visible_if": "{{ section.settings.toggle_overlay }}"
     },
     {
@@ -1285,9 +1285,13 @@
         {
           "value": "gradient",
           "label": "t:options.gradient"
+        },
+        {
+          "value": "multiply",
+          "label": "Multiply (tint)"
         }
       ],
-      "default": "solid",
+      "default": "multiply",
       "visible_if": "{{ section.settings.toggle_overlay }}"
     },
     {

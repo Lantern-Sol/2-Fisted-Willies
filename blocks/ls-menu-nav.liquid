@@ -1,0 +1,52 @@
+{%- comment -%}
+  Sticky nav row for the LS Menu section. Add LS Menu Nav Link blocks inside —
+  one per tab. Each link's "Scroll to (Anchor ID)" must match the Anchor ID of
+  the category it points to; scrolling then highlights the active tab.
+{%- endcomment -%}
+
+<nav class="ls-menu-nav" aria-label="Menu categories" {{ block.shopify_attributes }}>
+  {% content_for 'blocks' %}
+</nav>
+
+{% stylesheet %}
+  .ls-menu-nav {
+    position: sticky;
+    top: var(--ls-menu-nav-top, 0px);
+    z-index: 4;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-block: 12px;
+    background: var(--ls-menu-bg, #0e1018);
+  }
+
+  /* Nav is hidden on mobile. */
+  @media screen and (max-width: 749px) {
+    .ls-menu-nav {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Menu Nav",
+  "tag": null,
+  "blocks": [
+    { "type": "ls-menu-nav-link" }
+  ],
+  "settings": [],
+  "presets": [
+    {
+      "name": "LS Menu Nav",
+      "blocks": [
+        { "type": "ls-menu-nav-link", "settings": { "label": "Cocktails", "target": "cocktails" } },
+        { "type": "ls-menu-nav-link", "settings": { "label": "Beer", "target": "beer" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

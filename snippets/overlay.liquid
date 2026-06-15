@@ -35,4 +35,10 @@
   .overlay--gradient {
     background: linear-gradient(var(--overlay-direction), var(--overlay-color), var(--overlay-color--end));
   }
+
+  /* Tints the media instead of covering it, matching a multiply blend in the design. */
+  .overlay--multiply {
+    background: var(--overlay-color);
+    mix-blend-mode: multiply;
+  }
 {% endstylesheet %}

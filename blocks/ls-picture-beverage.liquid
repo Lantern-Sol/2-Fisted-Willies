@@ -1,0 +1,132 @@
+{%- liquid
+  assign b = block.settings
+  assign anchor = b.anchor | strip | remove: '#'
+  if anchor == blank
+    assign anchor = 'ls-menu-cat-' | append: block.id
+  endif
+-%}
+
+<div
+  class="ls-menu-cat ls-pic-beverage"
+  id="{{ anchor }}"
+  data-ls-menu-cat
+  {{ block.shopify_attributes }}
+>
+  {%- if b.index_label != blank or b.title != blank -%}
+    <div class="ls-menu-cat__head">
+      {%- if b.index_label != blank -%}
+        <p class="ls-menu-cat__index">{{ b.index_label }}</p>
+      {%- endif -%}
+      {%- if b.title != blank -%}
+        <h3 class="ls-menu-cat__title">{{ b.title }}</h3>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if b.subtitle != blank -%}
+    <p class="ls-pic-beverage__subtitle">{{ b.subtitle }}</p>
+  {%- endif -%}
+
+  <div class="ls-pic-beverage__grid" style="--ls-pic-rows: {{ b.max_rows }};">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-pic-beverage__subtitle {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond-italic--family, 'Cormorant Garamond', serif);
+    font-style: italic;
+    font-weight: var(--font-cormorant-garamond-italic--weight, 400);
+    font-size: clamp(36px, 6vw, 56px);
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+    color: var(--ls-menu-subtitle, #b8c8f2);
+  }
+
+  /* Fill each column top -> bottom up to the max rows, then wrap to the next column. */
+  .ls-pic-beverage__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(var(--ls-pic-rows, 6), auto);
+    grid-auto-columns: minmax(0, 392px);
+    gap: 12px 32px;
+    width: 100%;
+  }
+
+  /* When the items are grouped into type blocks (Draft / Canned), stack the
+     type blocks vertically — each type renders its own column grid. */
+  .ls-pic-beverage__grid:has(.ls-pic-type) {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* Stack into a single column on mobile. */
+  @media screen and (max-width: 749px) {
+    .ls-pic-beverage__grid {
+      grid-auto-flow: row;
+      grid-template-rows: none;
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Picture Beverage",
+  "tag": null,
+  "blocks": [
+    { "type": "ls-picture-beverage-type" },
+    { "type": "ls-picture-beverage-item" }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "index_label",
+      "label": "Index label",
+      "default": "★ 03"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Category title",
+      "info": "Leave blank to continue a previous category (e.g. a second sub-group).",
+      "default": "Beer List"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "info": "Italic sub-group label shown above items added directly here. Leave blank if you're using Type blocks instead.",
+      "default": "Canned"
+    },
+    {
+      "type": "range",
+      "id": "max_rows",
+      "label": "Max rows per column",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "info": "Items fill a column top-to-bottom up to this many rows, then start a new column."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor ID",
+      "info": "A unique id for this category, e.g. beer (no #). Type the same value in a nav link's \"Scroll to\" field to link to it."
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Picture Beverage",
+      "category": "t:categories.custom",
+      "blocks": [
+        { "type": "ls-picture-beverage-item", "settings": { "name": "Budweiser" } },
+        { "type": "ls-picture-beverage-item", "settings": { "name": "Coors Light" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

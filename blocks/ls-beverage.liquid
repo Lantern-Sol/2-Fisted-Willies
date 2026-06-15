@@ -1,0 +1,126 @@
+{%- liquid
+  assign b = block.settings
+  assign anchor = b.anchor | strip | remove: '#'
+  if anchor == blank
+    assign anchor = 'ls-menu-cat-' | append: block.id
+  endif
+-%}
+
+<div
+  class="ls-menu-cat ls-beverage"
+  id="{{ anchor }}"
+  data-ls-menu-cat
+  {{ block.shopify_attributes }}
+>
+  {%- if b.index_label != blank or b.title != blank -%}
+    <div class="ls-menu-cat__head">
+      {%- if b.index_label != blank -%}
+        <p class="ls-menu-cat__index">{{ b.index_label }}</p>
+      {%- endif -%}
+      {%- if b.title != blank -%}
+        <h3 class="ls-menu-cat__title">{{ b.title }}</h3>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="ls-beverage__grid">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-menu-cat {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    scroll-margin-top: 96px;
+  }
+
+  .ls-menu-cat__head {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    align-items: flex-start;
+  }
+
+  .ls-menu-cat__index {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--ls-menu-index, #9ca0b8);
+  }
+
+  .ls-menu-cat__title {
+    margin: 0;
+    font-family: var(--font-gashroad--family);
+    font-weight: var(--font-gashroad--weight, 400);
+    font-size: clamp(40px, 7vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.36px;
+    text-transform: uppercase;
+    color: var(--ls-menu-title, #eae8f0);
+  }
+
+  /* 2 columns on desktop, filled left -> right then next row; 1 column on mobile. */
+  .ls-beverage__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px clamp(24px, 6vw, 96px);
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ls-beverage__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Beverage",
+  "tag": null,
+  "blocks": [
+    { "type": "ls-beverage-item" }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "index_label",
+      "label": "Index label",
+      "default": "★ 01"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Category title",
+      "default": "Cocktails"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor ID",
+      "info": "A unique id for this category, e.g. cocktails (no #). Type the same value in a nav link's \"Scroll to\" field to link to it."
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Beverage",
+      "category": "t:categories.custom",
+      "blocks": [
+        {
+          "type": "ls-beverage-item",
+          "settings": {
+            "name": "Outlaw Sunset",
+            "description": "<p>Vodka, cranberry, pineapple, lime juice.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

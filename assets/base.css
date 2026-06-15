@@ -13,7 +13,10 @@ body {
 }
 
 main#MainContent {
-  overflow-x: hidden;
+  /* clip (not hidden) prevents horizontal overflow without creating a scroll
+     container — otherwise overflow-y computes to auto and breaks position:sticky
+     descendants (e.g. the LS Menu nav). */
+  overflow-x: clip;
 }
 
 :root {

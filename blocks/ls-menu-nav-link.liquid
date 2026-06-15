@@ -1,0 +1,77 @@
+{%- liquid
+  assign b = block.settings
+  assign target = b.target | strip | remove: '#'
+-%}
+
+<a
+  class="ls-menu-nav__tab"
+  href="#{{ target }}"
+  data-ls-menu-spy
+  data-target="{{ target }}"
+  {{ block.shopify_attributes }}
+>
+  {{ b.label }}
+</a>
+
+{% stylesheet %}
+  .ls-menu-nav__tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border: 1.1px solid var(--ls-menu-nav-border, #474b62);
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--ls-menu-nav, #b8c8f2);
+    opacity: 0.75;
+    transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .ls-menu-nav__tab:hover,
+  .ls-menu-nav__tab:focus-visible {
+    opacity: 1;
+    color: var(--ls-menu-nav-active-text, #0033a0);
+    border-color: var(--ls-menu-nav-active-text, #0033a0);
+  }
+
+  /* Active = scrollspy is on this tab's category. Light fill, inner border,
+     plus an outer ring (the 2px outer border in the design). */
+  .ls-menu-nav__tab.is-active {
+    opacity: 1;
+    color: var(--ls-menu-nav-active-text, #0033a0);
+    background: var(--ls-menu-nav-active-bg, #e8eefa);
+    border-color: var(--ls-menu-nav-active-text, #0033a0);
+    box-shadow: 0 0 0 2px var(--ls-menu-nav-active-ring, #143379);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Menu Nav Link",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Tab text",
+      "default": "Cocktails"
+    },
+    {
+      "type": "text",
+      "id": "target",
+      "label": "Scroll to (Anchor ID)",
+      "info": "Must match the Anchor ID of the category this tab should jump to, e.g. cocktails (no #)."
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Menu Nav Link"
+    }
+  ]
+}
+{% endschema %}
