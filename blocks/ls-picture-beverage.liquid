@@ -10,7 +10,7 @@
   class="ls-menu-cat ls-pic-beverage"
   id="{{ anchor }}"
   data-ls-menu-cat
-  style="--ls-pic-item-gap-mobile: {{ b.item_gap_mobile }}px; --ls-pic-row-gap: {{ b.row_gap }}px;"
+  style="--ls-pic-img-height: {{ b.logo_height }}px; --ls-pic-item-gap-mobile: {{ b.item_gap_mobile }}px; --ls-pic-row-gap: {{ b.row_gap }}px;"
   {{ block.shopify_attributes }}
 >
   {%- if b.index_label != blank or b.title != blank -%}
@@ -102,6 +102,17 @@
       "label": "Subtitle",
       "info": "Italic sub-group label shown above items added directly here. Leave blank if you're using Type blocks instead.",
       "default": "Canned"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo / picture height",
+      "min": 12,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 30,
+      "info": "Applies to items added directly here. Items inside a Type block follow the Type's height instead. Each item can still override it."
     },
     {
       "type": "range",
