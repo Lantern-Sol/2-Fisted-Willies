@@ -18,7 +18,7 @@
           "settings": {
             "text": "<p>Live Music</p>",
             "font_family": "var(--font-gashroad--family)",
-            "font_size": 86,
+            "font_size": 128,
             "font_size_mobile": 64,
             "letter_spacing": -3.1,
             "use_mobile_letter_spacing": false,
@@ -52,7 +52,7 @@
           "settings": {
             "text": "<p>great vibes</p>",
             "font_family": "var(--font-cormorant-garamond-italic--family)",
-            "font_size": 124,
+            "font_size": 128,
             "font_size_mobile": 64,
             "letter_spacing": -3.1,
             "use_mobile_letter_spacing": false,
@@ -84,10 +84,10 @@
           "type": "ls-text",
           "name": "LS Text",
           "settings": {
-            "text": "<p>kentucky through and through</p>",
+            "text": "<p>Kentucky Blue</p>",
             "font_family": "var(--font-gashroad--family)",
-            "font_size": 70,
-            "font_size_mobile": 54,
+            "font_size": 128,
+            "font_size_mobile": 64,
             "letter_spacing": -3.1,
             "use_mobile_letter_spacing": false,
             "letter_spacing_mobile": 0,
@@ -172,8 +172,8 @@
               "settings": {
                 "text": "<p>Downstairs runs hot — full stage, real sound, the show as it should be. Upstairs is its own bar, open air, looking out over the corner of Woodland and Euclid.</p>",
                 "font_family": "var(--font-cormorant-garamond--family)",
-                "font_size": 20,
-                "font_size_mobile": 0,
+                "font_size": 26,
+                "font_size_mobile": 20,
                 "letter_spacing": 0,
                 "use_mobile_letter_spacing": false,
                 "letter_spacing_mobile": 0,
