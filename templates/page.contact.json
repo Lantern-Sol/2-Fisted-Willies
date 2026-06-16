@@ -1170,7 +1170,7 @@
                       "name": "LS Button",
                       "settings": {
                         "label": "PRIVATE EVENT INQUIRY →",
-                        "link": "shopify://pages/private-event",
+                        "link": "shopify://pages/reserve-private-event",
                         "open_in_new_tab": true,
                         "style": "filled",
                         "alignment": "flex-start",
