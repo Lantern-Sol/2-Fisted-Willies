@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "sections": {
     "hero_jVaWmY": {
       "type": "hero",
@@ -333,7 +333,7 @@
               "name": "LS Button",
               "settings": {
                 "label": "Reserve a Table",
-                "link": "shopify://pages/events",
+                "link": "",
                 "open_in_new_tab": false,
                 "style": "filled",
                 "alignment": "flex-start",
@@ -441,14 +441,14 @@
         "enable_debug": false,
         "bg_color": "#0e1018",
         "heading_color": "#eae8f0",
-        "heading_accent_color": "#b8c8f2",
+        "heading_accent_color": "#B8C8F2",
         "subtitle_color": "#9ca0b8",
         "text_color": "#eae8f0",
         "muted_color": "#9ca0b8",
         "card_bg": "#141824",
         "card_border": "#2a3348",
         "diamond_color": "#0033a0",
-        "cta_bg": "#0b4bba",
+        "cta_bg": "#0B4BBA",
         "cta_text_color": "#eae8f0",
         "filter_border": "#3d4a66",
         "filter_active_bg": "#1a2540",
