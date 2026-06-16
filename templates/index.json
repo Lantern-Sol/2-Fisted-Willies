@@ -424,6 +424,9 @@
     },
     "ls_events_upcoming_Fg6npX": {
       "type": "ls-events-upcoming",
+      "custom_css": [
+        "p.ls-events__empty{display: none;}"
+      ],
       "name": "LS Events — Upcoming",
       "settings": {
         "heading_1": "this Month",
