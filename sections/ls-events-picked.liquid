@@ -1,0 +1,296 @@
+{% liquid
+  assign s = section.settings
+  assign picked_events = s.events
+  assign today = 'now' | date: '%Y-%m-%d'
+  assign visible_count = 0
+%}
+
+{%- for event in picked_events -%}
+  {%- assign show_event = true -%}
+  {%- if s.hide_past_events -%}
+    {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
+    {%- assign event_date = event_date | strip -%}
+    {%- if event_date != blank and event_date < today -%}
+      {%- assign show_event = false -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- if show_event -%}
+    {%- assign visible_count = visible_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if visible_count > 0 or s.hide_when_empty == false -%}
+<div class="section-background ls-events__bg"></div>
+<div
+  class="section ls-events ls-events--picked spacing-style"
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {% render 'ls-events-theme-vars', settings: section.settings %}
+    --ls-events-picked-columns: {{ s.columns }};
+  "
+  data-sort-by-date="{{ s.sort_by_date }}"
+>
+  <div class="ls-events__inner">
+    {%- if s.heading_1 != blank or s.heading_2 != blank -%}
+      <header class="ls-events__header">
+        <h2 class="ls-events__title">
+          {%- if s.heading_1 != blank -%}<span class="ls-events__title-1">{{ s.heading_1 }}</span>{%- endif -%}
+          {%- if s.heading_2 != blank -%}<span class="ls-events__title-2">{{ s.heading_2 }}</span>{%- endif -%}
+        </h2>
+        {%- if s.subtitle != blank -%}
+          <p class="ls-events__subtitle">{{ s.subtitle }}</p>
+        {%- endif -%}
+        {%- if s.show_diamond -%}
+          <div class="ls-events__diamond" aria-hidden="true">&#9670;</div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if visible_count > 0 -%}
+      {%- if s.layout == 'featured' -%}
+        <div class="ls-events__featured-list">
+          {%- for event in picked_events -%}
+            {%- if s.hide_past_events -%}
+              {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
+              {%- assign event_date = event_date | strip -%}
+              {%- if event_date == blank or event_date >= today -%}
+                {% render 'ls-event-card', event: event, layout: 'featured' %}
+              {%- endif -%}
+            {%- else -%}
+              {% render 'ls-event-card', event: event, layout: 'featured' %}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="ls-events__grid ls-events__grid--picked">
+          {%- for event in picked_events -%}
+            {%- if s.hide_past_events -%}
+              {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
+              {%- assign event_date = event_date | strip -%}
+              {%- if event_date == blank or event_date >= today -%}
+                {% render 'ls-event-card', event: event, layout: 'grid' %}
+              {%- endif -%}
+            {%- else -%}
+              {% render 'ls-event-card', event: event, layout: 'grid' %}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- elsif s.hide_when_empty == false -%}
+      <p class="ls-events__empty">Select events in the section settings, or turn off “Hide past events” if all picks are in the past.</p>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% render 'ls-events-styles' %}
+
+{% stylesheet %}
+  .ls-events__grid--picked {
+    grid-template-columns: repeat(var(--ls-events-picked-columns, 3), minmax(0, 1fr));
+  }
+
+  @media screen and (max-width: 989px) {
+    .ls-events__grid--picked {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ls-events__grid--picked {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Events — Picked",
+  "tag": "section",
+  "class": "ls-events-picked-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "metaobject_list",
+      "id": "events",
+      "label": "Events",
+      "metaobject_type": "event",
+      "limit": 12
+    },
+    {
+      "type": "paragraph",
+      "content": "Pick which events to show. Order in the picker is used unless “Sort by date” is enabled."
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading line 1",
+      "default": "Don't miss"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading line 2",
+      "default": "These shows"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_diamond",
+      "label": "Show diamond accent",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Card layout",
+      "options": [
+        { "value": "grid", "label": "Grid" },
+        { "value": "featured", "label": "Featured (horizontal)" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Grid columns (desktop)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "visible_if": "{{ section.settings.layout == 'grid' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "sort_by_date",
+      "label": "Sort by date",
+      "info": "When off, events appear in the order you pick them.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_past_events",
+      "label": "Hide past events",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_empty",
+      "label": "Hide section when no events to show",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#0e1018"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "heading_accent_color",
+      "label": "Heading accent",
+      "default": "#7e9de4"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle / genre",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#141824"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#2a3348"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg",
+      "label": "CTA background",
+      "default": "#0b4bba"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA text",
+      "default": "#eae8f0"
+    },
+    {
+      "type": "color",
+      "id": "filter_border",
+      "label": "Filter border",
+      "default": "#3d4a66"
+    },
+    {
+      "type": "color",
+      "id": "filter_active_bg",
+      "label": "Filter active background",
+      "default": "#1a2540"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Events — Picked",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}

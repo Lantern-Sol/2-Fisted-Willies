@@ -19,6 +19,9 @@ function sortEventCards(container, order = 'asc') {
 /** Sort all event sections on the page. */
 function sortAllEventSections() {
   document.querySelectorAll('.ls-events__featured-list').forEach((list) => {
+    const section = list.closest('.ls-events--picked, .ls-events--featured');
+    const sortByDate = section?.dataset.sortByDate === 'true';
+    if (section?.classList.contains('ls-events--picked') && !sortByDate) return;
     sortEventCards(list, 'asc');
   });
 
@@ -28,6 +31,12 @@ function sortAllEventSections() {
 
   document.querySelectorAll('.ls-events--past .ls-events__grid').forEach((grid) => {
     sortEventCards(grid, 'desc');
+  });
+
+  document.querySelectorAll('.ls-events--picked .ls-events__grid').forEach((grid) => {
+    const section = grid.closest('.ls-events--picked');
+    if (section?.dataset.sortByDate !== 'true') return;
+    sortEventCards(grid, 'asc');
   });
 }
 
