@@ -2,6 +2,7 @@
   Renders a header drawer menu triggered by the top details element.
 
   @param {object} linklist - The linklist to render
+  @param {object} [linklist_secondary] - An optional second linklist appended after the first (used by the split header to combine the left + right menus into one drawer)
   @param {string} [class] - Additional classes to add to the drawer
   @param {string} [data_header_drawer_type] - The type of header drawer to render
   @param {object} [block] - The block that can be used to provide settings
@@ -15,6 +16,13 @@
   assign block_settings = block.settings
   assign max_featured_items = 4
   assign image_border_radius = block_settings.image_border_radius
+
+  # Combine the primary and optional secondary linklists into one array so the
+  # drawer renders both menus (used by the split header to merge left + right).
+  assign drawer_links = linklist.links
+  if linklist_secondary != blank
+    assign drawer_links = drawer_links | concat: linklist_secondary.links
+  endif
 
   if block_settings.menu_style == 'featured_collections'
     assign ratio = block_settings.featured_collections_aspect_ratio
@@ -99,7 +107,7 @@
             Always use the sliding submenu pattern so every menu depth uses the same drawer + featured-content treatment on mobile
           {%- endcomment -%}
             {% assign animation_index = 0 %}
-            {%- for link in linklist.links -%}
+            {%- for link in drawer_links -%}
               {% assign animation_index = animation_index | plus: 1 %}
               <li
                 class="menu-drawer__list-item"
@@ -374,7 +382,7 @@
                         {% if featured_collections.size > 0 or featured_products_collection.products_count > 0 %}
                           <div
                             class="menu-drawer__featured-content menu-drawer__featured-content--childlist"
-                            style="--menu-drawer-animation-index: {{ linklist.links.size | plus: 1 }};"
+                            style="--menu-drawer-animation-index: {{ drawer_links.size | plus: 1 }};"
                           >
                             <ul class="menu-drawer__featured-content-list list-unstyled">
                               {% if featured_collections.size > 0 %}
@@ -434,7 +442,7 @@
       </nav>
       <div
         class="menu-drawer__utility-links menu-drawer__animated-element"
-        style="--menu-drawer-animation-index: {{ linklist.links.size }};"
+        style="--menu-drawer-animation-index: {{ drawer_links.size }};"
       >
         {% liquid
           assign show_language = section.settings.show_language
@@ -604,11 +612,11 @@
 
       {% liquid
         if block_settings.menu_style == 'featured_collections'
-          assign top_level_featured_collections = linklist.links | where: 'type', 'collection_link'
+          assign top_level_featured_collections = drawer_links | where: 'type', 'collection_link'
         endif
 
         if eager_loading and block_settings.menu_style == 'featured_products'
-          for link in linklist.links
+          for link in drawer_links
             if link.type == 'collection_link'
               assign collection_linklist = link
               assign top_level_featured_products_collection = collection_linklist.object
@@ -623,7 +631,7 @@
       {% if top_level_featured_collections.size > 0 or top_level_featured_products_collection.products_count > 0 %}
         <div
           class="menu-drawer__featured-content"
-          style="--menu-drawer-animation-index: {{ linklist.links.size | plus: 1 }};"
+          style="--menu-drawer-animation-index: {{ drawer_links.size | plus: 1 }};"
         >
           <ul class="menu-drawer__featured-content-list menu-drawer__animated-element list-unstyled">
             {% if top_level_featured_collections.size > 0 %}

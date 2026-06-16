@@ -49,7 +49,7 @@
   {% endif %}
   {{- block.shopify_attributes -}}
 >
-  {% if shop.customer_accounts_enabled %}
+  {% if shop.customer_accounts_enabled and show_account %}
     {% liquid
       assign account_actions_style = ''
       if display_style == 'text' and section
@@ -99,6 +99,7 @@
     </div>
   {% endif %}
 
+  {% if show_cart %}
   {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
     <script
       src="{{ 'cart-drawer.js' | asset_url }}"
@@ -245,6 +246,7 @@
     >
       {{ cart_icon }}
     </a>
+  {% endif %}
   {% endif %}
 </header-actions>
 
