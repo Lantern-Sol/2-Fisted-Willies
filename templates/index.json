@@ -434,7 +434,7 @@
         "show_filters": false,
         "show_footer_link": true,
         "footer_link_label": "See all upcoming shows",
-        "footer_link": "",
+        "footer_link": "shopify://pages/contact",
         "enable_debug": false,
         "bg_color": "#0e1018",
         "heading_color": "#eae8f0",
