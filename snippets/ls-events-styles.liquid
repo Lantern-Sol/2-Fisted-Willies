@@ -575,4 +575,21 @@ p {}
 p.ls-events__subtitle {
     margin-top: -10px;
 }
+span.ls-events__title-2 {}
+@media screen and (max-width: 768px) {
+.ls-events__title--accent-first .ls-events__title-2 {
+    font-size: 56px;
+}
+
+.ls-events__title--accent-first .ls-events__title-1 {
+    font-size: 64px;
+}
+}
+
+
+article.ls-event-card.ls-event-card--grid {
+    border: 1.108px solid var(--Neutrals-Dark-200, #9CA0B8);
+    background: linear-gradient(0deg, rgba(30, 35, 54, 0.75) 0%, rgba(30, 35, 54, 0.75) 100%), linear-gradient(0deg, #474B62 0%, #474B62 100%), url(<path-to-image>) lightgray 50% / cover no-repeat;
+    background-blend-mode: normal, multiply, normal;
+}
 {% endstylesheet %}
