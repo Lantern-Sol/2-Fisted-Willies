@@ -571,7 +571,7 @@
           {% endif %}
         {%- endif -%}
 
-        {%- if data_header_drawer_type == 'mobile-drawer' and shop.customer_accounts_enabled -%}
+        {%- if data_header_drawer_type == 'mobile-drawer' and shop.customer_accounts_enabled and section.settings.show_account -%}
           <div class="menu-drawer__account-wrapper menu-drawer__animated-element color-{{ settings.popover_color_scheme }}">
             <shopify-account menu="{{ section.settings.customer_account_menu }}">
               {% if customer %}

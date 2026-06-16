@@ -807,12 +807,12 @@
     @media screen and (max-width: 749px) {
       --header-template-columns: 1fr auto auto auto;
 
-      grid-template-areas: 'logo search actions menu';
+      grid-template-areas: 'menu search actions logo';
       grid-column: span 3;
       column-gap: 0;
       align-items: center;
       padding-block: 0;
-      padding-inline: var(--padding-sm) var(--padding-3xs);
+      padding-inline: var(--padding-sm) 32px;
 
       .header-logo {
         grid-area: logo;
@@ -838,12 +838,12 @@
   #header-component[data-menu-style='drawer'] .header__columns {
     --header-template-columns: 1fr auto auto auto;
 
-    grid-template-areas: 'logo search actions menu';
+    grid-template-areas: 'menu search actions logo';
     grid-column: span 3;
     column-gap: 0;
     align-items: center;
     padding-block: 0;
-    padding-inline: var(--padding-sm) var(--padding-3xs);
+    padding-inline: var(--padding-sm) 32px;
 
     .header-logo {
       grid-area: logo;
