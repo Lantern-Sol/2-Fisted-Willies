@@ -448,47 +448,6 @@
         "padding-block-end": 64
       }
     },
-    "ls_events_picked_4a9qPg": {
-      "type": "ls-events-picked",
-      "name": "LS Events — Picked",
-      "settings": {
-        "events": [
-          "marshull-apr-15",
-          "bluegrass-night-may-2",
-          "cats-game-watch-may-20",
-          "avery-crabtree-jun-14",
-          "marshull-jun-21",
-          "southern-rock-jun-12",
-          "uk-game-watch-jun-13",
-          "80s-themed-jun-15",
-          "sold-out-act-jun-20",
-          "july-4-watch-party"
-        ],
-        "heading_1": "Don't miss",
-        "heading_2": "These shows",
-        "subtitle": "",
-        "show_diamond": true,
-        "layout": "grid",
-        "columns": 3,
-        "sort_by_date": false,
-        "hide_past_events": true,
-        "hide_when_empty": true,
-        "bg_color": "#0e1018",
-        "heading_color": "#eae8f0",
-        "heading_accent_color": "#7e9de4",
-        "subtitle_color": "#9ca0b8",
-        "text_color": "#eae8f0",
-        "muted_color": "#9ca0b8",
-        "card_bg": "#141824",
-        "card_border": "#2a3348",
-        "cta_bg": "#0b4bba",
-        "cta_text_color": "#eae8f0",
-        "filter_border": "#3d4a66",
-        "filter_active_bg": "#1a2540",
-        "padding-block-start": 64,
-        "padding-block-end": 64
-      }
-    },
     "custom_liquid_JTCRp4": {
       "type": "custom-liquid",
       "disabled": true,
@@ -2293,7 +2252,6 @@
   "order": [
     "hero_jVaWmY",
     "ls_events_upcoming_Fg6npX",
-    "ls_events_picked_4a9qPg",
     "custom_liquid_JTCRp4",
     "ls_about_zd6iXt",
     "section_jqiGWt",
