@@ -45,9 +45,23 @@
     content_for 'block', type: '_header-logo', id: 'header-logo'
   endcapture
 
-  capture menu
-    content_for 'block', type: '_header-menu', id: 'header-menu'
-  endcapture
+  assign split_menu = section.settings.split_menu
+
+  if split_menu
+    # Split header: render the menu block once per side so the block's Menu
+    # (left) and Right menu (right) settings sit on either side of the logo.
+    capture menu_left
+      content_for 'block', type: '_header-menu', id: 'header-menu', side: 'left'
+    endcapture
+
+    capture menu_right
+      content_for 'block', type: '_header-menu', id: 'header-menu', side: 'right'
+    endcapture
+  else
+    capture menu
+      content_for 'block', type: '_header-menu', id: 'header-menu'
+    endcapture
+  endif
 
   capture drawer_menu
     content_for 'block', type: '_header-menu', id: 'header-menu', variant: 'mobile'
@@ -58,7 +72,7 @@
   endcapture
 
   capture actions
-    render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: section.settings.actions_display_style, section: section
+    render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: section.settings.actions_display_style, section: section, show_account: section.settings.show_account, show_cart: section.settings.show_cart
   endcapture
 
   if shop.customer_accounts_enabled
@@ -89,6 +103,12 @@
       endif
     endif
   endif
+  # When the menu is split, swap the single 'menu' slot for two slots that
+  # header-row places into the left and right columns (logo forced to center).
+  if split_menu
+    assign order = order | replace: 'menu', 'menu_left,menu_right'
+  endif
+
   capture search
     render 'search', style: search_style, class: search_class, display_style: section.settings.actions_display_style
   endcapture
@@ -363,6 +383,9 @@
         first: first,
         logo: logo,
         menu: menu,
+        menu_left: menu_left,
+        menu_right: menu_right,
+        force_logo_center: split_menu,
         actions: actions,
         localization: localization_markup,
         search: search,
@@ -784,12 +807,12 @@
     @media screen and (max-width: 749px) {
       --header-template-columns: 1fr auto auto auto;
 
-      grid-template-areas: 'logo search actions menu';
+      grid-template-areas: 'menu search actions logo';
       grid-column: span 3;
       column-gap: 0;
       align-items: center;
       padding-block: 0;
-      padding-inline: var(--padding-sm) var(--padding-3xs);
+      padding-inline: var(--padding-sm) 32px;
 
       .header-logo {
         grid-area: logo;
@@ -815,12 +838,12 @@
   #header-component[data-menu-style='drawer'] .header__columns {
     --header-template-columns: 1fr auto auto auto;
 
-    grid-template-areas: 'logo search actions menu';
+    grid-template-areas: 'menu search actions logo';
     grid-column: span 3;
     column-gap: 0;
     align-items: center;
     padding-block: 0;
-    padding-inline: var(--padding-sm) var(--padding-3xs);
+    padding-inline: var(--padding-sm) 32px;
 
     .header-logo {
       grid-area: logo;
@@ -1193,8 +1216,11 @@
       "default": "top"
     },
     {
-      "type": "header",
-      "content": "t:content.customer_account"
+      "type": "checkbox",
+      "id": "split_menu",
+      "label": "Split menu around logo",
+      "info": "Places two menus on either side of a centered logo (desktop only). The block's 'Menu' shows on the left and 'Right menu' on the right; the logo is forced to center. On mobile both menus combine into the drawer.",
+      "default": false
     },
     {
       "type": "paragraph",
@@ -1205,6 +1231,22 @@
       "id": "customer_account_menu",
       "label": "t:settings.menu",
       "default": "customer-account-main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart",
+      "default": false
     },
     {
       "type": "header",

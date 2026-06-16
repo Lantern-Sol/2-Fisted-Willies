@@ -17,7 +17,13 @@
       data-hydration-key="header-drawer-mobile"
       {{ block.shopify_attributes }}
     >
-      {% render 'header-drawer', linklist: block_settings.menu, data_header_drawer_type: 'mobile-drawer' %}
+      {% liquid
+        assign drawer_secondary = null
+        if section.settings.split_menu
+          assign drawer_secondary = block_settings.menu_right
+        endif
+      %}
+      {% render 'header-drawer', linklist: block_settings.menu, linklist_secondary: drawer_secondary, data_header_drawer_type: 'mobile-drawer' %}
     </div>
 
   {% when 'navigation_bar' %}
@@ -32,7 +38,13 @@
             class="menu-list__list list-unstyled"
             role="list"
           >
-            {% for link in block_settings.menu.links %}
+            {% liquid
+              assign nav_bar_links = block_settings.menu.links
+              if section.settings.split_menu and block_settings.menu_right != blank
+                assign nav_bar_links = nav_bar_links | concat: block_settings.menu_right.links
+              endif
+            %}
+            {% for link in nav_bar_links %}
               <li>
                 <a
                   href="{{ link.url }}"
@@ -80,10 +92,29 @@
       elsif block_settings.menu_style == 'featured_products'
         assign ratio = block_settings.featured_products_aspect_ratio
       endif
+
+      # Two-menu support: this block can be rendered twice (see header.liquid),
+      # once per side, so a separate left and right menu can sit on either side
+      # of a centered logo. `side` selects which link list to render:
+      #   - 'left' (and the default, non-split render) uses the Menu setting
+      #   - 'right' uses the Right menu setting
+      # submenu_id_prefix keeps the two menus' submenu ids unique, and
+      # menu_minimum_items is relaxed so a short menu doesn't trip the desktop
+      # "collapse to drawer" threshold.
+      assign menu_links = block_settings.menu.links
+      assign submenu_id_prefix = ''
+      assign menu_minimum_items = 2
+      if side == 'left' or side == 'right'
+        assign submenu_id_prefix = side | append: '-'
+        assign menu_minimum_items = 1
+        if side == 'right'
+          assign menu_links = block_settings.menu_right.links
+        endif
+      endif
     %}
 
     {% capture children %}
-      {% for link in block_settings.menu.links %}
+      {% for link in menu_links %}
         <li
           role="presentation"
           class="menu-list__list-item"
@@ -97,7 +128,7 @@
             data-skip-node-update="true"
             class="menu-list__link{% if link.active %} menu-list__link--active{% endif %}{% if link.links != blank %} menu-list__link--has-children{% endif %}"
             {%- if link.links != blank -%}
-              aria-controls="submenu-{{ forloop.index }}"
+              aria-controls="submenu-{{ submenu_id_prefix }}{{ forloop.index }}"
               aria-haspopup="true"
               aria-expanded="false"
             {%- endif -%}
@@ -114,11 +145,11 @@
           {%- if link.links != blank -%}
             <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
               <div
-                id="submenu-{{ forloop.index }}"
+                id="submenu-{{ submenu_id_prefix }}{{ forloop.index }}"
                 class="menu-list__submenu-inner"
                 style="{% render 'submenu-font-styles', settings: block_settings %}"
               >
-                {% assign list_id = 'MegaMenuList-' | append: forloop.index %}
+                {% assign list_id = 'MegaMenuList-' | append: submenu_id_prefix | append: forloop.index %}
                 {% liquid
                   # Widen the desktop grid when featuring collections so we can
                   # fit more image cards (each takes 2 columns).
@@ -169,10 +200,10 @@
     {% endcapture %}
 
     <header-menu
-      ref="headerMenu"
+      {% if side != 'right' %}ref="headerMenu"{% endif %}
       class="header-menu"
       {{ block.shopify_attributes }}
-      data-hydration-key="header-menu"
+      data-hydration-key="header-menu{% if submenu_id_prefix != blank %}-{{ side }}{% endif %}"
     >
       <div class="header-menu__inner">
         <nav
@@ -185,7 +216,7 @@
             class: class,
             ref: 'overflowMenu',
             children: children,
-            minimum-items: 2,
+            minimum-items: menu_minimum_items,
             data-testid: 'header-menu-overflow-list',
             attributes: 'data-skip-node-update'
           %}
@@ -293,10 +324,11 @@
   .menu-list__link {
     font-family: var(--menu-top-level-font-family);
     font-style: var(--menu-top-level-font-style);
-    font-weight: var(--menu-top-level-font-weight);
+    font-weight: 400;
     font-size: var(--menu-top-level-font-size);
     line-height: var(--menu-top-level-font-line-height);
     text-transform: var(--menu-top-level-font-case);
+    letter-spacing: 0.15em;
     color: var(--menu-top-level-font-color);
     text-decoration: none;
     display: flex;
@@ -314,6 +346,14 @@
     @media screen and (min-width: 750px) {
       font-size: var(--menu-top-level-font-size-desktop);
     }
+  }
+
+  /* Animate the dim/emphasis color change on every page. The theme only sets a
+     non-zero --header-content-transition-timing on the transparent (home)
+     header, so without this the link color snaps instantly on solid inner-page
+     headers. Outranks the `.header a` transition reset via the extra class. */
+  .header .menu-list__link {
+    transition: color var(--animation-speed) var(--animation-easing);
   }
 
   .menu-list__link-title {
@@ -342,18 +382,20 @@
     High specificity selectors to subdue non-hovered links without javascript.
     If the need for js-generated `hovered` and `focused` classes arises for another reason we can simplify these.
   */
-  .menu-list:where(:has(.menu-list__list-item:hover)),
-  .menu-list:where(:has(.menu-list__list-item:focus-within)),
-  .menu-list:where(:has(.menu-list__list-item:not([aria-hidden='true']) .menu-list__link--active)) {
-    .menu-list__link {
-      color: rgb(var(--menu-top-level-font-color-rgb) / var(--opacity-subdued-text));
-    }
+  /* Scoped to #header-component (not .menu-list) so a split header's two menus
+     dim as one nav: an active/hovered link in either menu subdues links in both. */
+  #header-component:where(
+    :has(.menu-list__list-item:hover),
+    :has(.menu-list__list-item:focus-within),
+    :has(.menu-list__list-item:not([aria-hidden='true']) .menu-list__link--active)
+  ) .menu-list__link {
+    color: rgb(var(--menu-top-level-font-color-rgb) / var(--opacity-subdued-text));
   }
 
   /* stylelint-disable-next-line selector-max-specificity */
-  .menu-list:not(:has(.menu-list__list-item:hover)) .menu-list__link--active,
-  .menu-list .menu-list__list-item:where(:hover, :focus-within) .menu-list__link,
-  .menu-list .menu-list__list-item[slot='overflow'] .menu-list__link[aria-expanded='true'] {
+  #header-component:not(:has(.menu-list__list-item:hover)) .menu-list__link--active,
+  #header-component .menu-list__list-item:where(:hover, :focus-within) .menu-list__link,
+  #header-component .menu-list__list-item[slot='overflow'] .menu-list__link[aria-expanded='true'] {
     color: var(--menu-top-level-font-color);
   }
 
@@ -776,6 +818,12 @@
       "id": "menu",
       "label": "t:settings.menu",
       "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_right",
+      "label": "Right menu",
+      "info": "Shown to the right of the logo when 'Split menu around logo' is enabled in the header settings. The menu above becomes the left side."
     },
     {
       "type": "checkbox",
