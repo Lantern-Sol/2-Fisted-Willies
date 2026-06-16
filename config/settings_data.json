@@ -20,7 +20,7 @@
     "type_size_paragraph": "14",
     "type_line_height_paragraph": "body-loose",
     "type_font_h1": "heading",
-    "type_size_h1": "120",
+    "type_size_h1": "56",
     "type_line_height_h1": "display-tight",
     "type_letter_spacing_h1": "heading-normal",
     "type_case_h1": "none",
@@ -358,7 +358,7 @@
       },
       "scheme-961d7fa8-5f38-464c-9a9e-583c850fd4ba": {
         "settings": {
-          "background": "#0a1933",
+          "background": "#0A1933",
           "foreground_heading": "#7e9de4",
           "foreground": "#9ca0b8",
           "primary": "#000000cf",
