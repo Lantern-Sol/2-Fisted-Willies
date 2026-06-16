@@ -23,10 +23,12 @@
     background: var(--ls-menu-bg, #0e1018);
   }
 
-  /* Nav is hidden on mobile. */
+  /* On mobile the tabs wrap onto multiple rows, centered. */
   @media screen and (max-width: 749px) {
     .ls-menu-nav {
-      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
     }
   }
 {% endstylesheet %}
