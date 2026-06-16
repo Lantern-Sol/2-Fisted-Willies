@@ -10,7 +10,7 @@
 
 <div
   class="ls-pic-type"
-  style="--ls-pic-img-height: {{ b.logo_height }}px; --ls-pic-type-gap: {{ b.heading_gap }}px;{% if b.use_mobile_heading_gap %} --ls-pic-type-gap-mobile: {{ b.heading_gap_mobile }}px;{% endif %} --ls-pic-type-heading-size: {{ b.heading_size }}px; --ls-pic-type-heading-size-mobile: {{ b.heading_size_mobile }}px;"
+  style="--ls-pic-img-height: {{ b.logo_height }}px;{% if b.logo_height_mobile > 0 %} --ls-pic-img-height-mobile: {{ b.logo_height_mobile }}px;{% endif %}{% if b.use_row_gap %} --ls-pic-row-gap: {{ b.row_gap }}px;{% endif %} --ls-pic-type-gap: {{ b.heading_gap }}px;{% if b.use_mobile_heading_gap %} --ls-pic-type-gap-mobile: {{ b.heading_gap_mobile }}px;{% endif %} --ls-pic-type-heading-size: {{ b.heading_size }}px; --ls-pic-type-heading-size-mobile: {{ b.heading_size_mobile }}px;"
   {{ block.shopify_attributes }}
 >
   {%- if b.heading != blank -%}
@@ -142,15 +142,45 @@
       "info": "Items fill a column top-to-bottom up to this many rows, then start a new column."
     },
     {
+      "type": "checkbox",
+      "id": "use_row_gap",
+      "label": "Use custom row gap (desktop)",
+      "default": false,
+      "info": "Off = inherit the category's row gap."
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Row gap (desktop)",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12,
+      "info": "Vertical space between items within a column on desktop.",
+      "visible_if": "{{ block.settings.use_row_gap }}"
+    },
+    {
       "type": "range",
       "id": "logo_height",
-      "label": "Logo / picture height",
+      "label": "Logo / picture height (desktop)",
       "min": 12,
       "max": 120,
       "step": 2,
       "unit": "px",
       "default": 30,
       "info": "Applies to all items in this type. Each item can still override it. Width follows the image's natural ratio."
+    },
+    {
+      "type": "range",
+      "id": "logo_height_mobile",
+      "label": "Logo / picture height (mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "info": "0 = inherit the desktop value."
     }
   ],
   "presets": [
