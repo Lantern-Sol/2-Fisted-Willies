@@ -41,7 +41,7 @@
           <p class="ls-events__subtitle">{{ s.subtitle }}</p>
         {%- endif -%}
         {%- if s.show_diamond -%}
-          <div class="ls-events__diamond" aria-hidden="true">&#9670;</div>
+          <div class="ls-events__diamond" aria-hidden="true"></div>
         {%- endif -%}
       </header>
     {%- endif -%}
@@ -235,7 +235,13 @@
       "type": "color",
       "id": "card_border",
       "label": "Card border",
-      "default": "#2a3348"
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "diamond_color",
+      "label": "Diamond accent line",
+      "default": "#0033a0"
     },
     {
       "type": "color",

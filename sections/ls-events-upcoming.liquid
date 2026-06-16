@@ -38,15 +38,20 @@
   <div class="ls-events__inner">
     {%- if s.heading_1 != blank or s.heading_2 != blank -%}
       <header class="ls-events__header">
-        <h2 class="ls-events__title">
-          {%- if s.heading_1 != blank -%}<span class="ls-events__title-1">{{ s.heading_1 }}</span>{%- endif -%}
-          {%- if s.heading_2 != blank -%}<span class="ls-events__title-2">{{ s.heading_2 }}</span>{%- endif -%}
+        <h2 class="ls-events__title{% if s.reverse_heading_order %} ls-events__title--accent-first{% endif %}">
+          {%- if s.reverse_heading_order -%}
+            {%- if s.heading_2 != blank -%}<span class="ls-events__title-2">{{ s.heading_2 }}</span>{%- endif -%}
+            {%- if s.heading_1 != blank -%}<span class="ls-events__title-1">{{ s.heading_1 }}</span>{%- endif -%}
+          {%- else -%}
+            {%- if s.heading_1 != blank -%}<span class="ls-events__title-1">{{ s.heading_1 }}</span>{%- endif -%}
+            {%- if s.heading_2 != blank -%}<span class="ls-events__title-2">{{ s.heading_2 }}</span>{%- endif -%}
+          {%- endif -%}
         </h2>
         {%- if s.subtitle != blank -%}
           <p class="ls-events__subtitle">{{ s.subtitle }}</p>
         {%- endif -%}
         {%- if s.show_diamond -%}
-          <div class="ls-events__diamond" aria-hidden="true">&#9670;</div>
+          <div class="ls-events__diamond" aria-hidden="true"></div>
         {%- endif -%}
       </header>
     {%- endif -%}
@@ -94,6 +99,15 @@
         <p class="ls-events__empty">No upcoming events scheduled.</p>
       {%- endif -%}
     </ls-events-upcoming>
+
+    {%- if s.show_footer_link and s.footer_link != blank and s.footer_link_label != blank -%}
+      <div class="ls-events__footer-link-wrap">
+        <a class="ls-events__footer-link" href="{{ s.footer_link }}">
+          {{ s.footer_link_label }}
+          <span class="ls-events__footer-link-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -115,14 +129,21 @@
     {
       "type": "text",
       "id": "heading_1",
-      "label": "Heading line 1",
+      "label": "Main heading",
       "default": "This week"
     },
     {
       "type": "text",
       "id": "heading_2",
-      "label": "Heading line 2",
+      "label": "Accent line",
       "default": "& Next"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_heading_order",
+      "label": "Accent line above main heading",
+      "info": "Stacks the accent line behind the main heading, like “On Stage” above “This Month”.",
+      "default": false
     },
     {
       "type": "text",
@@ -141,6 +162,29 @@
       "id": "show_filters",
       "label": "Show category and tag filters",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Footer link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_footer_link",
+      "label": "Show link below events",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "footer_link_label",
+      "label": "Link label",
+      "default": "See all upcoming shows",
+      "visible_if": "{{ section.settings.show_footer_link }}"
+    },
+    {
+      "type": "url",
+      "id": "footer_link",
+      "label": "Link URL",
+      "visible_if": "{{ section.settings.show_footer_link }}"
     },
     {
       "type": "checkbox",
@@ -198,7 +242,13 @@
       "type": "color",
       "id": "card_border",
       "label": "Card border",
-      "default": "#2a3348"
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "diamond_color",
+      "label": "Diamond accent line",
+      "default": "#0033a0"
     },
     {
       "type": "color",
@@ -223,6 +273,12 @@
       "id": "filter_active_bg",
       "label": "Filter active background",
       "default": "#1a2540"
+    },
+    {
+      "type": "color",
+      "id": "footer_link_color",
+      "label": "Footer link",
+      "default": "#7e9de4"
     },
     {
       "type": "header",
