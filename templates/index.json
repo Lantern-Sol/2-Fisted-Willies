@@ -425,7 +425,7 @@
     "ls_events_upcoming_Fg6npX": {
       "type": "ls-events-upcoming",
       "custom_css": [
-        "p.ls-events__empty{display: none;}"
+        "p.ls-events__empty {display: none;}"
       ],
       "name": "LS Events — Upcoming",
       "settings": {
@@ -448,7 +448,7 @@
         "card_bg": "#141824",
         "card_border": "#2a3348",
         "diamond_color": "#0033a0",
-        "cta_bg": "#0b4bba",
+        "cta_bg": "#0B4BBA",
         "cta_text_color": "#eae8f0",
         "filter_border": "#3d4a66",
         "filter_active_bg": "#1a2540",
