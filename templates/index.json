@@ -333,7 +333,7 @@
               "name": "LS Button",
               "settings": {
                 "label": "Reserve a Table",
-                "link": "shopify://pages/events",
+                "link": "shopify://pages/reserve-private-event",
                 "open_in_new_tab": false,
                 "style": "filled",
                 "alignment": "flex-start",
@@ -1764,7 +1764,7 @@
                   "name": "LS Button",
                   "settings": {
                     "label": "Request a Date →",
-                    "link": "",
+                    "link": "shopify://pages/reserve-private-event",
                     "open_in_new_tab": false,
                     "style": "filled",
                     "alignment": "flex-start",
@@ -2253,7 +2253,7 @@
         "input_border_color": "#ffffff33",
         "button_bg": "#b8c8f2",
         "button_text_color": "#004fdf",
-        "padding-block-start": 64,
+        "padding-block-start": 80,
         "padding-block-end": 64
       }
     }
