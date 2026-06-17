@@ -1,0 +1,83 @@
+{
+  "sections": {
+    "hero": {
+      "type": "ls-about-hero",
+      "blocks": {
+        "wordmark": {
+          "type": "group",
+          "name": "Wordmark",
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 0,
+            "width": "fit-content",
+            "width_mobile": "fit-content"
+          },
+          "blocks": {
+            "line_1": {
+              "type": "ls-text",
+              "name": "WHO IS",
+              "settings": {
+                "text": "<p>WHO IS</p>",
+                "font_family": "var(--font-gashroad--family)",
+                "font_size": 128,
+                "font_size_mobile": 56,
+                "letter_spacing": -5,
+                "line_height": 0.6,
+                "text_transform": "uppercase",
+                "text_align": "center",
+                "text_color": "#eae8f0"
+              },
+              "blocks": {}
+            },
+            "line_2": {
+              "type": "ls-text",
+              "name": "WILLIE?",
+              "settings": {
+                "text": "<p>Willie?</p>",
+                "font_family": "var(--font-cormorant-garamond-italic--family)",
+                "font_size": 128,
+                "font_size_mobile": 64,
+                "letter_spacing": -5,
+                "line_height": 0.8,
+                "text_transform": "uppercase",
+                "text_align": "center",
+                "text_color": "#b8c8f2"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": ["line_1", "line_2"]
+        }
+      },
+      "block_order": ["wordmark"],
+      "settings": {
+        "show_default_character": true,
+        "show_default_stamps": true,
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "blocks": {
+        "page-content": {
+          "type": "page-content",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": ["page-content"],
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 40,
+        "padding-block-end": 80
+      }
+    }
+  },
+  "order": ["hero", "main"]
+}

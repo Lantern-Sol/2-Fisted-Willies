@@ -1,0 +1,483 @@
+{%- liquid
+  assign s = section.settings
+  assign has_frame_texture = false
+  if s.frame_texture != blank
+    assign has_frame_texture = true
+  endif
+-%}
+
+{%- capture bg_style -%}
+  --ls-hero-bg-color: {{ s.bg_color }};
+  --ls-hero-bg-bottom: {{ s.bg_gradient_color }};
+  {%- if s.bg_image != blank %} --ls-hero-bg-image: url({{ s.bg_image | image_url: width: 2400 }});{% endif -%}
+{%- endcapture -%}
+
+{%- capture frame_style -%}
+  --ls-frame-paper: {{ s.frame_color }};
+  {%- if has_frame_texture %} --ls-frame-texture: url({{ s.frame_texture | image_url: width: 1000 }});{% endif -%}
+{%- endcapture -%}
+
+<div class="section-background ls-hero__bg" style="{{ bg_style }}"></div>
+<div
+  class="section ls-hero spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ frame_style }}"
+>
+  {%- if s.stamp_1 != blank or s.show_default_stamps -%}
+    <div
+      class="ls-hero__stamp ls-hero__stamp--1"
+      style="--ls-rot: {{ s.stamp_1_rotation }}deg; --ls-x: {{ s.stamp_1_x }}px; --ls-y: {{ s.stamp_1_y }}px; --ls-x-m: {{ s.stamp_1_x_mobile }}px; --ls-y-m: {{ s.stamp_1_y_mobile }}px; --ls-stamp-w: {{ s.stamp_1_width }}px;"
+    >
+      <div class="ls-hero__photo">
+        {%- if s.stamp_1 != blank -%}
+          {{ s.stamp_1 | image_url: width: 700 | image_tag: alt: s.stamp_1.alt, widths: '230,350,460,700', sizes: '(max-width: 989px) 40vw, 230px', loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'ls-about-stamp.png' | asset_url }}" alt="" loading="lazy" width="230" height="307">
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="ls-hero__heading">
+    {%- if s.character != blank -%}
+      <div class="ls-hero__character" style="--ls-char-w: {{ s.character_width }}px;">
+        {{ s.character | image_url: width: 600 | image_tag: alt: s.character.alt, widths: '220,330,440,600', sizes: '220px', loading: 'eager' }}
+      </div>
+    {%- elsif s.show_default_character -%}
+      <div class="ls-hero__character" style="--ls-char-w: {{ s.character_width }}px;">
+        <img src="{{ 'ls-about-character.png' | asset_url }}" alt="" width="220" height="255" fetchpriority="high">
+      </div>
+    {%- endif -%}
+
+    <div class="ls-hero__wordmark">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+
+  {%- if s.stamp_2 != blank or s.show_default_stamps -%}
+    <div
+      class="ls-hero__stamp ls-hero__stamp--2"
+      style="--ls-rot: {{ s.stamp_2_rotation }}deg; --ls-x: {{ s.stamp_2_x }}px; --ls-y: {{ s.stamp_2_y }}px; --ls-x-m: {{ s.stamp_2_x_mobile }}px; --ls-y-m: {{ s.stamp_2_y_mobile }}px; --ls-stamp-w: {{ s.stamp_2_width }}px;"
+    >
+      <div class="ls-hero__photo">
+        {%- if s.stamp_2 != blank -%}
+          {{ s.stamp_2 | image_url: width: 700 | image_tag: alt: s.stamp_2.alt, widths: '230,350,460,700', sizes: '(max-width: 989px) 40vw, 230px', loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'ls-about-stamp.png' | asset_url }}" alt="" loading="lazy" width="230" height="307">
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  /* Full-bleed dark band: flat tint + gradient sink toward the bottom, faint photo overlay. */
+  .ls-hero__bg {
+    background-color: var(--ls-hero-bg-color, #1e1e2e);
+    background-image: linear-gradient(
+      to bottom,
+      rgba(10, 12, 18, 0) 0%,
+      var(--ls-hero-bg-bottom, #0a0c12) 100%
+    );
+  }
+  .ls-hero__bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--ls-hero-bg-image, none);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .ls-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 360px;
+    overflow: hidden;
+  }
+
+  /* ---- Heading: character stacked over the two-line wordmark ---- */
+  .ls-hero__heading {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ls-hero__character {
+    width: var(--ls-char-w, 220px);
+    max-width: 60vw;
+    margin-bottom: -8px;
+  }
+  .ls-hero__character img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* The wordmark itself is built from native text blocks (group + text),
+     so spacing/fonts/colors are all editable in the theme editor. */
+  .ls-hero__wordmark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ---- Stamps: polaroid frame, floating in the corners ---- */
+  .ls-hero__stamp {
+    position: absolute;
+    z-index: 2;
+    width: var(--ls-stamp-w, 230px);
+    box-sizing: border-box;
+    padding: 12px;
+    background-color: var(--ls-frame-paper, #f4f1e9);
+    background-image: var(--ls-frame-texture, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"));
+    background-size: cover, 240px 240px;
+    background-repeat: no-repeat, repeat;
+    box-shadow: 0 4px 4px rgba(30, 30, 46, 0.15);
+  }
+
+  .ls-hero__stamp--1 {
+    top: 0;
+    right: 4%;
+    transform: translate(var(--ls-x, 0px), var(--ls-y, 0px)) rotate(var(--ls-rot, 15deg));
+  }
+  .ls-hero__stamp--2 {
+    bottom: 0;
+    left: 4%;
+    transform: translate(var(--ls-x, 0px), var(--ls-y, 0px)) rotate(var(--ls-rot, -12deg));
+  }
+
+  .ls-hero__photo {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+  }
+  .ls-hero__photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---- Mobile: shrink + tuck the stamps into the corners so they frame, not cover ---- */
+  @media screen and (max-width: 989px) {
+    .ls-hero__stamp {
+      width: min(var(--ls-stamp-w, 230px), 38vw);
+    }
+    .ls-hero__stamp--1 {
+      right: 2%;
+      transform: translate(var(--ls-x-m, 0px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, 15deg));
+    }
+    .ls-hero__stamp--2 {
+      left: 2%;
+      transform: translate(var(--ls-x-m, 0px), var(--ls-y-m, 0px)) rotate(var(--ls-rot, -12deg));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS About Hero",
+  "tag": "section",
+  "class": "ls-about-hero-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#1e1e2e"
+    },
+    {
+      "type": "color",
+      "id": "bg_gradient_color",
+      "label": "Gradient sink (bottom)",
+      "default": "#0a0c12"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Faint background photo",
+      "info": "Shown at 10% opacity behind everything."
+    },
+    {
+      "type": "header",
+      "content": "Character"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_default_character",
+      "label": "Show character",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "character",
+      "label": "Character image",
+      "info": "Sits above the heading. Falls back to the built-in Willie artwork."
+    },
+    {
+      "type": "range",
+      "id": "character_width",
+      "label": "Character width",
+      "min": 100,
+      "max": 400,
+      "step": 4,
+      "unit": "px",
+      "default": 220
+    },
+    {
+      "type": "header",
+      "content": "Stamps",
+      "info": "Polaroid-style photos floating in the corners."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_default_stamps",
+      "label": "Show stamps",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "frame_color",
+      "label": "Stamp frame color",
+      "default": "#f4f1e9"
+    },
+    {
+      "type": "image_picker",
+      "id": "frame_texture",
+      "label": "Stamp frame texture",
+      "info": "Optional. Falls back to the baked-in paper grain + color."
+    },
+    {
+      "type": "header",
+      "content": "Stamp 1 (top right)"
+    },
+    {
+      "type": "image_picker",
+      "id": "stamp_1",
+      "label": "Stamp 1 image",
+      "info": "Falls back to the built-in artwork."
+    },
+    {
+      "type": "range",
+      "id": "stamp_1_width",
+      "label": "Width",
+      "min": 120,
+      "max": 360,
+      "step": 4,
+      "unit": "px",
+      "default": 230
+    },
+    {
+      "type": "range",
+      "id": "stamp_1_rotation",
+      "label": "Rotation",
+      "min": -30,
+      "max": 30,
+      "step": 1,
+      "unit": "°",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "stamp_1_x",
+      "label": "X offset",
+      "min": -300,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "stamp_1_y",
+      "label": "Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "stamp_1_x_mobile",
+      "label": "X offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "stamp_1_y_mobile",
+      "label": "Y offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Stamp 2 (bottom left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "stamp_2",
+      "label": "Stamp 2 image",
+      "info": "Falls back to the built-in artwork."
+    },
+    {
+      "type": "range",
+      "id": "stamp_2_width",
+      "label": "Width",
+      "min": 120,
+      "max": 360,
+      "step": 4,
+      "unit": "px",
+      "default": 230
+    },
+    {
+      "type": "range",
+      "id": "stamp_2_rotation",
+      "label": "Rotation",
+      "min": -30,
+      "max": 30,
+      "step": 1,
+      "unit": "°",
+      "default": -12
+    },
+    {
+      "type": "range",
+      "id": "stamp_2_x",
+      "label": "X offset",
+      "min": -300,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "stamp_2_y",
+      "label": "Y offset",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": -20
+    },
+    {
+      "type": "range",
+      "id": "stamp_2_x_mobile",
+      "label": "X offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "stamp_2_y_mobile",
+      "label": "Y offset (mobile)",
+      "min": -200,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS About Hero",
+      "category": "t:categories.other_sections",
+      "blocks": [
+        {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 0,
+            "width": "fit-content"
+          },
+          "blocks": [
+            {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>WHO IS</p>",
+                "font_family": "var(--font-gashroad--family)",
+                "font_size": 128,
+                "font_size_mobile": 56,
+                "letter_spacing": -5,
+                "line_height": 0.6,
+                "text_transform": "uppercase",
+                "text_align": "center",
+                "text_color": "#eae8f0"
+              }
+            },
+            {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>Willie?</p>",
+                "font_family": "var(--font-cormorant-garamond-italic--family)",
+                "font_size": 128,
+                "font_size_mobile": 64,
+                "letter_spacing": -5,
+                "line_height": 0.8,
+                "text_transform": "uppercase",
+                "text_align": "center",
+                "text_color": "#b8c8f2"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
