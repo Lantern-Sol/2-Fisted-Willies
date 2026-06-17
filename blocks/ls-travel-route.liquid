@@ -1,0 +1,193 @@
+{%- liquid
+  assign b = block.settings
+-%}
+<div
+  class="ls-travel-route"
+  style="--road-color: {{ b.road_color }}; --truck-x: {{ b.truck_position }}px; --truck-size: {{ b.truck_size }}px;"
+  {{ block.shopify_attributes }}
+>
+  <div class="ls-travel-route__labels">
+    {% content_for 'blocks' %}
+  </div>
+  <div class="ls-travel-route__road" aria-hidden="true">
+    <span class="ls-travel-route__dot"></span>
+    <span class="ls-travel-route__line"></span>
+    <span class="ls-travel-route__dot"></span>
+    {%- if b.truck_image != blank -%}
+      <img class="ls-travel-route__truck ls-travel-route__truck--image" src="{{ b.truck_image | image_url: width: 200 }}" alt="" loading="lazy">
+    {%- else -%}
+      <svg class="ls-travel-route__truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 4h13v11H1z" />
+        <path d="M14 8h4l4 4v3h-8z" />
+        <circle cx="6" cy="18" r="2" fill="currentColor" stroke="none" />
+        <circle cx="17" cy="18" r="2" fill="currentColor" stroke="none" />
+      </svg>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-travel-route {
+    position: relative;
+    width: 100%;
+  }
+  .ls-travel-route__labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+  }
+  .ls-travel-route__road {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 14px;
+  }
+  .ls-travel-route__dot {
+    flex: 0 0 auto;
+    width: 13px;
+    height: 13px;
+    border-radius: 6px;
+    background: var(--road-color, #fff);
+  }
+  .ls-travel-route__line {
+    flex: 1 1 auto;
+    height: 1px;
+    background: var(--road-color, #fff);
+  }
+  .ls-travel-route__truck {
+    position: absolute;
+    left: var(--truck-x, 78px);
+    bottom: 7px;
+    width: var(--truck-size, 24px);
+    height: var(--truck-size, 24px);
+    color: var(--road-color, #fff);
+  }
+  /* A custom image keeps its own aspect ratio. */
+  .ls-travel-route__truck--image {
+    height: auto;
+    object-fit: contain;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Travel Route",
+  "tag": null,
+  "blocks": [
+    { "type": "@theme" }
+  ],
+  "settings": [
+    {
+      "type": "color",
+      "id": "road_color",
+      "label": "Road & truck color",
+      "info": "The truck color only applies to the built-in icon, not a custom image.",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "truck_image",
+      "label": "Truck image",
+      "info": "Optional. Replaces the built-in truck icon."
+    },
+    {
+      "type": "range",
+      "id": "truck_size",
+      "label": "Truck size",
+      "min": 16,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "truck_position",
+      "label": "Truck position from left",
+      "min": 0,
+      "max": 600,
+      "step": 6,
+      "unit": "px",
+      "default": 78
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Travel Route",
+      "category": "t:categories.custom",
+      "blocks": [
+        {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "gap": 2,
+            "width": "fit-content"
+          },
+          "blocks": [
+            {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>QUEENS, NY</p>",
+                "font_family": "var(--font-body--family)",
+                "font_size": 12,
+                "letter_spacing": 1,
+                "line_height": 1.1,
+                "text_align": "left",
+                "text_color": "#ffffff"
+              }
+            },
+            {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>Origin</p>",
+                "font_family": "var(--font-body--family)",
+                "font_size": 10,
+                "line_height": 1.1,
+                "text_align": "left",
+                "text_color": "#ffffff"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "flex-end",
+            "gap": 2,
+            "width": "fit-content"
+          },
+          "blocks": [
+            {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>LEXINGTON, KY</p>",
+                "font_family": "var(--font-body--family)",
+                "font_size": 12,
+                "letter_spacing": 1,
+                "line_height": 1.1,
+                "text_align": "right",
+                "text_color": "#ffffff"
+              }
+            },
+            {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>Home</p>",
+                "font_family": "var(--font-body--family)",
+                "font_size": 10,
+                "line_height": 1.1,
+                "text_align": "right",
+                "text_color": "#ffffff"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

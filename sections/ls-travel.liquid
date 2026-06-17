@@ -1,0 +1,518 @@
+{%- liquid
+  assign s = section.settings
+  assign has_paper_texture = false
+  if s.paper_texture != blank
+    assign has_paper_texture = true
+  endif
+
+  # Intrinsic width of the desktop fan (px). On mobile every polaroid is sized
+  # and positioned in this same design-px space but multiplied by the --u length
+  # unit, which becomes vw-based — so the whole fan scales with the viewport.
+  # u_coeff turns the "fan width (% of viewport)" slider into vw-per-design-px.
+  assign fan_min = 0
+  assign fan_max = 0
+  assign fan_found = false
+  for i in (1..5)
+    assign base = 'polaroid_' | append: i
+    assign wk = base | append: '_width'
+    assign xk = base | append: '_x'
+    if s[base] != blank
+      assign half = s[wk] | divided_by: 2.0
+      assign le = s[xk] | minus: half
+      assign re = s[xk] | plus: half
+      if fan_found
+        if le < fan_min
+          assign fan_min = le
+        endif
+        if re > fan_max
+          assign fan_max = re
+        endif
+      else
+        assign fan_min = le
+        assign fan_max = re
+        assign fan_found = true
+      endif
+    endif
+  endfor
+  assign fan_width = fan_max | minus: fan_min
+  if fan_width <= 0
+    assign fan_width = 1
+  endif
+  assign u_coeff = s.mobile_fan_vw | times: 1.0 | divided_by: fan_width
+  # Vertical nudge for the whole fan on mobile, scaled by the same vw unit.
+  assign fan_y_vw = s.fan_y_mobile | times: u_coeff
+-%}
+
+{%- capture paper_style -%}
+  --ls-travel-paper: {{ s.paper_color }};
+  {%- if has_paper_texture %} --ls-travel-texture: url({{ s.paper_texture | image_url: width: 1000 }});{% endif -%}
+  --ls-travel-card-w: {{ s.card_width }}px;
+  --ls-travel-card-w-m: {{ s.card_width_mobile }}vw;
+  --ls-u-m: {{ u_coeff }}vw;
+  --ls-fan-y-m: {{ fan_y_vw }}vw;
+  --ls-travel-route-gap: {{ s.route_gap }}px;
+  --ls-travel-route-gap-m: {{ s.route_gap_mobile }}px;
+{%- endcapture -%}
+
+<div
+  class="section ls-travel spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ paper_style }}"
+>
+  <div class="ls-travel__stage">
+    <div class="ls-travel__polaroids">
+      {%- for i in (1..5) -%}
+        {%- liquid
+          assign base = 'polaroid_' | append: i
+          assign w_key = base | append: '_width'
+          assign rot_key = base | append: '_rotation'
+          assign x_key = base | append: '_x'
+          assign y_key = base | append: '_y'
+          assign img = s[base]
+          assign w = s[w_key]
+          assign rot = s[rot_key]
+          assign px = s[x_key]
+          assign py = s[y_key]
+          # Odd polaroids (1, 3, 5) layer above the even ones (2, 4) for the overlap.
+          assign parity = i | modulo: 2
+          assign zlayer = 1
+          if parity == 1
+            assign zlayer = 2
+          endif
+          # Mobile render width as a share of the viewport (design-px * vw-per-px).
+          assign w_m_vw = w | times: u_coeff
+        -%}
+        {%- if img != blank -%}
+          {%- capture psizes -%}(max-width: 749px) {{ w_m_vw }}vw, {{ w }}px{%- endcapture -%}
+          <div
+            class="ls-travel__polaroid"
+            style="--w-n: {{ w }}; --rot: {{ rot }}; --x-n: {{ px }}; --y-n: {{ py }}; z-index: {{ zlayer }};"
+          >
+            <div class="ls-travel__photo">
+              {{ img | image_url: width: 800 | image_tag: alt: img.alt, widths: '160,240,320,400,480,640,800', sizes: psizes, loading: 'lazy' }}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="ls-travel__card">
+      {% content_for 'block', type: 'group', id: 'card' %}
+    </div>
+  </div>
+
+  <div class="ls-travel__route-wrap">
+    {% content_for 'block', type: 'ls-travel-route', id: 'route' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-travel {
+    position: relative;
+    /* Polaroids fan out past the card edges — don't clip them. */
+    overflow: visible;
+  }
+
+  .ls-travel__stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* ---- Polaroids: paper frame, fanned behind the card on desktop ---- */
+  .ls-travel__polaroids {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .ls-travel__polaroid {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /* The unit every dimension is multiplied by: 1px on desktop (so the px
+       sliders render 1:1), vw-based on mobile (so the fan scales with the
+       viewport). Frame padding scales too, so borders stay proportional. */
+    --u: 1px;
+    width: calc(var(--w-n, 320) * var(--u));
+    box-sizing: border-box;
+    padding: calc(12 * var(--u));
+    pointer-events: auto;
+    background-color: var(--ls-travel-paper, #f4f1e9);
+    background-image: var(--ls-travel-texture, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"));
+    background-size: cover, 240px 240px;
+    background-repeat: no-repeat, repeat;
+    box-shadow: 0 4px 4px rgba(30, 30, 46, 0.35);
+    transform: translate(-50%, -50%)
+      translate(calc(var(--x-n, 0) * var(--u)), calc(var(--y-n, 0) * var(--u)))
+      rotate(calc(var(--rot, 0) * 1deg));
+  }
+
+  .ls-travel__photo {
+    position: relative;
+    overflow: hidden;
+  }
+  /* Keep each photo's natural aspect ratio — width follows the slider, height
+     scales to match, so portraits/landscapes aren't cropped to a fixed shape. */
+  .ls-travel__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ---- Card: cream paper, on top of the polaroids ---- */
+  .ls-travel__card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: var(--ls-travel-card-w, 416px);
+    box-sizing: border-box;
+    padding: 24px 24px 48px;
+    text-align: center;
+    background-color: var(--ls-travel-paper, #f4f1e9);
+    background-image: var(--ls-travel-texture, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"));
+    background-size: cover, 240px 240px;
+    background-repeat: no-repeat, repeat;
+    box-shadow: 0 4px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  /* ---- Route line sits full-width below the card ---- */
+  .ls-travel__route-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin-top: var(--ls-travel-route-gap, 24px);
+  }
+
+  /* ---- Mobile: the fan stays absolutely positioned (no added height) and on
+     top of the card. Switching --u to a vw value scales the whole fan with the
+     viewport; translateY nudges the fan vertically. Clip horizontally so a fan
+     wider than the screen can't cause a scrollbar. ---- */
+  @media screen and (max-width: 749px) {
+    .ls-travel {
+      overflow-x: clip;
+    }
+    .ls-travel__route-wrap {
+      margin-top: var(--ls-travel-route-gap-m, var(--ls-travel-route-gap, 24px));
+    }
+    .ls-travel__card {
+      width: var(--ls-travel-card-w-m, 86vw);
+      max-width: none;
+    }
+    .ls-travel__polaroids {
+      z-index: 3;
+      transform: translateY(var(--ls-fan-y-m, 0));
+    }
+    .ls-travel__polaroid {
+      --u: var(--ls-u-m, 0.06vw);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Travel",
+  "tag": "section",
+  "class": "ls-travel-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Card & paper"
+    },
+    {
+      "type": "color",
+      "id": "paper_color",
+      "label": "Paper color",
+      "default": "#f4f1e9"
+    },
+    {
+      "type": "image_picker",
+      "id": "paper_texture",
+      "label": "Paper texture",
+      "info": "Optional. Used by the card and the polaroid frames. Falls back to a baked-in grain."
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "Card width",
+      "min": 280,
+      "max": 560,
+      "step": 4,
+      "unit": "px",
+      "default": 416
+    },
+    {
+      "type": "range",
+      "id": "card_width_mobile",
+      "label": "Card width (mobile)",
+      "info": "Card width on mobile as a percentage of the screen width.",
+      "min": 40,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "default": 86
+    },
+    {
+      "type": "range",
+      "id": "route_gap",
+      "label": "Gap between card and route",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "route_gap_mobile",
+      "label": "Gap between card and route (mobile)",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Polaroids",
+      "info": "Fanned behind the card on desktop, on top of it on mobile. Each shows only when an image is set."
+    },
+    {
+      "type": "range",
+      "id": "mobile_fan_vw",
+      "label": "Fan width (mobile)",
+      "info": "How wide the whole polaroid fan is on mobile, as a percentage of the screen width. Scales the frames and gaps proportionally — they never add height.",
+      "min": 40,
+      "max": 160,
+      "step": 2,
+      "unit": "%",
+      "default": 110
+    },
+    {
+      "type": "range",
+      "id": "fan_y_mobile",
+      "label": "Fan vertical offset (mobile)",
+      "info": "Moves the whole polaroid fan up or down on mobile.",
+      "min": -600,
+      "max": 600,
+      "step": 24,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Polaroid 1"
+    },
+    { "type": "image_picker", "id": "polaroid_1", "label": "Image" },
+    { "type": "range", "id": "polaroid_1_width", "label": "Width", "min": 120, "max": 480, "step": 4, "unit": "px", "default": 300 },
+    { "type": "range", "id": "polaroid_1_rotation", "label": "Rotation", "min": -30, "max": 30, "step": 1, "unit": "°", "default": -22 },
+    { "type": "range", "id": "polaroid_1_x", "label": "X offset", "min": -600, "max": 600, "step": 12, "unit": "px", "default": -516 },
+    { "type": "range", "id": "polaroid_1_y", "label": "Y offset", "min": -300, "max": 300, "step": 6, "unit": "px", "default": -30 },
+    {
+      "type": "header",
+      "content": "Polaroid 2"
+    },
+    { "type": "image_picker", "id": "polaroid_2", "label": "Image" },
+    { "type": "range", "id": "polaroid_2_width", "label": "Width", "min": 120, "max": 480, "step": 4, "unit": "px", "default": 332 },
+    { "type": "range", "id": "polaroid_2_rotation", "label": "Rotation", "min": -30, "max": 30, "step": 1, "unit": "°", "default": 4 },
+    { "type": "range", "id": "polaroid_2_x", "label": "X offset", "min": -600, "max": 600, "step": 12, "unit": "px", "default": -300 },
+    { "type": "range", "id": "polaroid_2_y", "label": "Y offset", "min": -300, "max": 300, "step": 6, "unit": "px", "default": -72 },
+    {
+      "type": "header",
+      "content": "Polaroid 3"
+    },
+    { "type": "image_picker", "id": "polaroid_3", "label": "Image" },
+    { "type": "range", "id": "polaroid_3_width", "label": "Width", "min": 120, "max": 480, "step": 4, "unit": "px", "default": 360 },
+    { "type": "range", "id": "polaroid_3_rotation", "label": "Rotation", "min": -30, "max": 30, "step": 1, "unit": "°", "default": -9 },
+    { "type": "range", "id": "polaroid_3_x", "label": "X offset", "min": -600, "max": 600, "step": 12, "unit": "px", "default": -36 },
+    { "type": "range", "id": "polaroid_3_y", "label": "Y offset", "min": -300, "max": 300, "step": 6, "unit": "px", "default": -120 },
+    {
+      "type": "header",
+      "content": "Polaroid 4"
+    },
+    { "type": "image_picker", "id": "polaroid_4", "label": "Image" },
+    { "type": "range", "id": "polaroid_4_width", "label": "Width", "min": 120, "max": 480, "step": 4, "unit": "px", "default": 340 },
+    { "type": "range", "id": "polaroid_4_rotation", "label": "Rotation", "min": -30, "max": 30, "step": 1, "unit": "°", "default": 0 },
+    { "type": "range", "id": "polaroid_4_x", "label": "X offset", "min": -600, "max": 600, "step": 12, "unit": "px", "default": 300 },
+    { "type": "range", "id": "polaroid_4_y", "label": "Y offset", "min": -300, "max": 300, "step": 6, "unit": "px", "default": -48 },
+    {
+      "type": "header",
+      "content": "Polaroid 5"
+    },
+    { "type": "image_picker", "id": "polaroid_5", "label": "Image" },
+    { "type": "range", "id": "polaroid_5_width", "label": "Width", "min": 120, "max": 480, "step": 4, "unit": "px", "default": 372 },
+    { "type": "range", "id": "polaroid_5_rotation", "label": "Rotation", "min": -30, "max": 30, "step": 1, "unit": "°", "default": 6 },
+    { "type": "range", "id": "polaroid_5_x", "label": "X offset", "min": -600, "max": 600, "step": 12, "unit": "px", "default": 540 },
+    { "type": "range", "id": "polaroid_5_y", "label": "Y offset", "min": -300, "max": 300, "step": 6, "unit": "px", "default": -42 },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 300, "step": 4, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 300, "step": 4, "unit": "px", "default": 40 },
+    { "type": "checkbox", "id": "use_mobile_padding", "label": "Use mobile padding", "default": false },
+    { "type": "range", "id": "padding-block-start-mobile", "label": "t:settings.top", "min": 0, "max": 300, "step": 4, "unit": "px", "default": 40, "visible_if": "{{ section.settings.use_mobile_padding }}" },
+    { "type": "range", "id": "padding-block-end-mobile", "label": "t:settings.bottom", "min": 0, "max": 300, "step": 4, "unit": "px", "default": 40, "visible_if": "{{ section.settings.use_mobile_padding }}" }
+  ],
+  "presets": [
+    {
+      "name": "LS Travel",
+      "category": "t:categories.other_sections",
+      "blocks": {
+        "card": {
+          "type": "group",
+          "static": true,
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill"
+          },
+          "blocks": {
+            "star": {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>✦</p>",
+                "font_family": "var(--font-cormorant-garamond--family)",
+                "font_size": 20,
+                "line_height": 1,
+                "text_align": "center",
+                "text_color": "#0b4bba"
+              }
+            },
+            "title": {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>The Bar</p>",
+                "font_family": "var(--font-gashroad--family)",
+                "font_size": 40,
+                "font_size_mobile": 32,
+                "letter_spacing": -2,
+                "line_height": 0.8,
+                "text_transform": "capitalize",
+                "text_align": "center",
+                "text_color": "#1e1e2e"
+              }
+            },
+            "subtitle": {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>That Traveled</p>",
+                "font_family": "var(--font-cormorant-garamond-italic--family)",
+                "font_size": 40,
+                "font_size_mobile": 32,
+                "letter_spacing": -2,
+                "line_height": 0.8,
+                "text_transform": "uppercase",
+                "text_align": "center",
+                "text_color": "#143379"
+              }
+            },
+            "para": {
+              "type": "ls-text",
+              "settings": {
+                "text": "<p>The 90+ year old main bar at Willie's traveled all the way from its original home in a pub near the US Open Tennis Center in Queens, New York, to Lexington — and today it's thriving as the central focus of the bar, right in the action and excitement of the University of Kentucky setting.</p>",
+                "font_family": "var(--font-cormorant-garamond--family)",
+                "font_size": 20,
+                "letter_spacing": 0.4,
+                "line_height": 1,
+                "font_weight": "600",
+                "text_align": "center",
+                "text_color": "#1e1e2e"
+              }
+            }
+          },
+          "block_order": ["star", "title", "subtitle", "para"]
+        },
+        "route": {
+          "type": "ls-travel-route",
+          "static": true,
+          "settings": {
+            "road_color": "#ffffff",
+            "truck_position": 78
+          },
+          "blocks": {
+            "origin": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "gap": 2,
+                "width": "fit-content"
+              },
+              "blocks": {
+                "city": {
+                  "type": "ls-text",
+                  "settings": {
+                    "text": "<p>QUEENS, NY</p>",
+                    "font_family": "var(--font-body--family)",
+                    "font_size": 12,
+                    "letter_spacing": 1,
+                    "line_height": 1.1,
+                    "text_align": "left",
+                    "text_color": "#ffffff"
+                  }
+                },
+                "sub": {
+                  "type": "ls-text",
+                  "settings": {
+                    "text": "<p>Origin</p>",
+                    "font_family": "var(--font-body--family)",
+                    "font_size": 10,
+                    "line_height": 1.1,
+                    "text_align": "left",
+                    "text_color": "#ffffff"
+                  }
+                }
+              },
+              "block_order": ["city", "sub"]
+            },
+            "home": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-end",
+                "gap": 2,
+                "width": "fit-content"
+              },
+              "blocks": {
+                "city": {
+                  "type": "ls-text",
+                  "settings": {
+                    "text": "<p>LEXINGTON, KY</p>",
+                    "font_family": "var(--font-body--family)",
+                    "font_size": 12,
+                    "letter_spacing": 1,
+                    "line_height": 1.1,
+                    "text_align": "right",
+                    "text_color": "#ffffff"
+                  }
+                },
+                "sub": {
+                  "type": "ls-text",
+                  "settings": {
+                    "text": "<p>Home</p>",
+                    "font_family": "var(--font-body--family)",
+                    "font_size": 10,
+                    "line_height": 1.1,
+                    "text_align": "right",
+                    "text_color": "#ffffff"
+                  }
+                }
+              },
+              "block_order": ["city", "sub"]
+            }
+          },
+          "block_order": ["origin", "home"]
+        }
+      }
+    }
+  ]
+}
+{% endschema %}
