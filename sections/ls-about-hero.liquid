@@ -17,6 +17,11 @@
   {%- if has_frame_texture %} --ls-frame-texture: url({{ s.frame_texture | image_url: width: 1000 }});{% endif -%}
 {%- endcapture -%}
 
+{%- comment -%} Load each photo at its configured display width, not a fixed size. {%- endcomment -%}
+{%- capture stamp_1_sizes -%}(max-width: 989px) {{ s.stamp_1_width_mobile }}px, {{ s.stamp_1_width }}px{%- endcapture -%}
+{%- capture stamp_2_sizes -%}(max-width: 989px) {{ s.stamp_2_width_mobile }}px, {{ s.stamp_2_width }}px{%- endcapture -%}
+{%- capture character_sizes -%}(max-width: 749px) {{ s.character_width_mobile }}px, {{ s.character_width }}px{%- endcapture -%}
+
 <div class="section-background ls-hero__bg" style="{{ bg_style }}"></div>
 <div
   class="section ls-hero spacing-style"
@@ -25,11 +30,11 @@
   {%- if s.stamp_1 != blank or s.show_default_stamps -%}
     <div
       class="ls-hero__stamp ls-hero__stamp--1"
-      style="--ls-rot: {{ s.stamp_1_rotation }}deg; --ls-x: {{ s.stamp_1_x }}px; --ls-y: {{ s.stamp_1_y }}px; --ls-x-m: {{ s.stamp_1_x_mobile }}px; --ls-y-m: {{ s.stamp_1_y_mobile }}px; --ls-stamp-w: {{ s.stamp_1_width }}px;"
+      style="--ls-rot: {{ s.stamp_1_rotation }}deg; --ls-x: {{ s.stamp_1_x }}px; --ls-y: {{ s.stamp_1_y }}px; --ls-x-m: {{ s.stamp_1_x_mobile }}px; --ls-y-m: {{ s.stamp_1_y_mobile }}px; --ls-stamp-w: {{ s.stamp_1_width }}px; --ls-stamp-w-m: {{ s.stamp_1_width_mobile }}px;"
     >
       <div class="ls-hero__photo">
         {%- if s.stamp_1 != blank -%}
-          {{ s.stamp_1 | image_url: width: 700 | image_tag: alt: s.stamp_1.alt, widths: '230,350,460,700', sizes: '(max-width: 989px) 40vw, 230px', loading: 'lazy' }}
+          {{ s.stamp_1 | image_url: width: 720 | image_tag: alt: s.stamp_1.alt, widths: '120,180,240,300,360,480,600,720', sizes: stamp_1_sizes, loading: 'lazy' }}
         {%- else -%}
           <img src="{{ 'ls-about-stamp.png' | asset_url }}" alt="" loading="lazy" width="230" height="307">
         {%- endif -%}
@@ -39,11 +44,11 @@
 
   <div class="ls-hero__heading">
     {%- if s.character != blank -%}
-      <div class="ls-hero__character" style="--ls-char-w: {{ s.character_width }}px;">
-        {{ s.character | image_url: width: 600 | image_tag: alt: s.character.alt, widths: '220,330,440,600', sizes: '220px', loading: 'eager' }}
+      <div class="ls-hero__character" style="--ls-char-w: {{ s.character_width }}px; --ls-char-w-m: {{ s.character_width_mobile }}px;">
+        {{ s.character | image_url: width: 800 | image_tag: alt: s.character.alt, widths: '160,220,280,340,400,560,800', sizes: character_sizes, loading: 'eager' }}
       </div>
     {%- elsif s.show_default_character -%}
-      <div class="ls-hero__character" style="--ls-char-w: {{ s.character_width }}px;">
+      <div class="ls-hero__character" style="--ls-char-w: {{ s.character_width }}px; --ls-char-w-m: {{ s.character_width_mobile }}px;">
         <img src="{{ 'ls-about-character.png' | asset_url }}" alt="" width="220" height="255" fetchpriority="high">
       </div>
     {%- endif -%}
@@ -56,11 +61,11 @@
   {%- if s.stamp_2 != blank or s.show_default_stamps -%}
     <div
       class="ls-hero__stamp ls-hero__stamp--2"
-      style="--ls-rot: {{ s.stamp_2_rotation }}deg; --ls-x: {{ s.stamp_2_x }}px; --ls-y: {{ s.stamp_2_y }}px; --ls-x-m: {{ s.stamp_2_x_mobile }}px; --ls-y-m: {{ s.stamp_2_y_mobile }}px; --ls-stamp-w: {{ s.stamp_2_width }}px;"
+      style="--ls-rot: {{ s.stamp_2_rotation }}deg; --ls-x: {{ s.stamp_2_x }}px; --ls-y: {{ s.stamp_2_y }}px; --ls-x-m: {{ s.stamp_2_x_mobile }}px; --ls-y-m: {{ s.stamp_2_y_mobile }}px; --ls-stamp-w: {{ s.stamp_2_width }}px; --ls-stamp-w-m: {{ s.stamp_2_width_mobile }}px;"
     >
       <div class="ls-hero__photo">
         {%- if s.stamp_2 != blank -%}
-          {{ s.stamp_2 | image_url: width: 700 | image_tag: alt: s.stamp_2.alt, widths: '230,350,460,700', sizes: '(max-width: 989px) 40vw, 230px', loading: 'lazy' }}
+          {{ s.stamp_2 | image_url: width: 720 | image_tag: alt: s.stamp_2.alt, widths: '120,180,240,300,360,480,600,720', sizes: stamp_2_sizes, loading: 'lazy' }}
         {%- else -%}
           <img src="{{ 'ls-about-stamp.png' | asset_url }}" alt="" loading="lazy" width="230" height="307">
         {%- endif -%}
@@ -96,8 +101,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 360px;
-    overflow: hidden;
+    /* Height = wordmark content + the section padding, so padding alone controls it.
+       Stamps are absolutely positioned, so they don't add to the height. */
+    /* Let stamps spill past the section edges instead of being clipped. */
+    overflow: visible;
   }
 
   /* ---- Heading: character stacked over the two-line wordmark ---- */
@@ -119,6 +126,11 @@
     display: block;
     width: 100%;
     height: auto;
+  }
+  @media screen and (max-width: 749px) {
+    .ls-hero__character {
+      width: var(--ls-char-w-m, var(--ls-char-w, 220px));
+    }
   }
 
   /* The wordmark itself is built from native text blocks (group + text),
@@ -169,7 +181,7 @@
   /* ---- Mobile: shrink + tuck the stamps into the corners so they frame, not cover ---- */
   @media screen and (max-width: 989px) {
     .ls-hero__stamp {
-      width: min(var(--ls-stamp-w, 230px), 38vw);
+      width: var(--ls-stamp-w-m, min(var(--ls-stamp-w, 230px), 38vw));
     }
     .ls-hero__stamp--1 {
       right: 2%;
@@ -244,6 +256,16 @@
       "default": 220
     },
     {
+      "type": "range",
+      "id": "character_width_mobile",
+      "label": "Character width (mobile)",
+      "min": 80,
+      "max": 320,
+      "step": 4,
+      "unit": "px",
+      "default": 160
+    },
+    {
       "type": "header",
       "content": "Stamps",
       "info": "Polaroid-style photos floating in the corners."
@@ -284,7 +306,17 @@
       "max": 360,
       "step": 4,
       "unit": "px",
-      "default": 230
+      "default": 232
+    },
+    {
+      "type": "range",
+      "id": "stamp_1_width_mobile",
+      "label": "Width (mobile)",
+      "min": 60,
+      "max": 280,
+      "step": 4,
+      "unit": "px",
+      "default": 140
     },
     {
       "type": "range",
@@ -302,7 +334,7 @@
       "label": "X offset",
       "min": -300,
       "max": 300,
-      "step": 4,
+      "step": 6,
       "unit": "px",
       "default": 0
     },
@@ -354,7 +386,17 @@
       "max": 360,
       "step": 4,
       "unit": "px",
-      "default": 230
+      "default": 232
+    },
+    {
+      "type": "range",
+      "id": "stamp_2_width_mobile",
+      "label": "Width (mobile)",
+      "min": 60,
+      "max": 280,
+      "step": 4,
+      "unit": "px",
+      "default": 140
     },
     {
       "type": "range",
@@ -372,7 +414,7 @@
       "label": "X offset",
       "min": -300,
       "max": 300,
-      "step": 4,
+      "step": 6,
       "unit": "px",
       "default": 0
     },
@@ -429,6 +471,34 @@
       "step": 4,
       "unit": "px",
       "default": 56
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_padding",
+      "label": "Use mobile padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start-mobile",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end-mobile",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
     }
   ],
   "presets": [

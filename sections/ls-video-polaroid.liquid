@@ -1,0 +1,298 @@
+{%- liquid
+  assign s = section.settings
+  assign has_paper_texture = false
+  if s.paper_texture != blank
+    assign has_paper_texture = true
+  endif
+-%}
+
+{%- capture root_style -%}
+  --ls-vp-overlay: {{ s.overlay_color }};
+  --ls-travel-paper: {{ s.paper_color }};
+  {%- if has_paper_texture %} --ls-travel-texture: url({{ s.paper_texture | image_url: width: 1000 }});{% endif -%}
+{%- endcapture -%}
+
+<div
+  class="section ls-video-polaroid spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ root_style }}"
+>
+  <div class="ls-video-polaroid__bg" aria-hidden="true">
+    {%- if s.background_video != blank -%}
+      {{ s.background_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, preload: 'auto', image_size: '1100x' }}
+    {%- elsif s.fallback_image != blank -%}
+      {{ s.fallback_image | image_url: width: 2000 | image_tag: alt: '', loading: 'lazy', class: 'ls-video-polaroid__fallback' }}
+    {%- endif -%}
+    <div class="ls-video-polaroid__overlay"></div>
+  </div>
+
+  {%- for i in (1..2) -%}
+    {%- liquid
+      assign base = 'polaroid_' | append: i
+      assign w_key = base | append: '_width'
+      assign rot_key = base | append: '_rotation'
+      assign x_key = base | append: '_x'
+      assign y_key = base | append: '_y'
+      assign wm_key = base | append: '_width_mobile'
+      assign xm_key = base | append: '_x_mobile'
+      assign ym_key = base | append: '_y_mobile'
+      assign img = s[base]
+      # Polaroid 1 anchors to the top-left corner on mobile, polaroid 2 to the
+      # bottom-right, so they peek in from the corners under the mobile clip.
+      assign corner = 'tl'
+      if i == 2
+        assign corner = 'br'
+      endif
+      # Frame padding scales with the polaroid width so the border keeps the same
+      # ratio at any size (no fat border on the smaller mobile photos).
+      assign pad = s[w_key] | times: s.frame_thickness | divided_by: 100.0
+      assign pad_m = s[wm_key] | times: s.frame_thickness | divided_by: 100.0
+    -%}
+    {%- if img != blank -%}
+      {%- capture pol_sizes -%}(max-width: 749px) {{ s[wm_key] }}px, {{ s[w_key] }}px{%- endcapture -%}
+      {%- comment -%}
+        Polaroid 2 (bottom-right) is wrapped in a section-sized clip layer so it
+        gets clipped to the section bounds on mobile. The wrapper is invisible
+        (display: contents) on desktop, so positioning is unchanged there and
+        polaroid 1 (top-left) keeps peeking past the edges on every breakpoint.
+      {%- endcomment -%}
+      {%- if corner == 'br' -%}<div class="ls-video-polaroid__clip">{%- endif -%}
+      <div
+        class="ls-video-polaroid__polaroid ls-video-polaroid__polaroid--{{ corner }}"
+        style="--pol-w: {{ s[w_key] }}px; --pol-rot: {{ s[rot_key] }}deg; --pol-x: {{ s[x_key] }}px; --pol-y: {{ s[y_key] }}px; --pol-pad: {{ pad }}px; --pol-w-m: {{ s[wm_key] }}px; --pol-x-m: {{ s[xm_key] }}px; --pol-y-m: {{ s[ym_key] }}px; --pol-pad-m: {{ pad_m }}px;"
+      >
+        <div class="ls-video-polaroid__photo">
+          {{ img | image_url: width: 800 | image_tag: alt: img.alt, widths: '160,240,320,400,480,640,800', sizes: pol_sizes, loading: 'lazy' }}
+        </div>
+      </div>
+      {%- if corner == 'br' -%}</div>{%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  <div class="ls-video-polaroid__content">
+    {% content_for 'block', type: 'group', id: 'content' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-video-polaroid {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Let the polaroids spill past the section edges (not clipped) so they can
+       overlap the adjacent sections. */
+    overflow: visible;
+  }
+
+  /* ---- Video / image background ---- */
+  .ls-video-polaroid__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .ls-video-polaroid__bg video,
+  .ls-video-polaroid__fallback {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ls-video-polaroid__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: var(--ls-vp-overlay, rgba(24, 28, 40, 0.8));
+  }
+
+  /* Clip layer around polaroid 2. Transparent on desktop so the polaroid
+     positions against the section exactly as before. */
+  .ls-video-polaroid__clip {
+    display: contents;
+  }
+
+  /* ---- Polaroid: paper frame, freely positioned over the video ---- */
+  .ls-video-polaroid__polaroid {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    width: var(--pol-w, 280px);
+    box-sizing: border-box;
+    padding: var(--pol-pad, 12px);
+    background-color: var(--ls-travel-paper, #f4f1e9);
+    background-image: var(--ls-travel-texture, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"));
+    background-size: cover, 240px 240px;
+    background-repeat: no-repeat, repeat;
+    box-shadow: 0 4px 4px rgba(30, 30, 46, 0.35);
+    transform: translate(-50%, -50%) translate(var(--pol-x, 0px), var(--pol-y, 0px)) rotate(var(--pol-rot, 0deg));
+  }
+  .ls-video-polaroid__photo {
+    position: relative;
+    overflow: hidden;
+  }
+  /* Keep the photo's natural aspect ratio. */
+  .ls-video-polaroid__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ---- Centered content group (populated in the editor) ---- */
+  .ls-video-polaroid__content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    /* Mobile: turn the polaroid-2 wrapper into a section-sized clip layer so
+       polaroid 2 (bottom-right) is cut off at the section edges instead of
+       spilling into the next section. pointer-events: none keeps it from
+       blocking the section content beneath it. Polaroid 1 is unaffected. */
+    .ls-video-polaroid__clip {
+      display: block;
+      position: absolute;
+      inset: 0;
+      overflow: clip;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .ls-video-polaroid__polaroid {
+      width: var(--pol-w-m, 160px);
+      padding: var(--pol-pad-m, 7px);
+    }
+    .ls-video-polaroid__polaroid--tl {
+      left: 0;
+      top: 0;
+      transform: translate(var(--pol-x-m, 0px), var(--pol-y-m, 0px)) rotate(var(--pol-rot, 0deg));
+    }
+    .ls-video-polaroid__polaroid--br {
+      left: auto;
+      top: auto;
+      right: 0;
+      bottom: 0;
+      transform: translate(var(--pol-x-m, 0px), var(--pol-y-m, 0px)) rotate(var(--pol-rot, 0deg));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Video with Polaroid",
+  "tag": "section",
+  "class": "ls-video-polaroid-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "video",
+      "id": "background_video",
+      "label": "Background video"
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Fallback image",
+      "info": "Shown when no video is set."
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "alpha": true,
+      "default": "#181c28cc"
+    },
+    {
+      "type": "header",
+      "content": "Polaroid 1 (top left)",
+      "info": "Shows only when an image is set. Positioned freely over the video."
+    },
+    { "type": "image_picker", "id": "polaroid_1", "label": "Image" },
+    { "type": "range", "id": "polaroid_1_width", "label": "Width", "min": 80, "max": 560, "step": 8, "unit": "px", "default": 280 },
+    { "type": "range", "id": "polaroid_1_rotation", "label": "Rotation", "min": -30, "max": 30, "step": 1, "unit": "°", "default": -8 },
+    { "type": "range", "id": "polaroid_1_x", "label": "X offset", "min": -800, "max": 800, "step": 16, "unit": "px", "default": -480 },
+    { "type": "range", "id": "polaroid_1_y", "label": "Y offset", "min": -500, "max": 500, "step": 10, "unit": "px", "default": -200 },
+    { "type": "range", "id": "polaroid_1_width_mobile", "label": "Width (mobile)", "min": 60, "max": 400, "step": 4, "unit": "px", "default": 160 },
+    { "type": "range", "id": "polaroid_1_x_mobile", "label": "X offset (mobile)", "info": "From the top-left corner. Negative pushes it out of view.", "min": -400, "max": 400, "step": 8, "unit": "px", "default": 0 },
+    { "type": "range", "id": "polaroid_1_y_mobile", "label": "Y offset (mobile)", "min": -400, "max": 400, "step": 8, "unit": "px", "default": 0 },
+    {
+      "type": "header",
+      "content": "Polaroid 2 (bottom right)",
+      "info": "Shows only when an image is set. Positioned freely over the video."
+    },
+    { "type": "image_picker", "id": "polaroid_2", "label": "Image" },
+    { "type": "range", "id": "polaroid_2_width", "label": "Width", "min": 80, "max": 560, "step": 8, "unit": "px", "default": 280 },
+    { "type": "range", "id": "polaroid_2_rotation", "label": "Rotation", "min": -30, "max": 30, "step": 1, "unit": "°", "default": 6 },
+    { "type": "range", "id": "polaroid_2_x", "label": "X offset", "min": -800, "max": 800, "step": 16, "unit": "px", "default": 480 },
+    { "type": "range", "id": "polaroid_2_y", "label": "Y offset", "min": -500, "max": 500, "step": 10, "unit": "px", "default": 200 },
+    { "type": "range", "id": "polaroid_2_width_mobile", "label": "Width (mobile)", "min": 60, "max": 400, "step": 4, "unit": "px", "default": 160 },
+    { "type": "range", "id": "polaroid_2_x_mobile", "label": "X offset (mobile)", "info": "From the bottom-right corner. Positive pushes it out of view.", "min": -400, "max": 400, "step": 8, "unit": "px", "default": 0 },
+    { "type": "range", "id": "polaroid_2_y_mobile", "label": "Y offset (mobile)", "min": -400, "max": 400, "step": 8, "unit": "px", "default": 0 },
+    {
+      "type": "header",
+      "content": "Paper"
+    },
+    {
+      "type": "range",
+      "id": "frame_thickness",
+      "label": "Frame thickness",
+      "info": "Polaroid border width as a percentage of the photo width, so it scales with the polaroid size.",
+      "min": 0,
+      "max": 12,
+      "step": 0.5,
+      "unit": "%",
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "paper_color",
+      "label": "Polaroid paper color",
+      "default": "#f4f1e9"
+    },
+    {
+      "type": "image_picker",
+      "id": "paper_texture",
+      "label": "Paper texture",
+      "info": "Optional. Falls back to a baked-in grain."
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 300, "step": 4, "unit": "px", "default": 128 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 300, "step": 4, "unit": "px", "default": 128 },
+    { "type": "checkbox", "id": "use_mobile_padding", "label": "Use mobile padding", "default": false },
+    { "type": "range", "id": "padding-block-start-mobile", "label": "t:settings.top", "min": 0, "max": 300, "step": 4, "unit": "px", "default": 64, "visible_if": "{{ section.settings.use_mobile_padding }}" },
+    { "type": "range", "id": "padding-block-end-mobile", "label": "t:settings.bottom", "min": 0, "max": 300, "step": 4, "unit": "px", "default": 64, "visible_if": "{{ section.settings.use_mobile_padding }}" }
+  ],
+  "presets": [
+    {
+      "name": "LS Video with Polaroid",
+      "category": "t:categories.other_sections",
+      "blocks": {
+        "content": {
+          "type": "group",
+          "static": true,
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 10,
+            "width": "fill"
+          }
+        }
+      }
+    }
+  ]
+}
+{% endschema %}

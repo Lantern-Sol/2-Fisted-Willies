@@ -1,0 +1,175 @@
+{%- liquid
+  assign s = section.settings
+-%}
+
+{%- capture bg_style -%}
+  --ls-story-grad-top: {{ s.gradient_top }};
+  --ls-story-grad-bottom: {{ s.gradient_bottom }};
+  --ls-story-grad-start: {{ s.gradient_start }}%;
+  --ls-story-grad-start-m: {{ s.gradient_start_mobile }}%;
+{%- endcapture -%}
+
+<div class="section-background ls-story__bg" style="{{ bg_style }}"></div>
+<div
+  class="section ls-story spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}--ls-story-gap: {{ s.gap }}px;"
+>
+  {% content_for 'blocks' %}
+</div>
+
+{% stylesheet %}
+  /* Soft vertical gradient tint. Colors carry alpha, so it sits over whatever
+     is behind it (page background / previous section). */
+  .ls-story__bg {
+    background-image: linear-gradient(
+      to bottom,
+      var(--ls-story-grad-top, rgba(10, 12, 18, 0.2)) var(--ls-story-grad-start, 8%),
+      var(--ls-story-grad-bottom, rgba(145, 153, 200, 0.1)) 100%
+    );
+  }
+  /* Inline-set custom props win over stylesheet ones, so we can't override
+     --ls-story-grad-start here — redefine the whole gradient with the mobile stop. */
+  @media screen and (max-width: 749px) {
+    .ls-story__bg {
+      background-image: linear-gradient(
+        to bottom,
+        var(--ls-story-grad-top, rgba(10, 12, 18, 0.2)) var(--ls-story-grad-start-m, 8%),
+        var(--ls-story-grad-bottom, rgba(145, 153, 200, 0.1)) 100%
+      );
+    }
+  }
+
+  .ls-story {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ls-story-gap, 20px);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Story",
+  "tag": "section",
+  "class": "ls-story-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Gradient"
+    },
+    {
+      "type": "color",
+      "id": "gradient_top",
+      "label": "Top color",
+      "alpha": true,
+      "default": "#0a0c1233"
+    },
+    {
+      "type": "color",
+      "id": "gradient_bottom",
+      "label": "Bottom color",
+      "alpha": true,
+      "default": "#9199c81a"
+    },
+    {
+      "type": "range",
+      "id": "gradient_start",
+      "label": "Top color start",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "gradient_start_mobile",
+      "label": "Top color start (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between blocks",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "use_mobile_padding",
+      "label": "Use mobile padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start-mobile",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 32,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end-mobile",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48,
+      "visible_if": "{{ section.settings.use_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Story",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}
