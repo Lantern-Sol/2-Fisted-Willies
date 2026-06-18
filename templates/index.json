@@ -819,7 +819,7 @@
               "name": "LS Button",
               "settings": {
                 "label": "Our Story →",
-                "link": "",
+                "link": "shopify://pages/about-us",
                 "open_in_new_tab": false,
                 "style": "link",
                 "alignment": "flex-start",
