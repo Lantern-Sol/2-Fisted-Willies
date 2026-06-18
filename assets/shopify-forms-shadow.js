@@ -1,7 +1,154 @@
 (function () {
   const STYLE_ID = 'theme-shopify-forms-style';
+  const NEWSLETTER_STYLE_ID = 'theme-shopify-forms-newsletter-style';
   const script = document.getElementById('shopify-forms-shadow-styles');
   const cssUrl = script?.dataset.stylesheetUrl;
+
+  // Selector marking embeds that should get the newsletter look (transparent
+  // underline input + light-blue button). Only the embed inside the LS
+  // Newsletter Signup SMS tab matches, so other forms (contact, event) are
+  // untouched.
+  const NEWSLETTER_HOST_SELECTOR = '.newsletter-signup__panel--sms';
+
+  // Override layered on top of the base shadow styles, injected ONLY into the
+  // newsletter embed's shadow root. Because each shadow root is isolated, these
+  // plain element selectors can't leak to other forms — so we avoid the hashed
+  // class names (which change on app updates) and target stable attributes.
+  const NEWSLETTER_CSS = `
+    /* Lift the 620px form cap from the base styles so the form fills the panel. */
+    [class*="_container_"],
+    [class*="_inline_"],
+    [class*="_formContainer_"],
+    [data-sizing="form-wrapper"] {
+      max-width: none !important;
+      width: 100% !important;
+    }
+    /* Collapse the dead space below the form. The embed host is ~71px taller
+       than the form because the form container is a grid sized for an image
+       cell (hidden) plus a content cell. Force rows to size to content and drop
+       any min-height so the host shrinks to the form. (No padding involved.) */
+    [class*="_formContainer_"] {
+      min-height: 0 !important;
+      grid-template-rows: auto !important;
+      align-content: start !important;
+      row-gap: 0 !important;
+    }
+    /* Drop the bottom padding on the grid content cell (the dead band below the
+       form row). */
+    [class*="_gridItemContent_"],
+    [class*="_gridItem_"] {
+      padding-block-end: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]) {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      border: 0 !important;
+      border-bottom: 1px solid rgb(255 255 255 / 0.2) !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      color: #eae8f0 !important;
+      padding: 16px 24px !important;
+    }
+    /* Let the input stretch to its container's full width. */
+    [class*="_formFieldContainer_"] > * {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    /* Remove the phone field label. */
+    label[class*="_formInputFieldLabel_"] {
+      display: none !important;
+    }
+    input::placeholder {
+      color: #eae8f0 !important;
+      opacity: 1;
+    }
+    /* Specificity tuned to tie/beat the base shadow stylesheet (which uses
+       !important): the base focus rule is input.<class>:focus-visible (0,2,1)
+       and the base button is div button.<class> (0,1,2). Matching those and
+       appending later lets the override win. [class*="_..._"] also survives
+       the app rehashing its generated class names. */
+    input[class*="_formInputField_"]:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+      border-bottom-color: #b8c8f2 !important;
+    }
+    /* Mirror the email tab's .newsletter-signup__submit button. (--font-body--family
+       inherits through the shadow boundary, so the font matches.) max-width / margin
+       / width / border-radius also override the base shadow stylesheet. */
+    div button[class*="_formSubmitButton_"],
+    button[type="submit"] {
+      flex: 0 0 auto !important;
+      background-color: #b8c8f2 !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 16px !important;
+      font-family: var(--font-body--family) !important;
+      font-weight: 500 !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      letter-spacing: 2.4px !important;
+      text-transform: uppercase !important;
+      color: #004fdf !important;
+      white-space: nowrap !important;
+      cursor: pointer !important;
+      max-width: none !important;
+      margin: 0 !important;
+      width: auto !important;
+    }
+    /* One row: the phone widget fills the width and the submit button sits
+       beside it. The number input is nested two levels deep
+       (form > _formPhoneInputContainer_ > _formFieldContainer_ > input), so the
+       grow has to be applied at every level or the widget collapses to the
+       country flag's width. */
+    form[class*="_formFieldset_"] {
+      flex-wrap: nowrap !important;
+      align-items: flex-end !important;
+      gap: 0 !important;
+    }
+    /* Neutralize the base calc(100% - 2px) on every form child. */
+    form[class*="_formFieldset_"] > * {
+      width: auto !important;
+    }
+    /* Phone widget (the actual form child) fills the row. Scoped under the form
+       so it out-specifies the app's own flex rule on this container (which was
+       pinning it to ~187px). Force display:flex so the number container can
+       grow instead of shrinking to the flag's width. */
+    form[class*="_formFieldset_"] > [class*="_formPhoneInputContainer_"] {
+      display: flex !important;
+      flex: 1 1 auto !important;
+      width: auto !important;
+      min-width: 0 !important;
+      align-items: flex-end !important;
+      /* Kill the gap/left padding that separated the (now hidden) country
+         selector from the number input, so the field starts at the edge. */
+      column-gap: 0 !important;
+      gap: 0 !important;
+      padding-inline-start: 0 !important;
+      padding-left: 0 !important;
+      /* Space from the submit button via margin instead of the form's row gap. */
+      margin-inline-end: 16px !important;
+      margin-right: 16px !important;
+    }
+    /* Number-input container takes all remaining space in the phone widget. */
+    form[class*="_formFieldset_"] [class*="_formFieldContainer_"] {
+      flex: 1 1 auto !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      padding-inline-start: 0 !important;
+      padding-left: 0 !important;
+    }
+    /* Submit button hugs its label, never grows. */
+    button[class*="_formSubmitButton_"] {
+      flex: 0 0 auto !important;
+    }
+    /* Hide the country / flag selector. The number input still defaults to the
+       US (+1), which the proxy submits, so numbers stay valid for SMS. This is
+       a stable, non-hashed class. */
+    .phone-country-selector {
+      display: none !important;
+    }
+  `;
 
   if (!cssUrl) {
     console.warn('[shopify-forms-shadow] Missing data-stylesheet-url on #shopify-forms-shadow-styles');
@@ -80,6 +227,22 @@
     });
   }
 
+  /**
+   * Layer the newsletter override on top of the base styles, but only for the
+   * embed inside the newsletter SMS tab. Appended after the base <style> so it
+   * wins, and isolated to this shadow root so it can't touch other forms.
+   * @param {Element} host
+   * @param {ShadowRoot} shadow
+   */
+  function applyNewsletterStyle(host, shadow) {
+    if (!host.closest(NEWSLETTER_HOST_SELECTOR)) return;
+    if (shadow.getElementById(NEWSLETTER_STYLE_ID)) return;
+    const style = document.createElement('style');
+    style.id = NEWSLETTER_STYLE_ID;
+    style.textContent = NEWSLETTER_CSS;
+    shadow.appendChild(style);
+  }
+
   /** @param {Element} host */
   function inject(host) {
     const shadow = host.shadowRoot;
@@ -91,6 +254,7 @@
     if (shadow.getElementById(STYLE_ID)) {
       applyDateInputs(shadow);
       applyPlaceholders(shadow);
+      applyNewsletterStyle(host, shadow);
       return;
     }
 
@@ -104,6 +268,7 @@
         }
         applyDateInputs(shadow);
         applyPlaceholders(shadow);
+        applyNewsletterStyle(host, shadow);
       })
       .catch((err) => {
         console.warn('[shopify-forms-shadow] Could not load styles:', err);
