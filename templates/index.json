@@ -819,7 +819,7 @@
               "name": "LS Button",
               "settings": {
                 "label": "Our Story →",
-                "link": "shopify://pages/about-us",
+                "link": "shopify://pages/who-is-willie",
                 "open_in_new_tab": false,
                 "style": "link",
                 "alignment": "flex-start",
