@@ -866,7 +866,7 @@
         "ls_about_card_JYwKzW"
       ],
       "custom_css": [
-        "@media screen and (min-width: 768px) {.ls-text__content.rte {max-width: 260px;}}"
+        "@media screen and (min-width: 768px) {.ls-text__content.rte {max-width: 260px; }}"
       ],
       "name": "LS About",
       "settings": {
@@ -882,7 +882,7 @@
         "polaroid_2_rotation": 3,
         "polaroid_2_x": 8,
         "polaroid_2_y": 120,
-        "polaroid_2_x_mobile": 100,
+        "polaroid_2_x_mobile": 24,
         "polaroid_2_y_mobile": 96,
         "frame_color": "#f4f1e9",
         "frame_texture": "shopify://shop_images/cardstock-bg.jpg",
