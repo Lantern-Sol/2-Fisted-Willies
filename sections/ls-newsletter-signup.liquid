@@ -5,13 +5,15 @@
   assign body = section.settings.body
   assign tab_1 = section.settings.tab_1
   assign tab_2 = section.settings.tab_2
-  assign input_placeholder = section.settings.input_placeholder
+  assign email_placeholder = section.settings.email_placeholder
   assign button_label = section.settings.button_label
   assign terms = section.settings.terms
+  assign email_terms = section.settings.email_terms
 %}
 
 <div class="section-background newsletter-signup__background"></div>
 <div
+  id="LsNewsletter-{{ section.id }}"
   class="section section--page-width spacing-style newsletter-signup"
   style="{% render 'spacing-style', settings: section.settings %}"
 >
@@ -33,35 +35,126 @@
       {%- endif -%}
     </div>
 
-    {%- comment -%} Sign-up is visual-only for now — no form action / submission wiring. {%- endcomment -%}
+    {%- assign news_form_id = section.id | prepend: 'LsNewsletter-' -%}
     <div class="newsletter-signup__form">
-      <div class="newsletter-signup__tabs">
+      <div class="newsletter-signup__tabs" role="tablist">
         {%- if tab_1 != blank -%}
-          <button type="button" class="newsletter-signup__tab is-active">{{ tab_1 }}</button>
+          <button type="button" class="newsletter-signup__tab is-active" data-ls-news-tab="sms" role="tab" aria-selected="true">{{ tab_1 }}</button>
         {%- endif -%}
         {%- if tab_2 != blank -%}
-          <button type="button" class="newsletter-signup__tab">{{ tab_2 }}</button>
+          <button type="button" class="newsletter-signup__tab" data-ls-news-tab="email" role="tab" aria-selected="false">{{ tab_2 }}</button>
         {%- endif -%}
       </div>
 
-      <div class="newsletter-signup__field">
-        <input
-          type="tel"
-          class="newsletter-signup__input"
-          placeholder="{{ input_placeholder }}"
-          aria-label="{{ tab_1 | default: 'Phone number' }}"
-        >
-        {%- if button_label != blank -%}
-          <button type="button" class="newsletter-signup__submit">{{ button_label }}</button>
+      {%- comment -%}
+        SMS panel — hosts a Shopify Forms app block (Add block → Shopify Forms).
+        SMS marketing consent can't be collected from a storefront Liquid form,
+        so the actual phone/consent capture is delegated to Shopify Forms, which
+        feeds the native Shopify Messaging app for sending. The Email panel below
+        stays a native Liquid customer form.
+      {%- endcomment -%}
+      <div class="newsletter-signup__panel newsletter-signup__panel--sms is-active" data-ls-news-panel="sms">
+        {%- content_for "blocks" -%}
+        {%- if request.design_mode and section.blocks.size == 0 -%}
+          <p class="newsletter-signup__hint">
+            Add your SMS signup here: <strong>Add block → Shopify Forms</strong>. Requires the Shopify Forms &amp; Shopify Messaging apps.
+          </p>
+        {%- endif -%}
+        {%- if terms != blank -%}
+          <div class="newsletter-signup__terms">{{ terms }}</div>
         {%- endif -%}
       </div>
 
-      {%- if terms != blank -%}
-        <div class="newsletter-signup__terms">{{ terms }}</div>
-      {%- endif -%}
+      {%- comment -%} Email panel — native Shopify customer (newsletter) form. {%- endcomment -%}
+      <div class="newsletter-signup__panel" data-ls-news-panel="email">
+        {%- form 'customer', class: 'newsletter-signup__email-form' -%}
+          <input type="hidden" name="contact[id]" value="{{ news_form_id }}">
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label for="LsNewsletterEmail-{{ section.id }}" class="visually-hidden">
+            {{ 'blocks.email_signup.label' | t }}
+          </label>
+          <div class="newsletter-signup__field">
+            <input
+              id="LsNewsletterEmail-{{ section.id }}"
+              type="email"
+              name="contact[email]"
+              class="newsletter-signup__input"
+              placeholder="{{ email_placeholder | default: 'you@email.com' }}"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              required
+              {% if form.errors and form.id == news_form_id %}
+                autofocus
+                aria-invalid="true"
+                aria-describedby="LsNewsletterError-{{ section.id }}"
+              {% elsif form.posted_successfully? and form.id == news_form_id %}
+                aria-describedby="LsNewsletterSuccess-{{ section.id }}"
+              {% endif %}
+            >
+            {%- if button_label != blank -%}
+              <button type="submit" class="newsletter-signup__submit">{{ button_label }}</button>
+            {%- endif -%}
+          </div>
+
+          {%- if form.errors and form.id == news_form_id -%}
+            <div id="LsNewsletterError-{{ section.id }}" class="newsletter-signup__message newsletter-signup__message--error" tabindex="-1">
+              {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+            </div>
+          {%- elsif form.posted_successfully? and form.id == news_form_id -%}
+            <div id="LsNewsletterSuccess-{{ section.id }}" class="newsletter-signup__message newsletter-signup__message--success" tabindex="-1">
+              {{ 'blocks.email_signup.success' | t }}
+            </div>
+          {%- endif -%}
+
+          {%- if email_terms != blank -%}
+            <div class="newsletter-signup__terms">{{ email_terms }}</div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var root = document.getElementById('LsNewsletter-{{ section.id }}');
+    if (!root || root.dataset.lsNewsBound) return;
+    root.dataset.lsNewsBound = 'true';
+
+    var tabs = root.querySelectorAll('[data-ls-news-tab]');
+    var panels = root.querySelectorAll('[data-ls-news-panel]');
+
+    function activate(key) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-ls-news-tab') === key;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach(function (p) {
+        p.classList.toggle('is-active', p.getAttribute('data-ls-news-panel') === key);
+      });
+    }
+
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        activate(t.getAttribute('data-ls-news-tab'));
+      });
+    });
+
+    // After the email form posts (success or error), surface the email tab and
+    // pull the section into view — the customer form redirects to the top of
+    // the page, so without this the message lands off-screen.
+    var msg = root.querySelector('[data-ls-news-panel="email"] .newsletter-signup__message');
+    if (msg) {
+      activate('email');
+      window.addEventListener('load', function () {
+        root.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (typeof msg.focus === 'function') msg.focus();
+      });
+    }
+  })();
+</script>
 
 {% stylesheet %}
   /* Section background — the full-width band behind/around the card.
@@ -225,6 +318,60 @@
     text-decoration: none;
   }
 
+  /* Tab panels: only the active one shows. SMS hosts a Shopify Forms app block,
+     Email is the live native form. */
+  .newsletter-signup__panel {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .newsletter-signup__panel.is-active {
+    display: flex;
+  }
+
+  /* Let the Shopify Forms embed host shrink to its form (it can reserve extra
+     height). The form's internal layout is handled in shopify-forms-shadow.js. */
+  .newsletter-signup__panel--sms shopify-forms-embed {
+    display: block;
+    min-height: 0;
+    height: auto;
+  }
+
+  /* Editor-only prompt shown in the SMS tab until a Shopify Forms block is added. */
+  .newsletter-signup__hint {
+    margin: 0;
+    padding: 16px 20px;
+    border: 1px dashed #9ca0b8;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 1.4;
+    color: #b8c8f2;
+  }
+
+  .newsletter-signup__email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .newsletter-signup__message {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .newsletter-signup__message--success {
+    color: #b8c8f2;
+  }
+
+  .newsletter-signup__message--error {
+    color: #ff9a9a;
+  }
+
   @media screen and (max-width: 749px) {
     .newsletter-signup__card {
       flex-direction: column;
@@ -259,6 +406,11 @@
   "disabled_on": {
     "groups": ["header", "footer"]
   },
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
   "settings": [
     {
       "type": "text",
@@ -286,37 +438,47 @@
     },
     {
       "type": "header",
-      "content": "Sign-up (display only)"
+      "content": "Sign-up"
+    },
+    {
+      "type": "paragraph",
+      "content": "The Email tab is a live Shopify signup (creates a customer with email marketing consent). The Text (SMS) tab hosts a Shopify Forms block — use Add block → Shopify Forms to place your SMS signup. Requires the Shopify Forms & Shopify Messaging apps."
     },
     {
       "type": "text",
       "id": "tab_1",
-      "label": "Tab 1 label",
+      "label": "Tab 1 label (SMS — Shopify Forms)",
       "default": "Text (SMS)"
     },
     {
       "type": "text",
       "id": "tab_2",
-      "label": "Tab 2 label",
+      "label": "Tab 2 label (Email — live)",
       "default": "Email"
     },
     {
       "type": "text",
-      "id": "input_placeholder",
-      "label": "Input placeholder",
-      "default": "(959) 555 -0142"
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "you@email.com"
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Button label",
+      "label": "Email button label",
       "default": "Sign me up →"
     },
     {
       "type": "richtext",
       "id": "terms",
-      "label": "Terms text",
+      "label": "SMS helper text (optional)",
+      "info": "Optional copy shown under the SMS form. Shopify Forms provides its own consent text.",
       "default": "<p>By signing up you agree to receive recurring marketing texts from 2 Fisted Willie's. Msg & data rates may apply. Text STOP to opt out. View <a href=\"#\">terms.</a></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "email_terms",
+      "label": "Email terms (optional)"
     },
     {
       "type": "header",
