@@ -1453,6 +1453,9 @@
       "block_order": [
         "group_fw6Mie"
       ],
+      "custom_css": [
+        "@media screen and (max-width: 768px) {>div{display: block;}}"
+      ],
       "name": "LS Table Reservation",
       "settings": {
         "bg_color": "#13131b",
