@@ -865,6 +865,9 @@
       "block_order": [
         "ls_about_card_JYwKzW"
       ],
+      "custom_css": [
+        ".ls-text__content.rte {max-width: 260px;}"
+      ],
       "name": "LS About",
       "settings": {
         "bg_color": "#111318",
