@@ -30,22 +30,64 @@
       <p class="ls-news-home__body">{{ s.body }}</p>
     {%- endif -%}
 
-    {%- comment -%} Display only for now — no form action / submission wiring. {%- endcomment -%}
-    <div class="ls-news-home__form">
+    {%- comment -%} Native Shopify customer (newsletter) form — creates a customer with email marketing consent. {%- endcomment -%}
+    {%- assign news_form_id = section.id | prepend: 'LsNewsHome-' -%}
+    {%- form 'customer', class: 'ls-news-home__form' -%}
+      <input type="hidden" name="contact[id]" value="{{ news_form_id }}">
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <label for="LsNewsHomeEmail-{{ section.id }}" class="visually-hidden">
+        {{ s.input_placeholder | default: 'Email' | escape }}
+      </label>
       <div class="ls-news-home__field">
         <input
+          id="LsNewsHomeEmail-{{ section.id }}"
           type="email"
+          name="contact[email]"
           class="ls-news-home__input"
           placeholder="{{ s.input_placeholder | escape }}"
           aria-label="{{ s.input_placeholder | escape }}"
           autocorrect="off"
           autocapitalize="off"
+          autocomplete="email"
+          required
+          {% if form.errors and form.id == news_form_id %}
+            autofocus
+            aria-invalid="true"
+            aria-describedby="LsNewsHomeError-{{ section.id }}"
+          {% elsif form.posted_successfully? and form.id == news_form_id %}
+            aria-describedby="LsNewsHomeSuccess-{{ section.id }}"
+          {% endif %}
         >
-        <button type="button" class="ls-news-home__submit">{{ s.button_label }}</button>
+        <button type="submit" class="ls-news-home__submit">{{ s.button_label }}</button>
       </div>
-    </div>
+
+      {%- if form.errors and form.id == news_form_id -%}
+        <p id="LsNewsHomeError-{{ section.id }}" class="ls-news-home__message ls-news-home__message--error" tabindex="-1">
+          {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+        </p>
+      {%- elsif form.posted_successfully? and form.id == news_form_id -%}
+        <p id="LsNewsHomeSuccess-{{ section.id }}" class="ls-news-home__message ls-news-home__message--success" tabindex="-1">
+          {{ 'blocks.email_signup.success' | t }}
+        </p>
+      {%- endif -%}
+    {%- endform -%}
   </div>
 </div>
+
+<script>
+  (function () {
+    var section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+    var msg = section.querySelector('.ls-news-home__message');
+    if (!msg) return;
+    // The customer form redirects to the top of the page after submit, so pull
+    // the section back into view and focus the message once everything loads.
+    window.addEventListener('load', function () {
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (typeof msg.focus === 'function') msg.focus();
+    });
+  })();
+</script>
 
 {% stylesheet %}
   /* Full-bleed blue band — the theme forces .section backgrounds transparent,
