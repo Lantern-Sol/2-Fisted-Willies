@@ -46,7 +46,7 @@
           "type": "link",
           "settings": {
             "label": "Private Events",
-            "url": "shopify://pages/reserve-private-event"
+            "url": "shopify://pages/private-events"
           }
         },
         "link_q3Mw7A": {

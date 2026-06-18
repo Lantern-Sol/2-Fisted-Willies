@@ -363,7 +363,7 @@
               "name": "LS Button",
               "settings": {
                 "label": "Reserve a Table",
-                "link": "shopify://pages/reserve-private-event",
+                "link": "shopify://pages/private-events",
                 "open_in_new_tab": false,
                 "style": "filled",
                 "alignment": "flex-start",
@@ -2515,7 +2515,7 @@
                   "name": "LS Button",
                   "settings": {
                     "label": "Request a Date →",
-                    "link": "shopify://pages/reserve-private-event",
+                    "link": "shopify://pages/private-events",
                     "open_in_new_tab": false,
                     "style": "filled",
                     "alignment": "flex-start",
