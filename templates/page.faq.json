@@ -735,7 +735,7 @@
                   "name": "LS Button",
                   "settings": {
                     "label": "Plan a Private Event",
-                    "link": "shopify://pages/reserve-private-event",
+                    "link": "shopify://pages/private-events",
                     "open_in_new_tab": false,
                     "style": "filled",
                     "alignment": "flex-start",
