@@ -2466,7 +2466,7 @@
                   "type": "ls-text",
                   "name": "LS Text",
                   "settings": {
-                    "text": "<p>No Full Kitchen, No Problem Eat What</p>",
+                    "text": "<p>No Full Kitchen, No Problem</p>",
                     "font_family": "var(--font-body--family)",
                     "font_size": 12,
                     "font_size_mobile": 0,
