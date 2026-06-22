@@ -623,7 +623,13 @@ p.ls-event-card__genre {
 h3.ls-event-card__name {
     font-size: 60px;
 }
-
+.ls-event-card--featured .ls-event-card__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    
+}
 @media screen and (max-width: 768px) {
 p.ls-event-card__genre {
     font-size: 18px;
@@ -633,13 +639,7 @@ h3.ls-event-card__name {
     font-size: 32px;
 }
 
-.ls-event-card--featured .ls-event-card__body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px 0;
-    
-}
+
 
 article.ls-event-card.ls-event-card--featured {
     display: flex;
@@ -713,10 +713,10 @@ span.ls-events__archive-title-2 {
 }
 
 @media screen and (max-width: 768px) {
-span.ls-events__archive-title-1 {
+span.ls-events__archive-title-2 {
 font-size: 64px;
 }
-span.ls-events__archive-title-2 {
+span.ls-events__archive-title-1 {
   font-size: 56px;
 }
 }
