@@ -173,8 +173,8 @@
             "link": "",
             "open_in_new_tab": false,
             "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 10,
+            "padding-block-start": 20,
+            "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0,
             "use_mobile_padding": false,
@@ -223,51 +223,10 @@
                 "padding-inline-end-mobile": 0
               },
               "blocks": {}
-            },
-            "ls_text_pM9jwE": {
-              "type": "ls-text",
-              "name": "LS Text",
-              "settings": {
-                "text": "<p>388 Woodland Avenue - Lexington, KY<br/><br/></p>",
-                "font_family": "var(--font-cormorant-garamond-italic--family)",
-                "font_size": 16,
-                "font_size_mobile": 0,
-                "letter_spacing": 0,
-                "use_mobile_letter_spacing": false,
-                "letter_spacing_mobile": 0,
-                "line_height": 1.4,
-                "use_mobile_line_height": false,
-                "line_height_mobile": 1.4,
-                "font_weight": "400",
-                "text_transform": "none",
-                "text_align": "center",
-                "text_align_mobile": "",
-                "max_width": "none",
-                "text_color": "",
-                "emphasis_color": "",
-                "emphasis_font": "",
-                "emphasis_weight": "",
-                "use_emphasis_letter_spacing": false,
-                "emphasis_letter_spacing": 0,
-                "use_emphasis_letter_spacing_mobile": false,
-                "emphasis_letter_spacing_mobile": 0,
-                "opacity": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "use_mobile_padding": false,
-                "padding-block-start-mobile": 0,
-                "padding-block-end-mobile": 0,
-                "padding-inline-start-mobile": 0,
-                "padding-inline-end-mobile": 0
-              },
-              "blocks": {}
             }
           },
           "block_order": [
-            "ls_text_6JwWeW",
-            "ls_text_pM9jwE"
+            "ls_text_6JwWeW"
           ]
         }
       },
@@ -315,7 +274,7 @@
         "blurred_reflection": false,
         "reflection_opacity": 75,
         "padding-block-start": 64,
-        "padding-block-end": 48,
+        "padding-block-end": 64,
         "use_mobile_padding": true,
         "padding-block-start-mobile": 60,
         "padding-block-end-mobile": 60
