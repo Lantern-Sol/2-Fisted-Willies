@@ -599,9 +599,13 @@ article.ls-event-card {
     background: #1E2336BF;
     grid-template-columns: 230px 1fr auto;
     padding: 8px;
-    padding-right: 20px;
+    
 }
 
+
+article.ls-event-card.ls-event-card--featured {
+padding-right: 20px;
+}
 .ls-event-card--featured .ls-event-card__media {
     width: 230px;
     height: 230px;
@@ -635,6 +639,42 @@ h3.ls-event-card__name {
     justify-content: space-between;
     padding: 20px 0;
 }
+
+article.ls-event-card.ls-event-card--featured {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    justify-content: initial;
+    align-items: initial;
+}
+
+.ls-event-card--featured .ls-event-card__media {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.ls-event-card--featured .ls-event-card__media img {
+    aspect-ratio: 1 / 1;
+}
+
+.ls-event-card--featured .ls-event-card__body {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    justify-content: initial;
+}
+
+.ls-event-card__actions {}
+
+.ls-event-card__actions {
+    width: 100%;
+}
+
+.ls-events__inner {
+    padding-inline: 0;
+}
+
 {% endstylesheet %}
 
 
