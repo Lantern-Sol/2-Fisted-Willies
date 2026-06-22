@@ -300,7 +300,7 @@
         "filter_border": "#3d4a66",
         "filter_active_bg": "#1a2540",
         "padding-block-start": 64,
-        "padding-block-end": 24
+        "padding-block-end": 40
       }
     },
     "ls_events_upcoming": {

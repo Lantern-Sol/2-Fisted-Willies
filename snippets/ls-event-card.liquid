@@ -139,7 +139,7 @@ Renders an event card.
         {%- endif -%}
         <time class="ls-event-card__date" datetime="{{ event_date_iso }}">{{ date_label }}</time>
       </div>
-
+ <div class="ls-event-card__meta-mid">
       {%- if event_name != blank -%}
         <h3 class="ls-event-card__name">{{ event_name }}</h3>
       {%- endif -%}
@@ -147,6 +147,7 @@ Renders an event card.
       {%- if genre != blank -%}
         <p class="ls-event-card__genre">{{ genre }}</p>
       {%- endif -%}
+    </div>
 
       <p class="ls-event-card__quick">{{ show_info }} <span class="ls-event-card__age">21+</span></p>
     </div>
