@@ -52,6 +52,9 @@
           "blocks": {}
         }
       },
+      "custom_css": [
+        "span.menu-list__link-title {letter-spacing: 1px;}"
+      ],
       "settings": {
         "logo_position": "center",
         "menu_position": "left",
