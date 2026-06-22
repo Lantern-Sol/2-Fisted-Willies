@@ -305,6 +305,11 @@
     },
     "ls_events_upcoming": {
       "type": "ls-events-upcoming",
+      "custom_css": [
+        "span.ls-events__title-1 {font-size: 128px;}",
+        "span.ls-events__title-2 {font-size: 84px; color: #B8C8F2; margin-top: -12px; margin-bottom: 10px;}",
+        "@media screen and (max-width: 768px) {span.ls-events__title-1 {font-size: 64px;}span.ls-events__title-2 {font-size: 56px; margin-bottom: 10px; margin-top: -8px;}}"
+      ],
       "settings": {
         "heading_1": "This week",
         "heading_2": "& Next",
