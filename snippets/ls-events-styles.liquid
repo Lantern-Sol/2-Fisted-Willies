@@ -712,17 +712,14 @@ span.ls-events__archive-title-2 {
     text-transform: capitalize;
 }
 
-p.ls-events__archive-subtitle {
-    font-family: Brand Fonts/Alternative Font;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: Brand Font Size/Body Alternative;
-    leading-trim: NONE;
-    line-height: 130%;
-    letter-spacing: 2%;
-    text-align: center;
+@media screen and (max-width: 768px) {
+span.ls-events__archive-title-1 {
+font-size: 64px;
 }
-
+span.ls-events__archive-title-2 {
+  font-size: 56px;
+}
+}
 
 {% endstylesheet %}
 
