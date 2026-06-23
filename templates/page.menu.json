@@ -2110,7 +2110,7 @@
             "index_label": "★ 04",
             "title": "Seltzer List",
             "subtitle": "",
-            "logo_height": 30,
+            "logo_height": 38,
             "logo_height_mobile": 0,
             "max_rows": 4,
             "row_gap": 12,
@@ -2121,8 +2121,8 @@
             "ls_picture_beverage_item_Pa3T7j": {
               "type": "ls-picture-beverage-item",
               "settings": {
-                "image": "shopify://shop_images/carbliss.png",
-                "name": "Carbliss",
+                "image": "shopify://shop_images/carbliss_9046c081-7527-440f-a2e6-90ef8a6b1b77.png",
+                "name": "Carbliss (Variety)",
                 "highlight": false,
                 "logo_height": 0,
                 "logo_height_mobile": 0
@@ -2140,12 +2140,23 @@
               },
               "blocks": {}
             },
+            "ls_picture_beverage_item_A4tcC9": {
+              "type": "ls-picture-beverage-item",
+              "settings": {
+                "image": "shopify://shop_images/good-boy.png",
+                "name": "Good Boy Lemonade",
+                "highlight": false,
+                "logo_height": 0,
+                "logo_height_mobile": 0
+              },
+              "blocks": {}
+            },
             "ls_picture_beverage_item_VrDd3x": {
               "type": "ls-picture-beverage-item",
               "name": "LS Picture Beverage Item",
               "settings": {
-                "image": "shopify://shop_images/high-noon.png",
-                "name": "High Noon",
+                "image": "shopify://shop_images/high-noon_a0d8a7ed-1f43-45e5-81c9-1ad55f0cbd82.png",
+                "name": "High Noon (Variety)",
                 "highlight": false,
                 "logo_height": 0,
                 "logo_height_mobile": 0
@@ -2156,8 +2167,8 @@
               "type": "ls-picture-beverage-item",
               "name": "LS Picture Beverage Item",
               "settings": {
-                "image": "shopify://shop_images/mom-water.png",
-                "name": "Mom Water",
+                "image": "shopify://shop_images/mom-water_b3ea51f9-e0f9-4360-acd9-b4b21aa86486.png",
+                "name": "Mom Water (Variety)",
                 "highlight": false,
                 "logo_height": 0,
                 "logo_height_mobile": 0
@@ -2168,8 +2179,8 @@
               "type": "ls-picture-beverage-item",
               "name": "LS Picture Beverage Item",
               "settings": {
-                "image": "shopify://shop_images/nutrl.png",
-                "name": "NÜTRL",
+                "image": "shopify://shop_images/nutrl_d4cfe4c4-95fb-46c0-818f-031267ebe920.png",
+                "name": "NÜTRL (Variety)",
                 "highlight": false,
                 "logo_height": 0,
                 "logo_height_mobile": 0
@@ -2181,7 +2192,7 @@
               "name": "LS Picture Beverage Item",
               "settings": {
                 "image": "shopify://shop_images/rivergreen.png",
-                "name": "Rivergreen",
+                "name": "Rivergreen (Variety)",
                 "highlight": false,
                 "logo_height": 0,
                 "logo_height_mobile": 0
@@ -2192,7 +2203,7 @@
               "type": "ls-picture-beverage-item",
               "name": "LS Picture Beverage Item",
               "settings": {
-                "image": "shopify://shop_images/sun-cruiser.png",
+                "image": "shopify://shop_images/sun-cruiser_a05cd7f7-2250-43b9-9851-beaeb38cff59.png",
                 "name": "Sun Cruiser",
                 "highlight": false,
                 "logo_height": 0,
@@ -2204,20 +2215,8 @@
               "type": "ls-picture-beverage-item",
               "name": "LS Picture Beverage Item",
               "settings": {
-                "image": "shopify://shop_images/surfside-blueberry.png",
-                "name": "Surfside Blueberry",
-                "highlight": false,
-                "logo_height": 0,
-                "logo_height_mobile": 0
-              },
-              "blocks": {}
-            },
-            "ls_picture_beverage_item_FXxzRQ": {
-              "type": "ls-picture-beverage-item",
-              "name": "LS Picture Beverage Item",
-              "settings": {
-                "image": "shopify://shop_images/surfside-strawberry.png",
-                "name": "Surfside Strawberry",
+                "image": "shopify://shop_images/surfside.png",
+                "name": "Surfside (Variety)",
                 "highlight": false,
                 "logo_height": 0,
                 "logo_height_mobile": 0
@@ -2228,7 +2227,7 @@
               "type": "ls-picture-beverage-item",
               "name": "LS Picture Beverage Item",
               "settings": {
-                "image": "shopify://shop_images/twisted-tea.png",
+                "image": "shopify://shop_images/twisted.png",
                 "name": "Twisted Tea",
                 "highlight": false,
                 "logo_height": 0,
@@ -2240,7 +2239,7 @@
               "type": "ls-picture-beverage-item",
               "name": "LS Picture Beverage Item",
               "settings": {
-                "image": "shopify://shop_images/white-claw.png",
+                "image": "shopify://shop_images/whiteclaw.png",
                 "name": "White Claw",
                 "highlight": false,
                 "logo_height": 0,
@@ -2252,8 +2251,8 @@
               "type": "ls-picture-beverage-item",
               "name": "LS Picture Beverage Item",
               "settings": {
-                "image": "shopify://shop_images/196.png",
-                "name": "196",
+                "image": "shopify://shop_images/ole.png",
+                "name": "OLÉ (VARIETY)",
                 "highlight": false,
                 "logo_height": 0,
                 "logo_height_mobile": 0
@@ -2264,13 +2263,13 @@
           "block_order": [
             "ls_picture_beverage_item_Pa3T7j",
             "ls_picture_beverage_item_MpKqwt",
+            "ls_picture_beverage_item_A4tcC9",
             "ls_picture_beverage_item_VrDd3x",
             "ls_picture_beverage_item_3Xd36d",
             "ls_picture_beverage_item_JnFJ9k",
             "ls_picture_beverage_item_f3w8eA",
             "ls_picture_beverage_item_tqaAxG",
             "ls_picture_beverage_item_gwUTCR",
-            "ls_picture_beverage_item_FXxzRQ",
             "ls_picture_beverage_item_HAF9zt",
             "ls_picture_beverage_item_W4bU9g",
             "ls_picture_beverage_item_rK8eCg"
