@@ -113,21 +113,48 @@
           <p class="ls-footer__connect-text">{{ s.connect_text }}</p>
         {%- endif -%}
 
-        {%- comment -%} Sign-up is visual-only — no form action / submission wiring. {%- endcomment -%}
+        {%- comment -%} Native Shopify customer (newsletter) form — creates a customer with email marketing consent. {%- endcomment -%}
         {%- if s.show_signup -%}
-          <div class="ls-footer__form">
+          {%- assign footer_form_id = section.id | prepend: 'LsFooter-' -%}
+          {%- form 'customer', class: 'ls-footer__form' -%}
+            <input type="hidden" name="contact[id]" value="{{ footer_form_id }}">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <label for="LsFooterEmail-{{ section.id }}" class="visually-hidden">
+              {{ s.input_placeholder | default: 'Email Address' | escape }}
+            </label>
             <div class="ls-footer__field">
               <input
+                id="LsFooterEmail-{{ section.id }}"
                 type="email"
+                name="contact[email]"
                 class="ls-footer__input"
                 placeholder="{{ s.input_placeholder | default: 'Email Address' | escape }}"
                 aria-label="{{ s.input_placeholder | default: 'Email Address' | escape }}"
                 autocorrect="off"
                 autocapitalize="off"
+                autocomplete="email"
+                required
+                {% if form.errors and form.id == footer_form_id %}
+                  autofocus
+                  aria-invalid="true"
+                  aria-describedby="LsFooterError-{{ section.id }}"
+                {% elsif form.posted_successfully? and form.id == footer_form_id %}
+                  aria-describedby="LsFooterSuccess-{{ section.id }}"
+                {% endif %}
               >
-              <button type="button" class="ls-footer__submit">{{ s.button_label | default: 'Sign up →' }}</button>
+              <button type="submit" class="ls-footer__submit">{{ s.button_label | default: 'Sign up →' }}</button>
             </div>
-          </div>
+
+            {%- if form.errors and form.id == footer_form_id -%}
+              <p id="LsFooterError-{{ section.id }}" class="ls-footer__message ls-footer__message--error" tabindex="-1">
+                {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+              </p>
+            {%- elsif form.posted_successfully? and form.id == footer_form_id -%}
+              <p id="LsFooterSuccess-{{ section.id }}" class="ls-footer__message ls-footer__message--success" tabindex="-1">
+                {{ 'blocks.email_signup.success' | t }}
+              </p>
+            {%- endif -%}
+          {%- endform -%}
         {%- endif -%}
       </div>
     </div>
@@ -146,6 +173,21 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+    var msg = section.querySelector('.ls-footer__message');
+    if (!msg) return;
+    // The customer form redirects to the top of the page after submit; bring the
+    // footer back into view so the confirmation/error is visible.
+    window.addEventListener('load', function () {
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (typeof msg.focus === 'function') msg.focus();
+    });
+  })();
+</script>
 
 {% stylesheet %}
   /* Full-bleed dark band. The theme forces .section backgrounds transparent, so
@@ -377,6 +419,21 @@
     text-underline-offset: 2px;
     color: var(--ls-footer-accent, #7e9de4);
     cursor: pointer;
+  }
+
+  .ls-footer__message {
+    margin: 12px 0 0;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .ls-footer__message--success {
+    color: var(--ls-footer-accent, #7e9de4);
+  }
+
+  .ls-footer__message--error {
+    color: #ffd7d7;
   }
 
   /* ---- BOTTOM BAR ---- */
