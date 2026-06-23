@@ -199,7 +199,7 @@
               "type": "ls-text",
               "name": "LS Text",
               "settings": {
-                "text": "<p>Bourbon born and Kentucky proud. Whatever you're drinking, it pours the same way it has for ninety years.</p>",
+                "text": "<p>Bourbon born and Kentucky proud. Whatever you're drinking, it pours the same way.</p>",
                 "font_family": "var(--font-cormorant-garamond--family)",
                 "font_size": 26,
                 "font_size_mobile": 20,
