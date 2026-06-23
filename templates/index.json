@@ -778,7 +778,7 @@
               "type": "ls-text",
               "name": "LS Text",
               "settings": {
-                "text": "<p>Cold beer. Live music. Always.</p>",
+                "text": "<p>LIVE MUSIC. COLD BEER. ALWAYS.</p>",
                 "font_family": "var(--font-cormorant-garamond-italic--family)",
                 "font_size": 22,
                 "font_size_mobile": 0,
