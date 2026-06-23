@@ -1559,9 +1559,9 @@
           "type": "ls-text",
           "name": "LS Text",
           "settings": {
-            "text": "<p>TWO FLOORS. <strong>Two Vibes.</strong></p>",
+            "text": "<p>TWO FLOORS. <strong>TWO VIBES.</strong></p>",
             "font_family": "var(--font-gashroad--family)",
-            "font_size": 116,
+            "font_size": 106,
             "font_size_mobile": 30,
             "letter_spacing": 2.3,
             "use_mobile_letter_spacing": false,
@@ -1736,7 +1736,7 @@
                   "type": "ls-text",
                   "name": "LS Text",
                   "settings": {
-                    "text": "<p>The Main Floor</p>",
+                    "text": "<p>THE LANDING</p>",
                     "font_family": "var(--font-gashroad--family)",
                     "font_size": 40,
                     "font_size_mobile": 0,
@@ -1945,7 +1945,7 @@
                   "type": "ls-text",
                   "name": "LS Text",
                   "settings": {
-                    "text": "<p>The Rooftop</p>",
+                    "text": "<p>THE LOOKOUT</p>",
                     "font_family": "var(--font-gashroad--family)",
                     "font_size": 40,
                     "font_size_mobile": 0,
@@ -2186,7 +2186,7 @@
           "type": "ls-text",
           "name": "LS Text",
           "settings": {
-            "text": "<p>YOUR PARTY.</p>",
+            "text": "<p>YOUR PARTY</p>",
             "font_family": "var(--font-gashroad--family)",
             "font_size": 114,
             "font_size_mobile": 32,
@@ -2226,7 +2226,7 @@
           "type": "ls-text",
           "name": "LS Text",
           "settings": {
-            "text": "<p>Our Whole Building.</p>",
+            "text": "<p>OUR VENUE</p>",
             "font_family": "var(--font-cormorant-garamond-italic--family)",
             "font_size": 114,
             "font_size_mobile": 32,
@@ -2350,7 +2350,7 @@
               "type": "image",
               "name": "Desktop Image",
               "settings": {
-                "image": "shopify://shop_images/party.png",
+                "image": "shopify://shop_images/Screenshot_2026-06-23_at_3.27.20_PM.png",
                 "link": "",
                 "hide_on_mobile": true,
                 "hide_on_desktop": false,
@@ -2474,7 +2474,7 @@
                   "type": "ls-text",
                   "name": "LS Text",
                   "settings": {
-                    "text": "<p>Full bar service, live music or DJ, food brought in from the neighbors (Great Bagel, Wing Stop, Subway are all in the same plaza - we'll help you coordinate). Tell us the date and we'll handle the rest.</p>",
+                    "text": "<p>Full bar service, live music or DJ, food catered, whatever your event calls for, tell us the date and we'll handle the rest.</p>",
                     "font_family": "var(--font-cormorant-garamond--family)",
                     "font_size": 20,
                     "font_size_mobile": 0,
