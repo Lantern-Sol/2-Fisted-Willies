@@ -96,7 +96,7 @@
           "type": "ls-text",
           "name": "LS Text",
           "settings": {
-            "text": "<p>Kentucky Blue</p>",
+            "text": "<p>always kentucky</p>",
             "font_family": "var(--font-gashroad--family)",
             "font_size": 128,
             "font_size_mobile": 64,
@@ -440,7 +440,7 @@
         "max_height": 1200,
         "color_scheme": "scheme-3",
         "toggle_overlay": true,
-        "overlay_color": "#0D4BBA30",
+        "overlay_color": "#0d4bba30",
         "overlay_style": "solid",
         "gradient_direction": "to bottom",
         "blurred_reflection": false,
@@ -1454,7 +1454,7 @@
         "group_fw6Mie"
       ],
       "custom_css": [
-        "@media screen and (max-width: 768px) {>div{display: block;}}"
+        "@media screen and (max-width: 768px) {> div {display: block; }}"
       ],
       "name": "LS Table Reservation",
       "settings": {
