@@ -32,6 +32,7 @@
       class="ls-events__upcoming"
       data-eventbrite-token="{{ s.eventbrite_token | escape }}"
       data-eventbrite-org-id="{{ s.eventbrite_organization_id | escape }}"
+      data-eventbrite-hide-when-empty="true"
     >
       {%- if s.show_filters -%}
         <div class="ls-events__toolbar">

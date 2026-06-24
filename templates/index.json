@@ -459,8 +459,6 @@
       ],
       "name": "LS Events — Upcoming",
       "settings": {
-        "eventbrite_token": "6JWTMPQQO34VIW2YSU7C",
-        "eventbrite_organization_id": "3004670821317",
         "heading_1": "This Month",
         "heading_2": "ENTERTAINMENT",
         "reverse_heading_order": true,

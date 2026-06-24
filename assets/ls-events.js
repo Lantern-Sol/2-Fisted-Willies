@@ -203,9 +203,9 @@ function mapEventbriteEvent(event, layout) {
     id: event.id,
     name: event.name?.text ?? '',
     description: event.description?.text ?? '',
-    imageUrl: event.logo?.url ?? '',
+    imageUrl: event.logo?.original?.url ?? event.logo?.url ?? '',
     ticketUrl: event.url ?? '',
-    venue: event.venue?.address?.localized_area_display ?? '',
+    summary: event.summary ?? '',
     dateIso,
     dateLabel: formatEventDateLabel(local, timezone, layout),
     showInfo,
@@ -240,8 +240,8 @@ function renderGridEventCard(event, options = {}) {
     </a>`;
   }
 
-  const genre = event.venue
-    ? `<p class="ls-event-card__genre">${escapeHtml(event.venue)}</p>`
+  const genre = event.summary
+    ? `<p class="ls-event-card__genre">${escapeHtml(event.summary)}</p>`
     : '';
 
   return `<article class="ls-event-card ls-event-card--grid" data-event-date="${escapeHtml(event.dateIso)}"${filterAttrs}>
@@ -276,8 +276,8 @@ function renderFeaturedEventCard(event, options = {}) {
     ? `<img class="ls-event-card__image" src="${escapeHtml(event.imageUrl)}" alt="" loading="lazy" width="600" height="300">`
     : '<div class="ls-event-card__image ls-event-card__image--placeholder" aria-hidden="true"></div>';
 
-  const genre = event.venue
-    ? `<p class="ls-event-card__genre">${escapeHtml(event.venue)}</p>`
+  const genre = event.summary
+    ? `<p class="ls-event-card__genre">${escapeHtml(event.summary)}</p>`
     : '';
 
   const actions =
@@ -313,8 +313,8 @@ function renderPastEventCard(event) {
     ? `<img class="ls-event-card__image" src="${escapeHtml(event.imageUrl)}" alt="" loading="lazy" width="800" height="450">`
     : '<div class="ls-event-card__image ls-event-card__image--placeholder" aria-hidden="true"></div>';
 
-  const genre = event.venue
-    ? `<p class="ls-event-card__genre">${escapeHtml(event.venue)}</p>`
+  const genre = event.summary
+    ? `<p class="ls-event-card__genre">${escapeHtml(event.summary)}</p>`
     : '';
 
   return `<article class="ls-event-card ls-event-card--past" data-event-date="${escapeHtml(event.dateIso)}">
@@ -434,6 +434,12 @@ function renderEventsIntoGrid(grid, events) {
   return filtered.length;
 }
 
+/** @param {HTMLElement} root */
+function hideEventbriteSection(root) {
+  const shopifySection = root.closest('.shopify-section');
+  if (shopifySection) shopifySection.hidden = true;
+}
+
 /**
  * @param {HTMLElement} root
  */
@@ -460,12 +466,13 @@ async function loadEventbriteGrid(root) {
     const count = renderEventsIntoGrid(grid, dateFiltered);
 
     if (loadingEl) loadingEl.hidden = true;
-    if (emptyEl) emptyEl.hidden = count > 0;
     if (errorEl) errorEl.hidden = true;
 
-    if (count === 0 && root.dataset.eventbriteHideWhenEmpty === 'true') {
-      const section = root.closest('.shopify-section');
-      if (section) section.hidden = true;
+    const shouldHideSection = root.dataset.eventbriteHideWhenEmpty !== 'false';
+    if (count === 0 && shouldHideSection) {
+      hideEventbriteSection(root);
+    } else if (emptyEl) {
+      emptyEl.hidden = count > 0;
     }
 
     const upcomingComponent = root.closest('ls-events-upcoming');
@@ -569,7 +576,7 @@ class LsEventsUpcoming extends HTMLElement {
     }
 
     const sectionEmptyEl = this.querySelector('[data-eventbrite-empty]');
-    if (sectionEmptyEl && totalCount === 0) {
+    if (sectionEmptyEl && totalCount === 0 && this.dataset.eventbriteHideWhenEmpty === 'false') {
       sectionEmptyEl.hidden = false;
     }
   }
