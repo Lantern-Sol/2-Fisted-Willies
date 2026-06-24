@@ -108,7 +108,7 @@
             "line_height_mobile": 1.4,
             "font_weight": "400",
             "text_transform": "none",
-            "text_align": "left",
+            "text_align": "center",
             "text_align_mobile": "",
             "max_width": "none",
             "text_color": "#eae8f0",
