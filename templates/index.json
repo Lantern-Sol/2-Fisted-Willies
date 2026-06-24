@@ -459,6 +459,8 @@
       ],
       "name": "LS Events — Upcoming",
       "settings": {
+        "eventbrite_token": "6JWTMPQQO34VIW2YSU7C",
+        "eventbrite_organization_id": "3004670821317",
         "heading_1": "This Month",
         "heading_2": "ENTERTAINMENT",
         "reverse_heading_order": true,
@@ -468,7 +470,6 @@
         "show_footer_link": true,
         "footer_link_label": "See all upcoming shows",
         "footer_link": "shopify://pages/contact",
-        "enable_debug": false,
         "bg_color": "#0e1018",
         "heading_color": "#eae8f0",
         "heading_accent_color": "#b8c8f2",
