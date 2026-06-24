@@ -4,6 +4,16 @@
   if s.frame_texture != blank
     assign has_frame_texture = true
   endif
+  # When a frame image is uploaded for a stamp, we drop the CSS paper border and
+  # overlay the frame PNG on top, clipping the photo to the frame's opening.
+  assign stamp_1_framed = false
+  if s.stamp_1_frame != blank
+    assign stamp_1_framed = true
+  endif
+  assign stamp_2_framed = false
+  if s.stamp_2_frame != blank
+    assign stamp_2_framed = true
+  endif
 -%}
 
 {%- capture bg_style -%}
@@ -29,8 +39,8 @@
 >
   {%- if s.stamp_1 != blank or s.show_default_stamps -%}
     <div
-      class="ls-hero__stamp ls-hero__stamp--1"
-      style="--ls-rot: {{ s.stamp_1_rotation }}deg; --ls-x: {{ s.stamp_1_x }}px; --ls-y: {{ s.stamp_1_y }}px; --ls-x-m: {{ s.stamp_1_x_mobile }}px; --ls-y-m: {{ s.stamp_1_y_mobile }}px; --ls-stamp-w: {{ s.stamp_1_width }}px; --ls-stamp-w-m: {{ s.stamp_1_width_mobile }}px;"
+      class="ls-hero__stamp ls-hero__stamp--1{% if stamp_1_framed %} ls-hero__stamp--framed{% endif %}"
+      style="--ls-rot: {{ s.stamp_1_rotation }}deg; --ls-x: {{ s.stamp_1_x }}px; --ls-y: {{ s.stamp_1_y }}px; --ls-x-m: {{ s.stamp_1_x_mobile }}px; --ls-y-m: {{ s.stamp_1_y_mobile }}px; --ls-stamp-w: {{ s.stamp_1_width }}px; --ls-stamp-w-m: {{ s.stamp_1_width_mobile }}px; --ls-inset: {{ s.stamp_1_inset }}%;"
     >
       <div class="ls-hero__photo">
         {%- if s.stamp_1 != blank -%}
@@ -39,6 +49,9 @@
           <img src="{{ 'ls-about-stamp.png' | asset_url }}" alt="" loading="lazy" width="230" height="307">
         {%- endif -%}
       </div>
+      {%- if stamp_1_framed -%}
+        <img class="ls-hero__frame-img" src="{{ s.stamp_1_frame | image_url: width: 720 }}" alt="" loading="lazy" width="{{ s.stamp_1_frame.width }}" height="{{ s.stamp_1_frame.height }}">
+      {%- endif -%}
     </div>
   {%- endif -%}
 
@@ -60,8 +73,8 @@
 
   {%- if s.stamp_2 != blank or s.show_default_stamps -%}
     <div
-      class="ls-hero__stamp ls-hero__stamp--2"
-      style="--ls-rot: {{ s.stamp_2_rotation }}deg; --ls-x: {{ s.stamp_2_x }}px; --ls-y: {{ s.stamp_2_y }}px; --ls-x-m: {{ s.stamp_2_x_mobile }}px; --ls-y-m: {{ s.stamp_2_y_mobile }}px; --ls-stamp-w: {{ s.stamp_2_width }}px; --ls-stamp-w-m: {{ s.stamp_2_width_mobile }}px;"
+      class="ls-hero__stamp ls-hero__stamp--2{% if stamp_2_framed %} ls-hero__stamp--framed{% endif %}"
+      style="--ls-rot: {{ s.stamp_2_rotation }}deg; --ls-x: {{ s.stamp_2_x }}px; --ls-y: {{ s.stamp_2_y }}px; --ls-x-m: {{ s.stamp_2_x_mobile }}px; --ls-y-m: {{ s.stamp_2_y_mobile }}px; --ls-stamp-w: {{ s.stamp_2_width }}px; --ls-stamp-w-m: {{ s.stamp_2_width_mobile }}px; --ls-inset: {{ s.stamp_2_inset }}%;"
     >
       <div class="ls-hero__photo">
         {%- if s.stamp_2 != blank -%}
@@ -70,6 +83,9 @@
           <img src="{{ 'ls-about-stamp.png' | asset_url }}" alt="" loading="lazy" width="230" height="307">
         {%- endif -%}
       </div>
+      {%- if stamp_2_framed -%}
+        <img class="ls-hero__frame-img" src="{{ s.stamp_2_frame | image_url: width: 720 }}" alt="" loading="lazy" width="{{ s.stamp_2_frame.width }}" height="{{ s.stamp_2_frame.height }}">
+      {%- endif -%}
     </div>
   {%- endif -%}
 </div>
@@ -178,6 +194,37 @@
     object-fit: cover;
   }
 
+  /* ---- Framed mode: an uploaded PNG frame overlays the photo ---- */
+  /* Scoped under .ls-hero so these win over the base/mobile single-class rules. */
+  .ls-hero .ls-hero__stamp--framed {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+  .ls-hero__frame-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+  /* The photo sits inside the frame opening and is clipped to it, so it can't
+     bleed over the frame. Inset is adjustable per stamp to match the opening. */
+  .ls-hero .ls-hero__stamp--framed .ls-hero__photo {
+    position: absolute;
+    inset: var(--ls-inset, 12%);
+    z-index: 1;
+    aspect-ratio: auto;
+    overflow: hidden;
+    /* Paper stamp background, clipped to the frame opening (shows through any
+       transparent areas / margins of the photo). */
+    background-color: var(--ls-frame-paper, #f4f1e9);
+    background-image: var(--ls-frame-texture, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"));
+    background-size: cover, 240px 240px;
+    background-repeat: no-repeat, repeat;
+  }
+
   /* ---- Mobile: shrink + tuck the stamps into the corners so they frame, not cover ---- */
   @media screen and (max-width: 989px) {
     .ls-hero__stamp {
@@ -268,7 +315,7 @@
     {
       "type": "header",
       "content": "Stamps",
-      "info": "Polaroid-style photos floating in the corners."
+      "info": "Photos floating in the corners. Upload a frame image per stamp below for two different picture frames, or leave them empty for the paper border."
     },
     {
       "type": "checkbox",
@@ -279,14 +326,15 @@
     {
       "type": "color",
       "id": "frame_color",
-      "label": "Stamp frame color",
+      "label": "Paper border color",
+      "info": "Fallback border used when no frame image is uploaded.",
       "default": "#f4f1e9"
     },
     {
       "type": "image_picker",
       "id": "frame_texture",
-      "label": "Stamp frame texture",
-      "info": "Optional. Falls back to the baked-in paper grain + color."
+      "label": "Paper border texture",
+      "info": "Optional fallback texture for the paper border. Ignored when a frame image is used."
     },
     {
       "type": "header",
@@ -297,6 +345,23 @@
       "id": "stamp_1",
       "label": "Stamp 1 image",
       "info": "Falls back to the built-in artwork."
+    },
+    {
+      "type": "image_picker",
+      "id": "stamp_1_frame",
+      "label": "Frame image (PNG)",
+      "info": "Transparent-center picture frame. When set, the photo is clipped to the opening and this frame overlays on top. Leave empty for the paper border."
+    },
+    {
+      "type": "range",
+      "id": "stamp_1_inset",
+      "label": "Photo inset",
+      "info": "How far the photo sits inside the frame opening. Increase until the photo no longer shows past the frame.",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 12
     },
     {
       "type": "range",
@@ -377,6 +442,23 @@
       "id": "stamp_2",
       "label": "Stamp 2 image",
       "info": "Falls back to the built-in artwork."
+    },
+    {
+      "type": "image_picker",
+      "id": "stamp_2_frame",
+      "label": "Frame image (PNG)",
+      "info": "Transparent-center picture frame. When set, the photo is clipped to the opening and this frame overlays on top. Leave empty for the paper border."
+    },
+    {
+      "type": "range",
+      "id": "stamp_2_inset",
+      "label": "Photo inset",
+      "info": "How far the photo sits inside the frame opening. Increase until the photo no longer shows past the frame.",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 12
     },
     {
       "type": "range",

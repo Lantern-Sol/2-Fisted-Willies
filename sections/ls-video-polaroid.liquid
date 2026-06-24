@@ -35,7 +35,16 @@
       assign wm_key = base | append: '_width_mobile'
       assign xm_key = base | append: '_x_mobile'
       assign ym_key = base | append: '_y_mobile'
+      assign frame_key = base | append: '_frame'
+      assign inset_key = base | append: '_inset'
       assign img = s[base]
+      assign frame_img = s[frame_key]
+      # When a frame image is set, drop the CSS paper border and overlay the
+      # frame PNG, clipping the photo to the frame's opening.
+      assign is_framed = false
+      if frame_img != blank
+        assign is_framed = true
+      endif
       # Polaroid 1 anchors to the top-left corner on mobile, polaroid 2 to the
       # bottom-right, so they peek in from the corners under the mobile clip.
       assign corner = 'tl'
@@ -57,12 +66,15 @@
       {%- endcomment -%}
       {%- if corner == 'br' -%}<div class="ls-video-polaroid__clip">{%- endif -%}
       <div
-        class="ls-video-polaroid__polaroid ls-video-polaroid__polaroid--{{ corner }}"
-        style="--pol-w: {{ s[w_key] }}px; --pol-rot: {{ s[rot_key] }}deg; --pol-x: {{ s[x_key] }}px; --pol-y: {{ s[y_key] }}px; --pol-pad: {{ pad }}px; --pol-w-m: {{ s[wm_key] }}px; --pol-x-m: {{ s[xm_key] }}px; --pol-y-m: {{ s[ym_key] }}px; --pol-pad-m: {{ pad_m }}px;"
+        class="ls-video-polaroid__polaroid ls-video-polaroid__polaroid--{{ corner }}{% if is_framed %} ls-video-polaroid__polaroid--framed{% endif %}"
+        style="--pol-w: {{ s[w_key] }}px; --pol-rot: {{ s[rot_key] }}deg; --pol-x: {{ s[x_key] }}px; --pol-y: {{ s[y_key] }}px; --pol-pad: {{ pad }}px; --pol-w-m: {{ s[wm_key] }}px; --pol-x-m: {{ s[xm_key] }}px; --pol-y-m: {{ s[ym_key] }}px; --pol-pad-m: {{ pad_m }}px; --pol-inset: {{ s[inset_key] }}%;"
       >
         <div class="ls-video-polaroid__photo">
           {{ img | image_url: width: 800 | image_tag: alt: img.alt, widths: '160,240,320,400,480,640,800', sizes: pol_sizes, loading: 'lazy' }}
         </div>
+        {%- if is_framed -%}
+          <img class="ls-video-polaroid__frame-img" src="{{ frame_img | image_url: width: 800 }}" alt="" loading="lazy" width="{{ frame_img.width }}" height="{{ frame_img.height }}">
+        {%- endif -%}
       </div>
       {%- if corner == 'br' -%}</div>{%- endif -%}
     {%- endif -%}
@@ -137,6 +149,41 @@
     display: block;
     width: 100%;
     height: auto;
+  }
+
+  /* ---- Framed mode: an uploaded PNG frame overlays the photo ---- */
+  /* Scoped under .ls-video-polaroid so these win over the base/mobile rules. */
+  .ls-video-polaroid .ls-video-polaroid__polaroid--framed {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+  .ls-video-polaroid__frame-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+  /* The photo sits inside the frame opening and is clipped to it, so it can't
+     bleed over the frame. Inset is adjustable per polaroid to match the opening. */
+  .ls-video-polaroid .ls-video-polaroid__polaroid--framed .ls-video-polaroid__photo {
+    position: absolute;
+    inset: var(--pol-inset, 12%);
+    z-index: 1;
+    overflow: hidden;
+    /* Paper stamp background, clipped to the frame opening (shows through any
+       transparent areas / margins of the photo). */
+    background-color: var(--ls-travel-paper, #f4f1e9);
+    background-image: var(--ls-travel-texture, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"));
+    background-size: cover, 240px 240px;
+    background-repeat: no-repeat, repeat;
+  }
+  .ls-video-polaroid .ls-video-polaroid__polaroid--framed .ls-video-polaroid__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   /* ---- Centered content group (populated in the editor) ---- */
@@ -218,6 +265,8 @@
       "info": "Shows only when an image is set. Positioned freely over the video."
     },
     { "type": "image_picker", "id": "polaroid_1", "label": "Image" },
+    { "type": "image_picker", "id": "polaroid_1_frame", "label": "Frame image (PNG)", "info": "Transparent-center picture frame. When set, the photo is clipped to the opening and this frame overlays on top. Leave empty for the paper border." },
+    { "type": "range", "id": "polaroid_1_inset", "label": "Photo inset", "info": "How far the photo sits inside the frame opening. Increase until the photo no longer shows past the frame.", "min": 0, "max": 40, "step": 1, "unit": "%", "default": 12 },
     { "type": "range", "id": "polaroid_1_width", "label": "Width", "min": 80, "max": 560, "step": 8, "unit": "px", "default": 280 },
     { "type": "range", "id": "polaroid_1_rotation", "label": "Rotation", "min": -30, "max": 30, "step": 1, "unit": "°", "default": -8 },
     { "type": "range", "id": "polaroid_1_x", "label": "X offset", "min": -800, "max": 800, "step": 16, "unit": "px", "default": -480 },
@@ -231,6 +280,8 @@
       "info": "Shows only when an image is set. Positioned freely over the video."
     },
     { "type": "image_picker", "id": "polaroid_2", "label": "Image" },
+    { "type": "image_picker", "id": "polaroid_2_frame", "label": "Frame image (PNG)", "info": "Transparent-center picture frame. When set, the photo is clipped to the opening and this frame overlays on top. Leave empty for the paper border." },
+    { "type": "range", "id": "polaroid_2_inset", "label": "Photo inset", "info": "How far the photo sits inside the frame opening. Increase until the photo no longer shows past the frame.", "min": 0, "max": 40, "step": 1, "unit": "%", "default": 12 },
     { "type": "range", "id": "polaroid_2_width", "label": "Width", "min": 80, "max": 560, "step": 8, "unit": "px", "default": 280 },
     { "type": "range", "id": "polaroid_2_rotation", "label": "Rotation", "min": -30, "max": 30, "step": 1, "unit": "°", "default": 6 },
     { "type": "range", "id": "polaroid_2_x", "label": "X offset", "min": -800, "max": 800, "step": 16, "unit": "px", "default": 480 },
@@ -240,7 +291,8 @@
     { "type": "range", "id": "polaroid_2_y_mobile", "label": "Y offset (mobile)", "min": -400, "max": 400, "step": 8, "unit": "px", "default": 0 },
     {
       "type": "header",
-      "content": "Paper"
+      "content": "Paper",
+      "info": "Fallback paper border, used for any polaroid without an uploaded frame image."
     },
     {
       "type": "range",
