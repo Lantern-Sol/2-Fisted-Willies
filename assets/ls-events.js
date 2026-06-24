@@ -156,30 +156,35 @@ function formatEventTimeLabel(local, timezone) {
   });
 }
 
+/** @param {Record<string, unknown>} ticketClass @param {boolean} eventIsLive */
+function isTicketClassSoldOut(ticketClass, eventIsLive) {
+  if (ticketClass.on_sale_status === 'SOLD_OUT') return true;
+  if (eventIsLive && ticketClass.on_sale_status === 'UNAVAILABLE') return true;
+  if (
+    ticketClass.quantity_total != null &&
+    ticketClass.quantity_sold != null &&
+    ticketClass.quantity_total > 0 &&
+    ticketClass.quantity_sold >= ticketClass.quantity_total
+  ) {
+    return true;
+  }
+  return false;
+}
+
 /** @param {Record<string, unknown>} event */
 function isEventSoldOut(event) {
   const classes = event.ticket_classes ?? [];
   if (classes.length === 0) return false;
 
-  return classes.every((ticketClass) => {
-    if (ticketClass.on_sale_status === 'SOLD_OUT') return true;
-    if (
-      ticketClass.quantity_total != null &&
-      ticketClass.quantity_sold != null &&
-      ticketClass.quantity_total > 0 &&
-      ticketClass.quantity_sold >= ticketClass.quantity_total
-    ) {
-      return true;
-    }
-    return false;
-  });
+  const eventIsLive = event.status === 'live';
+
+  return classes.every((ticketClass) => isTicketClassSoldOut(ticketClass, eventIsLive));
 }
 
 /** @param {Record<string, unknown>} event */
 function getEventStatusTag(event) {
   if (isEventSoldOut(event)) return 'sold_out';
-  if (event.is_free) return 'available';
-  return 'cover';
+  return 'available';
 }
 
 /**
