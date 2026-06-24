@@ -339,7 +339,7 @@
         "filter_border": "#3d4a66",
         "filter_active_bg": "#1a2540",
         "footer_link_color": "#7e9de4",
-        "padding-block-start": 24,
+        "padding-block-start": 64,
         "padding-block-end": 64
       }
     },
