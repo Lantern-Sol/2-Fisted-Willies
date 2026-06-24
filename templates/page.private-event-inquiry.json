@@ -332,7 +332,7 @@
         "enable_max_height": false,
         "max_height": 1000,
         "color_scheme": "scheme-3",
-        "toggle_overlay": false,
+        "toggle_overlay": true,
         "overlay_color": "#1E1E2E0A",
         "overlay_style": "solid",
         "gradient_direction": "to top",
