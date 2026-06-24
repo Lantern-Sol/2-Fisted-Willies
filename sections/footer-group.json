@@ -83,7 +83,7 @@
         "button_label": "Sign up →",
         "credit": "Designed and Developed by Lantern Sol",
         "privacy_label": "Privacy Policy",
-        "privacy_link": "",
+        "privacy_link": "shopify://policies/privacy-policy",
         "accessibility_label": "Accessibility",
         "accessibility_link": "",
         "bg_color": "#111318",
