@@ -1,34 +1,6 @@
 {% liquid
   assign s = section.settings
-  assign today = 'now' | date: '%Y-%m-%d'
-  assign all_events = '' | split: ''
-  assign upcoming_count = 0
 %}
-
-{% paginate shop.metaobjects.event.values by 50 %}
-  {% assign all_events = shop.metaobjects.event.values %}
-{% endpaginate %}
-{% if all_events.size == 0 %}
-  {% paginate metaobjects.event.values by 50 %}
-    {% assign all_events = metaobjects.event.values %}
-  {% endpaginate %}
-{% endif %}
-{% if all_events.size > 1 %}
-  {% assign all_events = all_events | sort: 'event_date' %}
-{% endif %}
-
-{% render 'ls-events-load', settings: s %}
-
-{%- for event in all_events -%}
-  {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
-  {%- assign event_date = event_date | strip -%}
-  {%- if event_date != blank and event_date >= today -%}
-    {%- capture featured_flag -%}{%- render 'ls-event-is-featured', event: event -%}{%- endcapture -%}
-    {%- unless featured_flag contains 'true' -%}
-      {%- assign upcoming_count = upcoming_count | plus: 1 -%}
-    {%- endunless -%}
-  {%- endif -%}
-{%- endfor -%}
 
 <div class="section-background ls-events__bg" id="shows"></div>
 <div
@@ -56,7 +28,11 @@
       </header>
     {%- endif -%}
 
-    <ls-events-upcoming class="ls-events__upcoming">
+    <ls-events-upcoming
+      class="ls-events__upcoming"
+      data-eventbrite-token="{{ s.eventbrite_token | escape }}"
+      data-eventbrite-org-id="{{ s.eventbrite_organization_id | escape }}"
+    >
       {%- if s.show_filters -%}
         <div class="ls-events__toolbar">
           <div class="ls-events__filters">
@@ -76,35 +52,31 @@
             </div>
           </div>
 
-          <p class="ls-events__count" data-upcoming-count>{{ upcoming_count }} UPCOMING</p>
+          <p class="ls-events__count" data-upcoming-count>0 UPCOMING</p>
         </div>
       {%- endif -%}
 
-      <div class="ls-events__grid">
-        {%- for event in all_events -%}
-          {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
-          {%- assign event_date = event_date | strip -%}
-          {%- if event_date != blank and event_date >= today -%}
-            {%- capture featured_flag -%}{%- render 'ls-event-is-featured', event: event -%}{%- endcapture -%}
-            {%- unless featured_flag contains 'true' -%}
-              {% render 'ls-event-card', event: event, layout: 'grid', filterable: s.show_filters %}
-            {%- endunless -%}
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+      <p class="ls-events__empty" data-eventbrite-loading>Loading events…</p>
+
+      <div
+        class="ls-events__grid"
+        data-eventbrite-grid
+        data-eventbrite-layout="grid"
+        data-eventbrite-date-filter="upcoming"
+        data-eventbrite-status="live"
+        data-eventbrite-filterable="{{ s.show_filters }}"
+        data-eventbrite-sort="asc"
+      ></div>
 
       <p class="ls-events__empty" data-upcoming-empty{% unless s.show_filters %} hidden{% endunless %}>No events match these filters.</p>
-
-      {%- if upcoming_count == 0 -%}
-        <p class="ls-events__empty">No upcoming events scheduled.</p>
-      {%- endif -%}
+      <p class="ls-events__empty" data-eventbrite-empty hidden>No upcoming events scheduled.</p>
+      <p class="ls-events__empty" data-eventbrite-error hidden></p>
     </ls-events-upcoming>
 
     {%- if s.show_footer_link and s.footer_link != blank and s.footer_link_label != blank -%}
       <div class="ls-events__footer-link-wrap">
         <a class="ls-events__footer-link" href="{{ s.footer_link }}">
           {{ s.footer_link_label }} →
-         
         </a>
       </div>
     {%- endif -%}
@@ -124,7 +96,18 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Shows all active events that are not past (any future date). Featured events appear in the Featured section only."
+      "content": "Loads live events from Eventbrite on page load. Add your API token and organization ID below."
+    },
+    {
+      "type": "text",
+      "id": "eventbrite_token",
+      "label": "Eventbrite API token"
+    },
+    {
+      "type": "text",
+      "id": "eventbrite_organization_id",
+      "label": "Eventbrite organization ID",
+      "default": "3004670821317"
     },
     {
       "type": "text",
@@ -185,12 +168,6 @@
       "id": "footer_link",
       "label": "Link URL",
       "visible_if": "{{ section.settings.show_footer_link }}"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_debug",
-      "label": "Show debug panel",
-      "default": false
     },
     {
       "type": "header",

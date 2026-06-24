@@ -1,37 +1,14 @@
 {% liquid
   assign s = section.settings
-  assign today = 'now' | date: '%Y-%m-%d'
-  assign all_events = '' | split: ''
-  assign past_count = 0
   assign max_past = s.max_events | default: 3
 %}
 
-{% paginate shop.metaobjects.event.values by 50 %}
-  {% assign all_events = shop.metaobjects.event.values %}
-{% endpaginate %}
-{% if all_events.size == 0 %}
-  {% paginate metaobjects.event.values by 50 %}
-    {% assign all_events = metaobjects.event.values %}
-  {% endpaginate %}
-{% endif %}
-{% if all_events.size > 1 %}
-  {% assign all_events = all_events | sort: 'event_date' %}
-{% endif %}
-
-{% render 'ls-events-load', settings: s %}
-
-{%- for event in all_events reversed -%}
-  {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
-  {%- assign event_date = event_date | strip -%}
-  {%- if event_date != blank and event_date < today -%}
-    {%- assign past_count = past_count | plus: 1 -%}
-  {%- endif -%}
-{%- endfor -%}
-
-{%- if past_count > 0 or s.hide_when_empty == false -%}
 <div class="section-background ls-events__bg"></div>
 <div
   class="section ls-events ls-events--past spacing-style"
+  data-eventbrite-token="{{ s.eventbrite_token | escape }}"
+  data-eventbrite-org-id="{{ s.eventbrite_organization_id | escape }}"
+  data-eventbrite-hide-when-empty="{{ s.hide_when_empty }}"
   style="{% render 'spacing-style', settings: section.settings %}{% render 'ls-events-theme-vars', settings: section.settings %}"
 >
   <div class="ls-events__inner">
@@ -45,27 +22,22 @@
       {%- endif -%}
     </header>
 
-    {%- if past_count > 0 -%}
-      <div class="ls-events__grid">
-        {%- assign shown_past = 0 -%}
-        {%- for event in all_events reversed -%}
-          {%- if shown_past >= max_past -%}
-            {%- break -%}
-          {%- endif -%}
-          {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
-          {%- assign event_date = event_date | strip -%}
-          {%- if event_date != blank and event_date < today -%}
-            {% render 'ls-event-card', event: event, layout: 'past' %}
-            {%- assign shown_past = shown_past | plus: 1 -%}
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    {%- elsif s.hide_when_empty == false -%}
-      <p class="ls-events__empty">No past events to show yet.</p>
-    {%- endif -%}
+    <p class="ls-events__empty" data-eventbrite-loading>Loading events…</p>
+
+    <div
+      class="ls-events__grid"
+      data-eventbrite-grid
+      data-eventbrite-layout="past"
+      data-eventbrite-date-filter="past"
+      data-eventbrite-status="ended"
+      data-eventbrite-sort="desc"
+      data-eventbrite-max="{{ max_past }}"
+    ></div>
+
+    <p class="ls-events__empty" data-eventbrite-empty{% if s.hide_when_empty %} hidden{% endif %}>No past events to show yet.</p>
+    <p class="ls-events__empty" data-eventbrite-error hidden></p>
   </div>
 </div>
-{%- endif -%}
 
 {% render 'ls-events-styles' %}
 
@@ -78,6 +50,21 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "paragraph",
+      "content": "Loads ended events from Eventbrite on page load."
+    },
+    {
+      "type": "text",
+      "id": "eventbrite_token",
+      "label": "Eventbrite API token"
+    },
+    {
+      "type": "text",
+      "id": "eventbrite_organization_id",
+      "label": "Eventbrite organization ID",
+      "default": "3004670821317"
+    },
     {
       "type": "text",
       "id": "heading_1",
@@ -110,12 +97,6 @@
       "id": "hide_when_empty",
       "label": "Hide section when no past events",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_debug",
-      "label": "Show debug panel",
-      "default": false
     },
     {
       "type": "header",

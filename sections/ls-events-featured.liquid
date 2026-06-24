@@ -1,39 +1,13 @@
 {% liquid
   assign s = section.settings
-  assign today = 'now' | date: '%Y-%m-%d'
-  assign all_events = '' | split: ''
-  assign featured_count = 0
 %}
 
-{% paginate shop.metaobjects.event.values by 50 %}
-  {% assign all_events = shop.metaobjects.event.values %}
-{% endpaginate %}
-{% if all_events.size == 0 %}
-  {% paginate metaobjects.event.values by 50 %}
-    {% assign all_events = metaobjects.event.values %}
-  {% endpaginate %}
-{% endif %}
-{% if all_events.size > 1 %}
-  {% assign all_events = all_events | sort: 'event_date' %}
-{% endif %}
-
-{% render 'ls-events-load', settings: s %}
-
-{%- for event in all_events -%}
-  {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
-  {%- assign event_date = event_date | strip -%}
-  {%- if event_date != blank and event_date >= today -%}
-    {%- capture featured_flag -%}{%- render 'ls-event-is-featured', event: event -%}{%- endcapture -%}
-    {%- if featured_flag contains 'true' -%}
-      {%- assign featured_count = featured_count | plus: 1 -%}
-    {%- endif -%}
-  {%- endif -%}
-{%- endfor -%}
-
-{%- if featured_count > 0 or s.hide_when_empty == false -%}
 <div class="section-background ls-events__bg"></div>
 <div
   class="section ls-events ls-events--featured spacing-style"
+  data-eventbrite-token="{{ s.eventbrite_token | escape }}"
+  data-eventbrite-org-id="{{ s.eventbrite_organization_id | escape }}"
+  data-eventbrite-hide-when-empty="{{ s.hide_when_empty }}"
   style="{% render 'spacing-style', settings: section.settings %}{% render 'ls-events-theme-vars', settings: section.settings %}"
 >
   <div class="ls-events__inner">
@@ -41,25 +15,22 @@
       <h2 class="ls-events__section-label">{{ s.heading }}</h2>
     {%- endif -%}
 
-    {%- if featured_count > 0 -%}
-      <div class="ls-events__featured-list">
-        {%- for event in all_events -%}
-          {%- capture event_date -%}{%- render 'ls-event-date-string', event: event -%}{%- endcapture -%}
-          {%- assign event_date = event_date | strip -%}
-          {%- if event_date != blank and event_date >= today -%}
-            {%- capture featured_flag -%}{%- render 'ls-event-is-featured', event: event -%}{%- endcapture -%}
-            {%- if featured_flag contains 'true' -%}
-              {% render 'ls-event-card', event: event, layout: 'featured' %}
-            {%- endif -%}
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    {%- elsif s.hide_when_empty == false -%}
-      <p class="ls-events__empty">No featured events right now.</p>
-    {%- endif -%}
+    <p class="ls-events__empty" data-eventbrite-loading>Loading events…</p>
+
+    <div
+      class="ls-events__featured-list"
+      data-eventbrite-grid
+      data-eventbrite-layout="featured"
+      data-eventbrite-date-filter="upcoming"
+      data-eventbrite-status="live"
+      data-eventbrite-sort="asc"
+      data-eventbrite-featured-ids="{{ s.featured_event_ids | escape }}"
+    ></div>
+
+    <p class="ls-events__empty" data-eventbrite-empty{% if s.hide_when_empty %} hidden{% endif %}>No featured events right now.</p>
+    <p class="ls-events__empty" data-eventbrite-error hidden></p>
   </div>
 </div>
-{%- endif -%}
 
 {% render 'ls-events-styles' %}
 
@@ -85,6 +56,27 @@
   },
   "settings": [
     {
+      "type": "paragraph",
+      "content": "Loads featured events from Eventbrite. List Eventbrite event IDs below (comma-separated). Leave blank to show all upcoming live events."
+    },
+    {
+      "type": "text",
+      "id": "eventbrite_token",
+      "label": "Eventbrite API token"
+    },
+    {
+      "type": "text",
+      "id": "eventbrite_organization_id",
+      "label": "Eventbrite organization ID",
+      "default": "3004670821317"
+    },
+    {
+      "type": "text",
+      "id": "featured_event_ids",
+      "label": "Featured event IDs",
+      "info": "Comma-separated Eventbrite event IDs. Leave blank to show all upcoming events."
+    },
+    {
       "type": "text",
       "id": "heading",
       "label": "Section label (optional)",
@@ -95,12 +87,6 @@
       "id": "hide_when_empty",
       "label": "Hide section when no featured events",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_debug",
-      "label": "Show debug panel",
-      "default": false
     },
     {
       "type": "header",
