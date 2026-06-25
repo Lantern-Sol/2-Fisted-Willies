@@ -1704,6 +1704,7 @@
                 "image_biThY3": {
                   "type": "image",
                   "name": "t:names.image",
+                  "disabled": true,
                   "settings": {
                     "image": "shopify://shop_images/main-floor.png",
                     "link": "",
@@ -1730,6 +1731,30 @@
                     "padding-block-end-mobile": 0,
                     "padding-inline-start-mobile": 0,
                     "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {}
+                },
+                "video_7ATQgh": {
+                  "type": "video",
+                  "name": "t:names.video",
+                  "settings": {
+                    "source": "uploaded",
+                    "video": "shopify://files/videos/2 fisted reel 2 10.17.25 (1).mp4",
+                    "video_autoplay": false,
+                    "video_loop": true,
+                    "alt": "",
+                    "custom_width": 100,
+                    "custom_width_mobile": 100,
+                    "aspect_ratio": "3/4",
+                    "aspect_ratio_mobile": "",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
                   },
                   "blocks": {}
                 },
@@ -1852,6 +1877,7 @@
               },
               "block_order": [
                 "image_biThY3",
+                "video_7ATQgh",
                 "ls_text_7eeh4N",
                 "ls_text_rdPxnm",
                 "ls_button_Y73Kyk"
@@ -1913,6 +1939,7 @@
                 "image_pDM4Wa": {
                   "type": "image",
                   "name": "t:names.image",
+                  "disabled": true,
                   "settings": {
                     "image": "shopify://shop_images/rooftop.png",
                     "link": "",
@@ -1939,6 +1966,30 @@
                     "padding-block-end-mobile": 0,
                     "padding-inline-start-mobile": 0,
                     "padding-inline-end-mobile": 0
+                  },
+                  "blocks": {}
+                },
+                "video_4aCPYV": {
+                  "type": "video",
+                  "name": "t:names.video",
+                  "settings": {
+                    "source": "uploaded",
+                    "video": "shopify://files/videos/2 fisted reel 2 10.17.25 (1).mp4",
+                    "video_autoplay": false,
+                    "video_loop": true,
+                    "alt": "",
+                    "custom_width": 100,
+                    "custom_width_mobile": 100,
+                    "aspect_ratio": "3/4",
+                    "aspect_ratio_mobile": "",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
                   },
                   "blocks": {}
                 },
@@ -2061,6 +2112,7 @@
               },
               "block_order": [
                 "image_pDM4Wa",
+                "video_4aCPYV",
                 "ls_text_mgNCP6",
                 "ls_text_EatKr3",
                 "ls_button_xttmrr"
