@@ -1975,7 +1975,7 @@
                   "settings": {
                     "source": "uploaded",
                     "video": "shopify://files/videos/2 fisted reel 2 10.17.25 (1).mp4",
-                    "video_autoplay": false,
+                    "video_autoplay": true,
                     "video_loop": true,
                     "alt": "",
                     "custom_width": 100,
