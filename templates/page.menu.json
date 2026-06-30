@@ -2278,6 +2278,7 @@
         "ls_menu_group_4cjM8Y": {
           "type": "ls-menu-group",
           "name": "LS Menu Group",
+          "disabled": true,
           "settings": {
             "anchor": "",
             "gap": 0,
