@@ -873,7 +873,7 @@
       "name": "LS About",
       "settings": {
         "bg_color": "#111318",
-        "bg_image": "shopify://shop_images/about-background.jpg",
+        "bg_image": "shopify://shop_images/TDB_6947.jpg",
         "polaroid_1": "shopify://shop_images/DSC00406_96c8440f-e8a2-432f-9af1-fb60c84b190d.jpg",
         "polaroid_1_rotation": -11,
         "polaroid_1_x": -72,
@@ -1462,7 +1462,7 @@
       "name": "LS Table Reservation",
       "settings": {
         "bg_color": "#13131b",
-        "bg_image": "shopify://shop_images/table-background.jpg",
+        "bg_image": "shopify://shop_images/TDB_6935.jpg",
         "frame_color": "#ece9e2",
         "frame_texture": "shopify://shop_images/cardstock-large.jpg",
         "mobile_scale": 60,
@@ -1487,7 +1487,7 @@
         "polaroid_3_y": 52,
         "polaroid_3_x_mobile": -216,
         "polaroid_3_y_mobile": 144,
-        "polaroid_4": "shopify://shop_images/polaroid-table-4.png",
+        "polaroid_4": "shopify://shop_images/polaroid-table-3.jpg",
         "polaroid_4_size": 70,
         "polaroid_4_rotation": 0,
         "polaroid_4_x": 200,
@@ -1707,7 +1707,7 @@
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
-                    "image": "shopify://shop_images/main-floor.png",
+                    "image": "shopify://shop_images/TDB_6977.jpg",
                     "link": "",
                     "hide_on_mobile": false,
                     "hide_on_desktop": false,
@@ -1906,7 +1906,7 @@
                 "use_mobile_gap": false,
                 "mobile_gap": 12,
                 "width": "custom",
-                "custom_width": 50,
+                "custom_width": 48,
                 "width_mobile": "fill",
                 "custom_width_mobile": 100,
                 "height": "fit",
@@ -1943,7 +1943,7 @@
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
-                    "image": "shopify://shop_images/rooftop.png",
+                    "image": "shopify://shop_images/TDB_7041.jpg",
                     "link": "",
                     "hide_on_mobile": false,
                     "hide_on_desktop": false,
