@@ -469,7 +469,7 @@
         "show_filters": false,
         "show_footer_link": true,
         "footer_link_label": "See all upcoming shows",
-        "footer_link": "shopify://pages/contact",
+        "footer_link": "shopify://pages/events",
         "bg_color": "#0e1018",
         "heading_color": "#eae8f0",
         "heading_accent_color": "#b8c8f2",
@@ -1740,6 +1740,7 @@
                   "settings": {
                     "source": "uploaded",
                     "video": "shopify://files/videos/2 fisted reel 2 10.17.25 (1).mp4",
+                    "video_url": "",
                     "video_autoplay": false,
                     "video_loop": true,
                     "alt": "",
@@ -1975,6 +1976,7 @@
                   "settings": {
                     "source": "uploaded",
                     "video": "shopify://files/videos/2 fisted reel 2 10.17.25 (1).mp4",
+                    "video_url": "",
                     "video_autoplay": true,
                     "video_loop": true,
                     "alt": "",
