@@ -18,11 +18,12 @@
           "type": "link",
           "settings": {
             "label": "Events",
-            "url": ""
+            "url": "shopify://pages/events"
           }
         },
         "link_Wneyht": {
           "type": "link",
+          "disabled": true,
           "settings": {
             "label": "Tickets",
             "url": ""
@@ -38,8 +39,8 @@
         "link_rEqNaj": {
           "type": "link",
           "settings": {
-            "label": "Menu",
-            "url": ""
+            "label": "Drink Menu",
+            "url": "shopify://pages/drinks-menu"
           }
         },
         "link_7T6ygE": {
@@ -53,7 +54,7 @@
           "type": "link",
           "settings": {
             "label": "About",
-            "url": ""
+            "url": "shopify://pages/who-is-willie"
           }
         }
       },
@@ -84,7 +85,7 @@
         "credit": "Designed and Developed by Lantern Sol",
         "privacy_label": "Privacy Policy",
         "privacy_link": "shopify://policies/privacy-policy",
-        "accessibility_label": "Accessibility",
+        "accessibility_label": "",
         "accessibility_link": "",
         "bg_color": "#111318",
         "heading_color": "#e8eefa",
