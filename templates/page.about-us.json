@@ -2710,24 +2710,24 @@
         "padding-inline-end-mobile": 0
       }
     },
-    "ls_find_us_X7dw7X": {
+    "ls_find_us_FX86Fx": {
       "type": "ls-find-us",
       "name": "LS Find Us",
       "settings": {
         "eyebrow": "N° 7",
         "title_1": "Find Us In",
-        "title_2": "The Plaza",
+        "title_2": "UNIVERSITY PLAZA",
         "show_diamond": true,
         "address": "388 Woodland Avenue",
         "city": "Lexington, KY",
         "hours_heading": "Hours",
-        "hours_rows": "Wednesday | 4PM – 12AM\nTuesday, Thursday – Saturday | 4PM – 2AM\nSunday - Monday | CLOSED",
+        "hours_rows": "SUNDAY/MONDAY | CLOSED\nTuesday | 4PM - 2AM\nWednesday | 4PM – 12AM\nThursday – Saturday | 4PM – 2AM",
         "contact_heading": "Contact",
-        "contact_rows": "Phone Number | (859)456 - 9800\nEmail | 2fistedwillies@gmail.com",
+        "contact_rows": "Phone Number | (859)456-9800\nEmail | 2fistedwillies@gmail.com",
         "button_1_label": "Get Directions",
-        "button_1_link": "",
+        "button_1_link": "https://www.google.com/maps?cid=18409938814177558141&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAMYASAF&hl=en-US&source=embed",
         "button_2_label": "Call Us",
-        "button_2_link": "",
+        "button_2_link": "tel:(859) 456-9800",
         "map_query": "2 Fisted Willies, 388 Woodland Avenue, Lexington, KY",
         "map_title": "Map to 2 Fisted Willie's",
         "map_dark": true,
@@ -2780,7 +2780,7 @@
     "ls_video_polaroid_BCEbwR",
     "section_mfGR4Y",
     "section_nNRdWG",
-    "ls_find_us_X7dw7X",
+    "ls_find_us_FX86Fx",
     "main"
   ]
 }
