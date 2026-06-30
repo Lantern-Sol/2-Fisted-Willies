@@ -1209,8 +1209,6 @@
       "settings": {
         "background_video": "shopify://files/videos/about-us-video.mp4",
         "overlay_color": "#181c2899",
-        "polaroid_1": "shopify://shop_images/vid-polaroid-1.png",
-        "polaroid_1_frame": "shopify://shop_images/about-video-frame-1.png",
         "polaroid_1_inset": 12,
         "polaroid_1_width": 296,
         "polaroid_1_rotation": 8,
@@ -1219,8 +1217,6 @@
         "polaroid_1_width_mobile": 120,
         "polaroid_1_x_mobile": -16,
         "polaroid_1_y_mobile": -48,
-        "polaroid_2": "shopify://shop_images/vid-polaroid-2.png",
-        "polaroid_2_frame": "shopify://shop_images/about-video-frame-2.png",
         "polaroid_2_inset": 12,
         "polaroid_2_width": 280,
         "polaroid_2_rotation": 6,
