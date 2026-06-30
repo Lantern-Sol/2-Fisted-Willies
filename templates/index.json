@@ -1362,7 +1362,7 @@
                   "type": "ls-text",
                   "name": "LS Text",
                   "settings": {
-                    "text": "<p>COLD BEER. GREAT FRIENDS. LEDGENDARY GAMEDAYS.</p>",
+                    "text": "<p>COLD BEER. GREAT FRIENDS. LEGENDARY GAMEDAYS.</p>",
                     "font_family": "var(--font-cormorant-garamond-italic--family)",
                     "font_size": 28,
                     "font_size_mobile": 20,
