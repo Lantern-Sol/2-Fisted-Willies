@@ -161,7 +161,7 @@
         "character": "shopify://shop_images/willie.png",
         "character_width": 220,
         "character_width_mobile": 100,
-        "show_default_stamps": true,
+        "show_default_stamps": false,
         "frame_color": "#f4f1e9",
         "frame_texture": "shopify://shop_images/cardstock-large.jpg",
         "stamp_1_inset": 12,
