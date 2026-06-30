@@ -1704,7 +1704,6 @@
                 "image_biThY3": {
                   "type": "image",
                   "name": "t:names.image",
-                  "disabled": true,
                   "settings": {
                     "image": "shopify://shop_images/main-floor.png",
                     "link": "",
@@ -1737,6 +1736,7 @@
                 "video_7ATQgh": {
                   "type": "video",
                   "name": "t:names.video",
+                  "disabled": true,
                   "settings": {
                     "source": "uploaded",
                     "video": "shopify://files/videos/2 fisted reel 2 10.17.25 (1).mp4",
@@ -1940,7 +1940,6 @@
                 "image_pDM4Wa": {
                   "type": "image",
                   "name": "t:names.image",
-                  "disabled": true,
                   "settings": {
                     "image": "shopify://shop_images/rooftop.png",
                     "link": "",
@@ -1973,6 +1972,7 @@
                 "video_4aCPYV": {
                   "type": "video",
                   "name": "t:names.video",
+                  "disabled": true,
                   "settings": {
                     "source": "uploaded",
                     "video": "shopify://files/videos/2 fisted reel 2 10.17.25 (1).mp4",
