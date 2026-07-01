@@ -805,6 +805,9 @@
       "block_order": [
         "text_cbcgyb"
       ],
+      "custom_css": [
+        "@media screen and (max-width: 768px) {.resource-list.resource-list--grid {max-width: 300px; margin: auto;}}"
+      ],
       "name": "t:names.product_recommendations",
       "settings": {
         "product": "{{ closest.product }}",
