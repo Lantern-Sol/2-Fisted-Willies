@@ -25,6 +25,7 @@
   {% endcapture %}
 
   {% render 'group', children: children, settings: block_settings, shopify_attributes: block.shopify_attributes %}
+  {% render 'product-details-styles' %}
 </div>
 
 {% stylesheet %}
@@ -126,6 +127,9 @@
     },
     {
       "type": "product-custom-property"
+    },
+    {
+      "type": "product-store-info"
     }
   ],
   "tag": null,

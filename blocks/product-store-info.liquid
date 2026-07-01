@@ -1,0 +1,130 @@
+{% liquid
+  assign s = block.settings
+  assign info_type = s.info_type | default: 'availability'
+%}
+
+<div class="product-store-info product-store-info--{{ info_type }} spacing-style" {{ block.shopify_attributes }}>
+  {%- if info_type == 'availability' -%}
+    {%- if s.availability_heading != blank -%}
+      <p class="product-detail-label">{{ s.availability_heading }}</p>
+    {%- endif -%}
+    <div class="product-store-info__box">
+      <span class="product-store-info__icon" aria-hidden="true">
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          {% render 'icon', icon: 'map_pin' %}
+        </svg>
+      </span>
+      {%- if s.availability_text != blank -%}
+        <p class="product-store-info__text">{{ s.availability_text }}</p>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    {%- if s.location_heading != blank -%}
+      <p class="product-detail-label">{{ s.location_heading }}</p>
+    {%- endif -%}
+    <div class="product-store-info__location">
+      <span class="product-store-info__icon" aria-hidden="true">
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          {% render 'icon', icon: 'map_pin' %}
+        </svg>
+      </span>
+      {%- if s.address != blank -%}
+        <p class="product-store-info__address">{{ s.address }}</p>
+      {%- endif -%}
+    </div>
+    {%- if s.directions_label != blank -%}
+      {%- liquid
+        assign directions_url = s.directions_url
+        if directions_url == blank and s.address != blank
+          assign directions_url = 'https://www.google.com/maps/search/?api=1&query=' | append: s.address | url_encode
+        endif
+      -%}
+      {%- if directions_url != blank -%}
+        <a class="product-store-info__directions" href="{{ directions_url }}" target="_blank" rel="noopener noreferrer">
+          {{ s.directions_label }}
+          <span aria-hidden="true">→</span>
+        </a>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Store info",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "info_type",
+      "label": "Block type",
+      "options": [
+        {
+          "value": "availability",
+          "label": "Where to get it"
+        },
+        {
+          "value": "location",
+          "label": "Where to find us"
+        }
+      ],
+      "default": "availability"
+    },
+    {
+      "type": "header",
+      "content": "Where to get it"
+    },
+    {
+      "type": "text",
+      "id": "availability_heading",
+      "label": "Heading",
+      "default": "WHERE TO GET IT",
+      "visible_if": "{{ block.settings.info_type == 'availability' }}"
+    },
+    {
+      "type": "text",
+      "id": "availability_text",
+      "label": "Availability text",
+      "default": "Available in-store only",
+      "visible_if": "{{ block.settings.info_type == 'availability' }}"
+    },
+    {
+      "type": "header",
+      "content": "Where to find us"
+    },
+    {
+      "type": "text",
+      "id": "location_heading",
+      "label": "Heading",
+      "default": "WHERE TO FIND US",
+      "visible_if": "{{ block.settings.info_type == 'location' }}"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "388 Woodland Avenue, Lexington, KY 40508",
+      "visible_if": "{{ block.settings.info_type == 'location' }}"
+    },
+    {
+      "type": "text",
+      "id": "directions_label",
+      "label": "Directions link label",
+      "default": "Get directions",
+      "visible_if": "{{ block.settings.info_type == 'location' }}"
+    },
+    {
+      "type": "url",
+      "id": "directions_url",
+      "label": "Directions link URL",
+      "info": "Leave blank to use Google Maps with the address above.",
+      "visible_if": "{{ block.settings.info_type == 'location' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store info"
+    }
+  ]
+}
+{% endschema %}

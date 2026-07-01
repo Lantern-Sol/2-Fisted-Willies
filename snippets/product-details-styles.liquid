@@ -1,0 +1,99 @@
+{% stylesheet %}
+  .product-information .product-details > .group-block {
+    background-color: #1a1a24;
+    padding: clamp(32px, 5vw, 64px);
+  }
+
+  .product-details .product-detail-label {
+    margin: 0 0 10px;
+    font-family: var(--font-body--family);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.65px;
+    text-transform: uppercase;
+    color: rgb(var(--color-foreground-rgb) / 0.55);
+  }
+
+  .product-details product-price > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 12px;
+  }
+
+  .product-details product-price .price {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #a9b8ff;
+    line-height: 1.1;
+  }
+
+  .product-details product-price .compare-at-price {
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+    font-weight: 400;
+    color: #2d3e7a;
+    opacity: 1;
+    text-decoration-line: line-through;
+    text-decoration-thickness: 1.5px;
+  }
+
+  .product-store-info {
+    width: 100%;
+  }
+
+  .product-store-info__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 14px 18px;
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.35);
+    color: var(--color-foreground);
+  }
+
+  .product-store-info__location {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .product-store-info__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--color-foreground);
+  }
+
+  .product-store-info__text,
+  .product-store-info__address {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-foreground);
+  }
+
+  .product-store-info__address {
+    font-family: var(--font-cormorant-garamond--family, var(--font-body--family));
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .product-store-info__directions {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body--family);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .product-store-info__directions:hover {
+    color: #a9b8ff;
+  }
+{% endstylesheet %}
