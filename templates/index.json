@@ -470,7 +470,7 @@
         "show_filters": false,
         "show_footer_link": true,
         "footer_link_label": "See all upcoming shows",
-        "footer_link": "shopify://pages/events",
+        "footer_link": "shopify://pages/shows",
         "bg_color": "#0e1018",
         "heading_color": "#eae8f0",
         "heading_accent_color": "#b8c8f2",
