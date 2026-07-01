@@ -1,0 +1,332 @@
+{% liquid
+  assign s = section.settings
+%}
+
+{%- capture section_vars -%}
+  --ls-merch-bg: {{ s.bg_color }};
+  --ls-merch-heading: {{ s.heading_color }};
+  --ls-merch-body: {{ s.body_color }};
+  --ls-merch-rule: {{ s.rule_color }};
+  --ls-merch-card-bg: {{ s.card_bg_color }};
+  --ls-merch-eyebrow: {{ s.eyebrow_color }};
+  --ls-merch-brand: {{ s.brand_color }};
+  --ls-merch-subtitle: {{ s.subtitle_color }};
+  --ls-merch-card-body: {{ s.card_body_color }};
+{%- endcapture -%}
+
+<div class="section-background ls-merch__bg"></div>
+<div
+  class="section ls-merch spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}{{ section_vars }}"
+>
+  <div class="ls-merch__inner">
+    <div class="ls-merch__intro">
+      {%- if s.heading != blank -%}
+        <h1 class="ls-merch__heading">{{ s.heading }}</h1>
+      {%- endif -%}
+
+      {%- if s.intro != blank -%}
+        <p class="ls-merch__intro-text">{{ s.intro }}</p>
+      {%- endif -%}
+
+      <span class="ls-merch__rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="ls-merch__card">
+      {%- if s.eyebrow != blank -%}
+        <p class="ls-merch__eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+
+      <div class="ls-merch__brand">
+        {%- if s.brand_line != blank -%}
+          <p class="ls-merch__brand-line">{{ s.brand_line }}</p>
+        {%- endif -%}
+        {%- if s.subtitle != blank -%}
+          <p class="ls-merch__subtitle">{{ s.subtitle }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if s.card_body != blank -%}
+        <p class="ls-merch__card-body">{{ s.card_body }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .ls-merch__bg {
+    background-color: var(--ls-merch-bg, #111318);
+  }
+
+  .ls-merch__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 48px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: 48px;
+    box-sizing: border-box;
+  }
+
+  .ls-merch__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    text-align: left;
+  }
+
+  .ls-merch__heading {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 4vw, 64px);
+    line-height: 1;
+    color: var(--ls-merch-heading, #7e9de4);
+  }
+
+  .ls-merch__intro-text {
+    margin: 0;
+    max-width: 28rem;
+    font-family: var(--font-cormorant-garamond--family);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ls-merch-body, #9ca0b8);
+  }
+
+  .ls-merch__rule {
+    display: block;
+    width: 48px;
+    height: 1px;
+    background-color: var(--ls-merch-rule, #3d5a9e);
+  }
+
+  .ls-merch__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 48px 40px;
+    text-align: center;
+    background-color: var(--ls-merch-card-bg, #121926);
+  }
+
+  .ls-merch__eyebrow {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 1.65px;
+    text-transform: uppercase;
+    color: var(--ls-merch-eyebrow, #c9a83d);
+  }
+
+  .ls-merch__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .ls-merch__brand-line {
+    margin: 0;
+    font-family: var(--font-gashroad--family);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 56px);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ls-merch-brand, #ffffff);
+  }
+
+  .ls-merch__subtitle {
+    margin: 0;
+    font-family: var(--font-cormorant-garamond-italic--family);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.75rem, 3vw, 40px);
+    line-height: 1.1;
+    color: var(--ls-merch-subtitle, #7e9de4);
+  }
+
+  .ls-merch__card-body {
+    margin: 0;
+    max-width: 26rem;
+    font-family: var(--font-cormorant-garamond--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ls-merch-card-body, #9ca0b8);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ls-merch__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+      padding-inline: 20px;
+    }
+
+    .ls-merch__intro {
+      align-items: center;
+      text-align: center;
+    }
+
+    .ls-merch__rule {
+      margin-inline: auto;
+    }
+
+    .ls-merch__card {
+      padding: 40px 24px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "LS Collection Merch",
+  "tag": "section",
+  "class": "ls-collection-merch-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intro"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Merch"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro text",
+      "default": "Wear the bar. Represent the music. Take a little Willie home with you."
+    },
+    {
+      "type": "header",
+      "content": "Featured card"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Coming Soon"
+    },
+    {
+      "type": "text",
+      "id": "brand_line",
+      "label": "Brand line",
+      "default": "Willie's"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Private Reserve"
+    },
+    {
+      "type": "textarea",
+      "id": "card_body",
+      "label": "Card body",
+      "default": "Something special is aging behind the bar. Willie's own small-batch Kentucky bourbon — in the barrel now. Reserve your bottle before it hits the shelf."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#111318"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#7e9de4"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Intro text",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "color",
+      "id": "rule_color",
+      "label": "Divider line",
+      "default": "#3d5a9e"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#121926"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#c9a83d"
+    },
+    {
+      "type": "color",
+      "id": "brand_color",
+      "label": "Brand line",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle",
+      "default": "#7e9de4"
+    },
+    {
+      "type": "color",
+      "id": "card_body_color",
+      "label": "Card body",
+      "default": "#9ca0b8"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "LS Collection Merch",
+      "category": "t:categories.other_sections"
+    }
+  ]
+}
+{% endschema %}
