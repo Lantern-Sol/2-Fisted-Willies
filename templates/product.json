@@ -203,7 +203,11 @@
               "settings": {
                 "info_type": "availability",
                 "availability_heading": "WHERE TO GET IT",
-                "availability_text": "Available in-store only"
+                "availability_text": "Available in-store only",
+                "location_heading": "WHERE TO FIND US",
+                "address": "388 Woodland Avenue, Lexington, KY 40508",
+                "directions_label": "Get directions",
+                "directions_url": ""
               },
               "blocks": {}
             },
@@ -596,6 +600,8 @@
               "name": "Where to find us",
               "settings": {
                 "info_type": "location",
+                "availability_heading": "WHERE TO GET IT",
+                "availability_text": "Available in-store only",
                 "location_heading": "WHERE TO FIND US",
                 "address": "388 Woodland Avenue, Lexington, KY 40508",
                 "directions_label": "Get directions",
@@ -627,7 +633,7 @@
         "mobile_gap": 16,
         "enable_sticky_add_to_cart": true,
         "color_scheme": "scheme-3",
-        "padding-block-start": 0,
+        "padding-block-start": 40,
         "padding-block-end": 0
       }
     },
