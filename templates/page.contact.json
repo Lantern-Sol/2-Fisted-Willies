@@ -1261,7 +1261,7 @@
                       "name": "LS Button",
                       "settings": {
                         "label": "RESERVE A TABLE →",
-                        "link": "shopify://pages/private-events",
+                        "link": "https://tables.toasttab.com/restaurants/c75391e3-0bcf-42dd-9ced-c5609ec100a0/findTime",
                         "open_in_new_tab": true,
                         "style": "filled",
                         "alignment": "flex-start",
