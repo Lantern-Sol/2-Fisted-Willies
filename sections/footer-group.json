@@ -17,7 +17,7 @@
         "link_NhifXR": {
           "type": "link",
           "settings": {
-            "label": "Events",
+            "label": "Shows",
             "url": "shopify://pages/shows"
           }
         },
