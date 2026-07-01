@@ -6,7 +6,7 @@
 <div class="product-store-info product-store-info--{{ info_type }} spacing-style" {{ block.shopify_attributes }}>
   {%- if info_type == 'availability' -%}
     {%- if s.availability_heading != blank -%}
-      <p class="product-detail-label">{{ s.availability_heading }}</p>
+      <p class="product-store-info__label">{{ s.availability_heading }}</p>
     {%- endif -%}
     <div class="product-store-info__box">
       <span class="product-store-info__icon" aria-hidden="true">
@@ -20,7 +20,7 @@
     </div>
   {%- else -%}
     {%- if s.location_heading != blank -%}
-      <p class="product-detail-label">{{ s.location_heading }}</p>
+      <p class="product-store-info__label">{{ s.location_heading }}</p>
     {%- endif -%}
     <div class="product-store-info__location">
       <span class="product-store-info__icon" aria-hidden="true">

@@ -1,10 +1,11 @@
 {% stylesheet %}
   .product-information .product-details > .group-block {
     background-color: #1a1a24;
-    padding: clamp(32px, 5vw, 64px);
+    padding: 24px;
   }
 
-  .product-details .product-detail-label {
+  .product-details .group-block .group-block-content > .text-block:first-child:not(:has(h1)) p,
+  .product-details .product-store-info__label {
     margin: 0 0 10px;
     font-family: var(--font-body--family);
     font-size: 10px;
