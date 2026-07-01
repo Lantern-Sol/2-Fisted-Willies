@@ -375,7 +375,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>MATERIAL &amp; CARE</p>",
+                    "text": "<p>MATERIAL & CARE</p>",
                     "mobile_text": "",
                     "width": "fit-content",
                     "max_width": "normal",
@@ -623,6 +623,9 @@
           ]
         }
       },
+      "custom_css": [
+        "p:last-child {margin: 0;}"
+      ],
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
