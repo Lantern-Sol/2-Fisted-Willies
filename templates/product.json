@@ -636,7 +636,7 @@
         "mobile_gap": 16,
         "enable_sticky_add_to_cart": true,
         "color_scheme": "scheme-3",
-        "padding-block-start": 40,
+        "padding-block-start": 60,
         "padding-block-end": 0
       }
     },
@@ -737,7 +737,7 @@
                 "alignment": "left",
                 "type_preset": "custom",
                 "font": "var(--font-gashroad--family)",
-                "font_size": "1.5rem",
+                "font_size": "2rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -814,7 +814,7 @@
         "max_products": 4,
         "columns": 4,
         "mobile_columns": "2",
-        "columns_gap": 12,
+        "columns_gap": 32,
         "rows_gap": 24,
         "icons_style": "arrow",
         "icons_shape": "none",
