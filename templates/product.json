@@ -197,20 +197,6 @@
                 "price_tVjtKg"
               ]
             },
-            "product_store_availability": {
-              "type": "product-store-info",
-              "name": "Where to get it",
-              "settings": {
-                "info_type": "availability",
-                "availability_heading": "WHERE TO GET IT",
-                "availability_text": "Available in-store only",
-                "location_heading": "WHERE TO FIND US",
-                "address": "388 Woodland Avenue, Lexington, KY 40508",
-                "directions_label": "Get directions",
-                "directions_url": ""
-              },
-              "blocks": {}
-            },
             "divider_VJhene": {
               "type": "_divider",
               "name": "t:names.divider",
@@ -316,6 +302,20 @@
                 "padding-block-end-mobile": 0,
                 "padding-inline-start-mobile": 0,
                 "padding-inline-end-mobile": 0
+              },
+              "blocks": {}
+            },
+            "product_store_availability": {
+              "type": "product-store-info",
+              "name": "Where to get it",
+              "settings": {
+                "info_type": "availability",
+                "availability_heading": "WHERE TO GET IT",
+                "availability_text": "Available in-store only",
+                "location_heading": "WHERE TO FIND US",
+                "address": "388 Woodland Avenue, Lexington, KY 40508",
+                "directions_label": "Get directions",
+                "directions_url": ""
               },
               "blocks": {}
             },
@@ -612,11 +612,11 @@
           },
           "block_order": [
             "group_icgrde",
-            "product_store_availability",
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "text_aEtTtq",
+            "product_store_availability",
             "group_material_care",
             "group_fit_sizing",
             "product_store_location"
