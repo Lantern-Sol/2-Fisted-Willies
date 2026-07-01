@@ -389,7 +389,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Where to find us</p>",
+                "text": "<p>WHERE TO FIND US</p>",
                 "mobile_text": "",
                 "width": "fit-content",
                 "max_width": "normal",
