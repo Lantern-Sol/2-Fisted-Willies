@@ -470,7 +470,7 @@
         "show_filters": false,
         "show_footer_link": true,
         "footer_link_label": "See all upcoming shows",
-        "footer_link": "shopify://pages/shows",
+        "footer_link": "shopify://pages/events",
         "bg_color": "#0e1018",
         "heading_color": "#eae8f0",
         "heading_accent_color": "#b8c8f2",
@@ -2375,7 +2375,7 @@
               "type": "image",
               "name": "Mobile Image",
               "settings": {
-                "image": "shopify://shop_images/party-mobile.png",
+                "image": "shopify://shop_images/DSCN3507_copy.jpg",
                 "link": "",
                 "hide_on_mobile": false,
                 "hide_on_desktop": true,
