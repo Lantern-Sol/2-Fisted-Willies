@@ -1,0 +1,41 @@
+{% liquid
+  assign product = closest.product
+  assign label = block.settings.label | default: 'View details'
+  assign product_url = product.url
+
+  if product != blank
+    assign product_url = product.selected_or_first_available_variant.url | default: product.url
+  endif
+%}
+
+{%- if product != blank -%}
+  <a
+    href="{{ product_url }}"
+    class="product-card__view-details"
+    {{ block.shopify_attributes }}
+  >
+    <span class="product-card__view-details-label">{{ label | upcase }}</span>
+    <span class="product-card__view-details-arrow" aria-hidden="true">→</span>
+  </a>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "View details",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Button label",
+      "default": "View details"
+    }
+  ],
+  "presets": [
+    {
+      "name": "View details",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
