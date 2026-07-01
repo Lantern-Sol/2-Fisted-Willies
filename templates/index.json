@@ -364,7 +364,7 @@
               "disabled": true,
               "settings": {
                 "label": "Reserve a Table",
-                "link": "shopify://pages/private-events",
+                "link": "https://tables.toasttab.com/restaurants/c75391e3-0bcf-42dd-9ced-c5609ec100a0/findTime",
                 "open_in_new_tab": false,
                 "style": "filled",
                 "alignment": "flex-start",
@@ -1410,7 +1410,7 @@
               "disabled": true,
               "settings": {
                 "label": "Reserve Your Game Day Table →",
-                "link": "",
+                "link": "https://tables.toasttab.com/restaurants/c75391e3-0bcf-42dd-9ced-c5609ec100a0/findTime",
                 "open_in_new_tab": false,
                 "style": "filled",
                 "alignment": "flex-start",
