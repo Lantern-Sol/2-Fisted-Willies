@@ -429,7 +429,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "{{ closest.product.metafields.custom.material_care | metafield_tag }}{{ closest.product.metafields.custom.fit_sizing | metafield_tag }}",
+                "text": "<p>{{ closest.product.metafields.custom.fit_sizing | metafield_tag }}</p>",
                 "mobile_text": "",
                 "width": "fit-content",
                 "max_width": "normal",
