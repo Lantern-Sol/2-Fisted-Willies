@@ -1691,7 +1691,7 @@
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
-                    "image": "shopify://shop_images/polaroid-table-3.jpg",
+                    "image": "shopify://shop_images/DSCN3453.jpg",
                     "link": "",
                     "hide_on_mobile": false,
                     "hide_on_desktop": false,
@@ -1863,7 +1863,7 @@
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
-                    "image": "shopify://shop_images/travel-polaroid-1.png",
+                    "image": "shopify://shop_images/TDB_6935.jpg",
                     "link": "",
                     "hide_on_mobile": false,
                     "hide_on_desktop": false,
