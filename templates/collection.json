@@ -28,7 +28,7 @@
             "mobile_vertical_alignment": "center",
             "mobile_horizontal_alignment_flex_direction_column": "flex-start",
             "mobile_vertical_alignment_flex_direction_column": "center",
-            "gap": 24,
+            "gap": 8,
             "use_mobile_gap": false,
             "mobile_gap": 12,
             "width": "custom",
@@ -148,10 +148,10 @@
               "type": "_divider",
               "name": "Divider",
               "settings": {
-                "thickness": 1,
+                "thickness": 2,
                 "corner_radius": "square",
                 "width_percent": 10,
-                "padding-block-start": 0,
+                "padding-block-start": 20,
                 "padding-block-end": 0
               },
               "blocks": {}
@@ -389,7 +389,8 @@
         "group_card"
       ],
       "custom_css": [
-        ".ls-text {max-width: 100%;}"
+        ".ls-text {max-width: 100%;}",
+        ".divider {align-items: flex-start;}"
       ],
       "name": "Collection merch hero",
       "settings": {
