@@ -151,7 +151,7 @@
                 "thickness": 2,
                 "corner_radius": "square",
                 "width_percent": 10,
-                "padding-block-start": 20,
+                "padding-block-start": 16,
                 "padding-block-end": 0
               },
               "blocks": {}
@@ -390,7 +390,7 @@
       ],
       "custom_css": [
         ".ls-text {max-width: 100%;}",
-        ".divider {align-items: flex-start;}"
+        ".divider {justify-content: flex-start;}"
       ],
       "name": "Collection merch hero",
       "settings": {
