@@ -390,7 +390,8 @@
       ],
       "custom_css": [
         ".ls-text {max-width: 100%;}",
-        ".divider {justify-content: flex-start;}"
+        ".divider {justify-content: flex-start;}",
+        "h3 {margin-top: -40px;}"
       ],
       "name": "Collection merch hero",
       "settings": {
