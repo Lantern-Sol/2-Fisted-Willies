@@ -221,9 +221,9 @@
               "settings": {
                 "text": "<p>Coming Soon</p>",
                 "font_family": "var(--font-body--family)",
-                "font_size": 10,
-                "font_size_mobile": 10,
-                "letter_spacing": 1.7,
+                "font_size": 16,
+                "font_size_mobile": 16,
+                "letter_spacing": 1,
                 "use_mobile_letter_spacing": false,
                 "letter_spacing_mobile": 0,
                 "line_height": 1.4,
@@ -261,7 +261,7 @@
               "settings": {
                 "text": "<p>Willie's</p>",
                 "font_family": "var(--font-gashroad--family)",
-                "font_size": 56,
+                "font_size": 64,
                 "font_size_mobile": 40,
                 "letter_spacing": 0.5,
                 "use_mobile_letter_spacing": false,
@@ -301,8 +301,8 @@
               "settings": {
                 "text": "<p>Private Reserve</p>",
                 "font_family": "var(--font-cormorant-garamond-italic--family)",
-                "font_size": 40,
-                "font_size_mobile": 32,
+                "font_size": 64,
+                "font_size_mobile": 40,
                 "letter_spacing": 0,
                 "use_mobile_letter_spacing": false,
                 "letter_spacing_mobile": 0,
@@ -599,7 +599,7 @@
       "custom_css": [
         ".collection-wrapper {background: #1e2336; padding: 32px;}",
         ".section-background {background: transparent;}",
-        "div#ResultsList{padding: 0;}"
+        "div#ResultsList {padding: 0;}"
       ],
       "settings": {
         "layout_type": "grid",
