@@ -299,7 +299,7 @@
               "type": "ls-text",
               "name": "Subtitle",
               "settings": {
-                "text": "<p>Private Reserve</p>",
+                "text": "<h3>Private Reserve</h3>",
                 "font_family": "var(--font-cormorant-garamond-italic--family)",
                 "font_size": 64,
                 "font_size_mobile": 40,
