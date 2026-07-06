@@ -11,7 +11,6 @@
   "sections": {
     "collection_merch": {
       "type": "section",
-      "name": "Collection merch hero",
       "blocks": {
         "group_intro": {
           "type": "group",
@@ -27,7 +26,7 @@
             "use_mobile_alignment": true,
             "mobile_horizontal_alignment": "flex-start",
             "mobile_vertical_alignment": "center",
-            "mobile_horizontal_alignment_flex_direction_column": "center",
+            "mobile_horizontal_alignment_flex_direction_column": "flex-start",
             "mobile_vertical_alignment_flex_direction_column": "center",
             "gap": 24,
             "use_mobile_gap": false,
@@ -71,7 +70,7 @@
               "settings": {
                 "text": "<h1>The Merch</h1>",
                 "font_family": "var(--font-cormorant-garamond-italic--family)",
-                "font_size": 64,
+                "font_size": 128,
                 "font_size_mobile": 40,
                 "letter_spacing": 0,
                 "use_mobile_letter_spacing": false,
@@ -84,7 +83,7 @@
                 "text_align": "left",
                 "text_align_mobile": "center",
                 "max_width": "none",
-                "text_color": "#7e9de4",
+                "text_color": "#B8C8F2",
                 "emphasis_color": "",
                 "emphasis_font": "",
                 "emphasis_weight": "",
@@ -224,7 +223,7 @@
                 "font_family": "var(--font-body--family)",
                 "font_size": 10,
                 "font_size_mobile": 10,
-                "letter_spacing": 1.65,
+                "letter_spacing": 1.7,
                 "use_mobile_letter_spacing": false,
                 "letter_spacing_mobile": 0,
                 "line_height": 1.4,
@@ -389,6 +388,10 @@
         "group_intro",
         "group_card"
       ],
+      "custom_css": [
+        ".ls-text {max-width: 100%;}"
+      ],
+      "name": "Collection merch hero",
       "settings": {
         "content_direction": "row",
         "vertical_on_mobile": true,
