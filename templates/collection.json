@@ -26,7 +26,7 @@
             "use_mobile_alignment": true,
             "mobile_horizontal_alignment": "flex-start",
             "mobile_vertical_alignment": "center",
-            "mobile_horizontal_alignment_flex_direction_column": "flex-start",
+            "mobile_horizontal_alignment_flex_direction_column": "center",
             "mobile_vertical_alignment_flex_direction_column": "center",
             "gap": 8,
             "use_mobile_gap": false,
@@ -390,7 +390,7 @@
       ],
       "custom_css": [
         ".ls-text {max-width: 100%;}",
-        ".divider {justify-content: flex-start;}",
+        "@media screen and (min-width: 768px) {.divider {justify-content: flex-start; }}",
         "h3 {margin-top: -40px;}"
       ],
       "name": "Collection merch hero",
@@ -605,7 +605,7 @@
       "settings": {
         "layout_type": "grid",
         "product_card_size": "medium",
-        "mobile_product_card_size": "small",
+        "mobile_product_card_size": "large",
         "enable_infinite_scroll": true,
         "products_per_page": 24,
         "product_grid_width": "centered",
