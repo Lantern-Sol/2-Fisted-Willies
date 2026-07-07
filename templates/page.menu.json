@@ -471,7 +471,7 @@
               "name": "LS Beverage Item",
               "settings": {
                 "name": "Green Tea",
-                "description": "<p>Paddy's Irish whiskey, peach liqueur, sweet & sour.</p>"
+                "description": "<p>Irish whiskey, peach liqueur, sweet & sour.</p>"
               },
               "blocks": {}
             },
@@ -480,7 +480,7 @@
               "name": "LS Beverage Item",
               "settings": {
                 "name": "Pink Starburst",
-                "description": "<p>Svedka vanilla vodka, watermelon schnapps, sweet & sour.</p>"
+                "description": "<p>Vanilla vodka, watermelon schnapps, sweet & sour.</p>"
               },
               "blocks": {}
             },
@@ -498,7 +498,7 @@
               "name": "LS Beverage Item",
               "settings": {
                 "name": "Lemon Drop",
-                "description": "<p>Absolut Citron, simple syrup, lemon juice.</p>"
+                "description": "<p>Vodka, simple syrup, sweet & sour.</p>"
               },
               "blocks": {}
             },
@@ -507,7 +507,7 @@
               "name": "LS Beverage Item",
               "settings": {
                 "name": "White Tea",
-                "description": "<p>Barton vodka, peach schnapps, sweet & sour.</p>"
+                "description": "<p>Vodka, peach schnapps, sweet & sour.</p>"
               },
               "blocks": {}
             },
