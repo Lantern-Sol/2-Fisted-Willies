@@ -426,6 +426,15 @@
               },
               "blocks": {}
             },
+            "ls_beverage_item_TWX9Bj": {
+              "type": "ls-beverage-item",
+              "name": "LS Beverage Item",
+              "settings": {
+                "name": "Hugo Spritz",
+                "description": "<p>St-Germain, champagne, club soda, lime slice.</p>"
+              },
+              "blocks": {}
+            },
             "ls_beverage_item_t66yjN": {
               "type": "ls-beverage-item",
               "name": "LS Beverage Item",
@@ -445,6 +454,7 @@
             "ls_beverage_item_ifKQQE",
             "ls_beverage_item_ByFieH",
             "ls_beverage_item_fRakip",
+            "ls_beverage_item_TWX9Bj",
             "ls_beverage_item_t66yjN"
           ]
         },
