@@ -377,7 +377,7 @@
               "type": "ls-beverage-item",
               "settings": {
                 "name": "Kentucky Mule",
-                "description": "<p>Buffalo Trace bourbon, lime juice, ginger beer.</p>"
+                "description": "<p>Bourbon, lime juice, ginger beer.</p>"
               },
               "blocks": {}
             },
@@ -395,7 +395,7 @@
               "name": "LS Beverage Item",
               "settings": {
                 "name": "Bourbon Smash",
-                "description": "<p>Four Roses bourbon, lemon juice, simple syrup, soda.</p>"
+                "description": "<p>Bourbon, lemon juice, simple syrup, soda.</p>"
               },
               "blocks": {}
             },
@@ -404,7 +404,7 @@
               "name": "LS Beverage Item",
               "settings": {
                 "name": "Old Fashioned Willie",
-                "description": "<p>Buffalo Trace bourbon, simple syrup, bitters, orange twist.</p>"
+                "description": "<p>Bourbon, simple syrup, bitters, orange twist.</p>"
               },
               "blocks": {}
             },
@@ -413,7 +413,7 @@
               "name": "LS Beverage Item",
               "settings": {
                 "name": "Paloma",
-                "description": "<p>El Toro tequila, lime juice, grapefruit juice.</p>"
+                "description": "<p>Tequila, lime juice, grapefruit juice.</p>"
               },
               "blocks": {}
             },
