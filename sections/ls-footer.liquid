@@ -162,7 +162,8 @@
     {%- comment -%} ---- BOTTOM BAR ---- {%- endcomment -%}
     <div class="ls-footer__bottom">
       {%- if s.credit != blank -%}
-        <a class="ls-footer__credit" href="https://www.lanternsol.com/">{{ s.credit }}</a>
+        <a class="ls-footer__credit" href="https://www.lanternsol.com/" target="_blank"
+   rel="noopener noreferrer">{{ s.credit }}</a>
       {%- endif -%}
       {%- if s.privacy_label != blank -%}
         <a class="ls-footer__legal-link" href="{{ s.privacy_link | default: '#' }}">{{ s.privacy_label }}</a>
